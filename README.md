@@ -1,2 +1,5 @@
-# advent-of-rust-2017
-Solutions to the 2017 Advent of Code challenges in Rust!
+# Advent of Rust 2017
+
+These are my solutions to [2017's Advent of Code challenge](https://adventofcode.com/2017), written in Rust.
+
+* [Day 1: Inverse Captcha](src/day1/)
