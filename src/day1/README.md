@@ -1,10 +1,10 @@
 # Day 1: Inverse Captcha
 
-[Problem Description](https://adventofcode.com/2017/day/1)
+[Problem description](https://adventofcode.com/2017/day/1) | [Rust solution](./mod.rs)
 
 ## Quick Python Solution
 
-```
+```python
 input = sys.stdin.readline().strip()
 chars = len(input)
 
