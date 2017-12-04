@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Samuel Cormier-Iijima <samuel@cormier-iijima.com"]
 
 [dependencies]
+num = "*"
 clap = "*"
 colored = "*"
 itertools = "*"
