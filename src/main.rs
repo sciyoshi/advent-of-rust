@@ -1,4 +1,4 @@
-#![feature(const_fn, inclusive_range_syntax)]
+#![feature(const_fn, inclusive_range_syntax, universal_impl_trait)]
 
 extern crate num;
 extern crate clap;
@@ -12,6 +12,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() {
 	let matches = App::new("Advent of Rust 2017")
@@ -23,8 +24,8 @@ fn main() {
 				str.parse::<u32>()
 					.or(Err("day must be an integer".to_owned()))
 					.and_then(|v| match v {
-						1...4 => Ok(()),
-						_ => Err("day must be between 1 and 4".to_owned())
+						1...5 => Ok(()),
+						_ => Err("day must be between 1 and 5".to_owned())
 					})))
 		.arg(Arg::with_name("value")
 			.help("Problem input (for those with a single numeric input)")
@@ -40,6 +41,7 @@ fn main() {
 		2 => day2::solve(),
 		3 => day3::solve(matches.value_of("value").unwrap().parse::<u32>().unwrap()),
 		4 => day4::solve(),
+		5 => day5::solve(),
 		_ => ()
 	}
 }

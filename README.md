@@ -6,3 +6,4 @@ These are my solutions to [2017's Advent of Code challenge](https://adventofcode
 * [Day 2: Corruption Checksum](src/day2/)
 * [Day 3: Spiral Memory](src/day3/)
 * [Day 4: High-Entropy Passphrases](src/day4/)
+* [Day 5: A Maze of Twisty Trampolines, All Alike](src/day5/)
