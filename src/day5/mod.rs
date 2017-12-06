@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 
-fn run(mut data: Vec<isize>, updater: impl Fn(isize) -> isize) -> usize {
+fn run(mut data: Vec<isize>, updater: fn(isize) -> isize) -> usize {
 	// Store a program counter (isize to allow negative)
 	let mut pc = 0isize;
 	let mut count = 0;
