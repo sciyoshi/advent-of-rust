@@ -6,7 +6,9 @@ authors = ["Samuel Cormier-Iijima <samuel@cormier-iijima.com"]
 [dependencies]
 num = "*"
 clap = "*"
+regex = "*"
 colored = "*"
+petgraph = "*"
 itertools = "*"
 
 [[bin]]
