@@ -11,6 +11,10 @@ colored = "*"
 petgraph = "*"
 itertools = "*"
 
+[dependencies.nom]
+version = "*"
+features = ["nightly", "verbose-errors"]
+
 [[bin]]
 name = "aor"
 path = "src/main.rs"
