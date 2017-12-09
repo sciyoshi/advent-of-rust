@@ -4,16 +4,13 @@ version = "0.1.0"
 authors = ["Samuel Cormier-Iijima <samuel@cormier-iijima.com"]
 
 [dependencies]
+nom = "*"
 num = "*"
 clap = "*"
 regex = "*"
 colored = "*"
 petgraph = "*"
 itertools = "*"
-
-[dependencies.nom]
-version = "*"
-features = ["nightly", "verbose-errors"]
 
 [[bin]]
 name = "aor"
