@@ -12,3 +12,4 @@ These are my solutions to [2017's Advent of Code challenge](https://adventofcode
 * [Day 8: I Heard You Like Registers](src/day8/)
 * [Day 9: Stream Processing](src/day9/)
 * [Day 10: Knot Hash](src/day10/)
+* [Day 11: Hex Ed](src/day11/)
