@@ -23,6 +23,7 @@ mod day8;
 mod day9;
 mod day10;
 mod day11;
+mod day12;
 
 fn main() {
 	let matches = App::new("Advent of Rust 2017")
@@ -34,8 +35,8 @@ fn main() {
 				str.parse::<u32>()
 					.or(Err("day must be an integer".to_owned()))
 					.and_then(|v| match v {
-						1...11 => Ok(()),
-						_ => Err("day must be between 1 and 11".to_owned())
+						1...12 => Ok(()),
+						_ => Err("day must be between 1 and 12".to_owned())
 					})))
 		.arg(Arg::with_name("value")
 			.help("Problem input (for those with a single numeric input)")
@@ -58,6 +59,7 @@ fn main() {
 		9 => day9::solve(),
 		10 => day10::solve(),
 		11 => day11::solve(),
+		12 => day12::solve(),
 		_ => ()
 	}
 }

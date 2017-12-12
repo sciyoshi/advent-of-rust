@@ -37,5 +37,5 @@ pub fn solve() {
 		});
 
 	println!("[Part 1] Distance is: {}", dist(end));
-	println!("[Part 1] Max distance is: {}", max);
+	println!("[Part 2] Max distance is: {}", max);
 }
