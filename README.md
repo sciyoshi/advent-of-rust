@@ -14,3 +14,4 @@ These are my solutions to [2017's Advent of Code challenge](https://adventofcode
 * [Day 10: Knot Hash](src/day10/)
 * [Day 11: Hex Ed](src/day11/)
 * [Day 12: Digital Plumber](src/day12/)
+* [Day 13: Packet Scanners](src/day13/)

@@ -41,5 +41,5 @@ pub fn solve() {
 	// Count the number of components
 	let count = labeling.iter().unique().count();
 
-	println!("[Part 1] Components: {}", count);
+	println!("[Part 2] Components: {}", count);
 }
