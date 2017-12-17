@@ -15,3 +15,7 @@ These are my solutions to [2017's Advent of Code challenge](https://adventofcode
 * [Day 11: Hex Ed](src/day11/)
 * [Day 12: Digital Plumber](src/day12/)
 * [Day 13: Packet Scanners](src/day13/)
+* [Day 14: Disk Defragmentation](src/day14/)
+* [Day 15: Dueling Generators](src/day15/)
+* [Day 16: Permutation Promenade](src/day16/)
+* [Day 17: Spinlock](src/day17/)

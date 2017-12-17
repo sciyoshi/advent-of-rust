@@ -1,13 +1,15 @@
-#![feature(const_fn, inclusive_range_syntax, universal_impl_trait)]
+#![feature(const_fn, inclusive_range_syntax, universal_impl_trait, i128_type, slice_rotate, match_default_bindings)]
 
 #[macro_use]
 extern crate nom;
 extern crate num;
 extern crate clap;
 extern crate regex;
+extern crate bit_vec;
 extern crate colored;
 extern crate petgraph;
 extern crate itertools;
+extern crate byteorder;
 
 use clap::{Arg, App};
 
@@ -25,6 +27,10 @@ mod day10;
 mod day11;
 mod day12;
 mod day13;
+mod day14;
+mod day15;
+mod day16;
+mod day17;
 
 fn main() {
 	let matches = App::new("Advent of Rust 2017")
@@ -36,22 +42,15 @@ fn main() {
 				str.parse::<u32>()
 					.or(Err("day must be an integer".to_owned()))
 					.and_then(|v| match v {
-						1...13 => Ok(()),
-						_ => Err("day must be between 1 and 13".to_owned())
+						1...17 => Ok(()),
+						_ => Err("day must be between 1 and 17".to_owned())
 					})))
-		.arg(Arg::with_name("value")
-			.help("Problem input (for those with a single numeric input)")
-			.required_if("day", "3")
-			.validator(|str|
-				str.parse::<u32>()
-					.and(Ok(()))
-					.or(Err("value must be an integer".to_owned()))))
 		.get_matches();
 
 	match matches.value_of("day").unwrap().parse::<u32>().unwrap() {
 		1 => day1::solve(),
 		2 => day2::solve(),
-		3 => day3::solve(matches.value_of("value").unwrap().parse::<u32>().unwrap()),
+		3 => day3::solve(),
 		4 => day4::solve(),
 		5 => day5::solve(),
 		6 => day6::solve(),
@@ -62,6 +61,10 @@ fn main() {
 		11 => day11::solve(),
 		12 => day12::solve(),
 		13 => day13::solve(),
+		14 => day14::solve(),
+		15 => day15::solve(),
+		16 => day16::solve(),
+		17 => day17::solve(),
 		_ => ()
 	}
 }

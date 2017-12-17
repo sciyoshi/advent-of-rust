@@ -1,7 +1,11 @@
 use util::Pt;
+use std::io::{self, BufRead};
 use std::collections::HashMap;
 
-pub fn solve(input: u32) {
+pub fn solve() {
+	let stdin = io::stdin();
+	let input: u32 = stdin.lock().lines().next().unwrap().unwrap().parse().unwrap();
+
 	// Create a grid mapping points to their contents
 	let mut grid = HashMap::new();
 

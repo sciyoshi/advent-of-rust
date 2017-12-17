@@ -3,7 +3,7 @@ use std::cmp::max;
 use num::traits::Signed;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct Pt<T: Signed + Copy + Ord>(pub T, pub T);
+pub struct Pt<T: Signed + Copy + Ord=isize>(pub T, pub T);
 
 impl<T: Signed + Copy + Ord> Pt<T> {
 	pub fn n() -> Self {

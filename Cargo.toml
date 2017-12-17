@@ -8,9 +8,14 @@ nom = "*"
 num = "*"
 clap = "*"
 regex = "*"
+bit-vec = "*"
 colored = "*"
 petgraph = "*"
 itertools = "*"
+
+[dependencies.byteorder]
+version = "*"
+features = ["i128"]
 
 [[bin]]
 name = "aor"
