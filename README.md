@@ -19,3 +19,5 @@ These are my solutions to [2017's Advent of Code challenge](https://adventofcode
 * [Day 15: Dueling Generators](src/day15/)
 * [Day 16: Permutation Promenade](src/day16/)
 * [Day 17: Spinlock](src/day17/)
+* [Day 18: Duet](src/day18/)
+* [Day 19: A Series of Tubes](src/day19/)
