@@ -1,4 +1,4 @@
-#![feature(const_fn, inclusive_range_syntax, universal_impl_trait, i128_type, slice_rotate, match_default_bindings)]
+#![feature(const_fn, inclusive_range_syntax, universal_impl_trait, i128_type, slice_rotate, match_default_bindings, iterator_step_by)]
 
 #[macro_use]
 extern crate nom;
@@ -7,6 +7,8 @@ extern crate clap;
 extern crate regex;
 extern crate bit_vec;
 extern crate colored;
+#[macro_use]
+extern crate ndarray;
 extern crate petgraph;
 extern crate itertools;
 extern crate byteorder;

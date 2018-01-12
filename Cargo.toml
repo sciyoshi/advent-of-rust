@@ -10,6 +10,7 @@ clap = "*"
 regex = "*"
 bit-vec = "*"
 colored = "*"
+ndarray = "*"
 petgraph = "*"
 itertools = "*"
 

@@ -12,7 +12,7 @@ fn permute(mut vals: Vec<char>, cmds: &[Cmd]) -> Vec<char> {
 
 	for ref cmd in cmds {
 		match *cmd {
-			Cmd::Spin(val) => vals.rotate(len - val),
+			Cmd::Spin(val) => vals.rotate_left(len - val),
 			Cmd::Exchange(i, j) => vals.swap(*i, *j),
 			Cmd::Partner(i, j) => {
 				let pos1 = vals.iter().position(|c| c == i).unwrap();
