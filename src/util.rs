@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub, Mul, Div};
+use std::ops::{Add, Sub, Mul, Div, Neg};
 use std::cmp::max;
 use num::traits::Signed;
 
@@ -114,5 +114,13 @@ impl<T: Signed + Copy + Ord> Div<T> for Pt<T> {
 
 	fn div(self, other: T) -> Self {
 		Pt(self.0 / other, self.1 / other)
+	}
+}
+
+impl<T: Signed + Copy + Ord> Neg for Pt<T> {
+	type Output = Pt<T>;
+
+	fn neg(self) -> Self {
+		Pt(-self.0, -self.1)
 	}
 }

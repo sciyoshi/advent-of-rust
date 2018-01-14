@@ -56,13 +56,13 @@ pub fn solve() {
 
 	let mut pattern = parse(".#./..#/###");
 
-	for i in 0..5 {
+	for _i in 0..5 {
 		pattern = expand(&pattern, &replacements);
 	}
 
 	println!("[Part 1] Pixels on after 5 iterations: {}", pattern.iter().filter(|&&cell| cell).count());
 
-	for i in 5..18 {
+	for _i in 5..18 {
 		pattern = expand(&pattern, &replacements);
 	}
 
