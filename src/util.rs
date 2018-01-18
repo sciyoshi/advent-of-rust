@@ -1,6 +1,17 @@
 use std::ops::{Add, Sub, Mul, Div, Neg};
 use std::cmp::max;
+use nom::digit;
 use num::traits::Signed;
+
+named!(pub num(&str) -> i64, do_parse!(
+	s: recognize!(
+		pair!(
+			opt!(tag_s!("-")),
+			call!(digit)
+		)
+	) >> (s.parse().unwrap())
+));
+
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Pt<T: Signed + Copy + Ord=isize>(pub T, pub T);

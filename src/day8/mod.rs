@@ -1,16 +1,12 @@
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 use std::cmp;
-use std::str::FromStr;
-use nom::{alpha, digit};
-
-named!(number(&str) -> i32,
-	map_res!(recognize!(pair!(opt!(tag_s!("-")), digit)), FromStr::from_str)
-);
+use nom::alpha;
+use util::num;
 
 pub fn solve() {
 	let stdin = io::stdin();
-	let mut regs = HashMap::<String, i32>::new();
+	let mut regs = HashMap::<String, i64>::new();
 	let mut maxseen = 0;
 
 	for line in stdin.lock().lines() {
@@ -21,7 +17,7 @@ pub fn solve() {
 			op1: alt_complete!(
 				tag_s!("inc") |
 				tag_s!("dec")) >>
-			val1: number >>
+			val1: num >>
 			tag_s!("if") >>
 			reg2: alpha >>
 			op2: alt_complete!(
@@ -31,7 +27,7 @@ pub fn solve() {
 				tag_s!(">") |
 				tag_s!("==") |
 				tag_s!("!=")) >>
-			val2: number >> ({
+			val2: num >> ({
 				let reg2 = *regs.get(reg2).unwrap_or(&0);
 
 				let cond = match op2 {

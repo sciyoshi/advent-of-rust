@@ -1,6 +1,7 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
-use nom::{digit, anychar};
+use nom::anychar;
+use util::num;
 use primal::is_prime;
 
 type Reg = char;
@@ -30,15 +31,6 @@ enum Cmd {
 
 named!(reg(&str) -> Reg, do_parse!(
 	c: anychar >> (c)
-));
-
-named!(num(&str) -> i64, do_parse!(
-	s: recognize!(
-		pair!(
-			opt!(tag_s!("-")),
-			call!(digit)
-		)
-	) >> (s.parse().unwrap())
 ));
 
 named!(arg(&str) -> Arg, alt!(

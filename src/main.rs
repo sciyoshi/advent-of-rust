@@ -1,4 +1,4 @@
-#![feature(const_fn, inclusive_range_syntax, universal_impl_trait, i128_type, slice_rotate, match_default_bindings, iterator_step_by, entry_or_default)]
+#![feature(const_fn, inclusive_range_syntax, universal_impl_trait, i128_type, slice_rotate, match_default_bindings, iterator_step_by, entry_or_default, use_nested_groups)]
 
 #[macro_use]
 extern crate nom;
@@ -6,6 +6,7 @@ extern crate num;
 extern crate clap;
 extern crate regex;
 extern crate primal;
+extern crate bit_set;
 extern crate bit_vec;
 extern crate colored;
 #[macro_use]

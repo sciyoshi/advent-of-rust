@@ -2,6 +2,10 @@
 
 These are my solutions to [2017's Advent of Code challenge](https://adventofcode.com/2017), written in Rust.
 
+The program expects the puzzle input on standard input, and the day is passed as the first argument, for example:
+
+    cargo run --release -- $DAY < inputs/$DAY
+
 * [Day 1: Inverse Captcha](src/day1/)
 * [Day 2: Corruption Checksum](src/day2/)
 * [Day 3: Spiral Memory](src/day3/)
@@ -24,6 +28,6 @@ These are my solutions to [2017's Advent of Code challenge](https://adventofcode
 * [Day 20: Particle Swarm](src/day20/)
 * [Day 21: Fractal Art](src/day21/)
 * [Day 22: Sporifica Virus](src/day22/)
-* [Day 23: ](src/day23/)
-* [Day 24: ](src/day24/)
-* [Day 25: ](src/day25/)
+* [Day 23: Coprocessor Conflagration](src/day23/)
+* [Day 24: Electromagnetic Moat](src/day24/)
+* [Day 25: The Halting Problem](src/day25/)

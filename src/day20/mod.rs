@@ -1,7 +1,7 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
 use std::ops::{Add, AddAssign};
-use nom::digit;
+use util::num;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, PartialOrd, Ord)]
 struct Point3D(i64, i64, i64);
@@ -35,15 +35,6 @@ impl Particle {
 		self.pos += self.vel;
 	}
 }
-
-named!(num(&str) -> i64, do_parse!(
-	s: recognize!(
-		pair!(
-			opt!(tag_s!("-")),
-			call!(digit)
-		)
-	) >> (s.parse().unwrap())
-));
 
 named!(point3d(&str) -> Point3D, do_parse!(
 	tag_s!("<") >>
