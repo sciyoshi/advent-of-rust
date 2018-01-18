@@ -55,7 +55,7 @@ fn main() {
 					.or(Err("day must be an integer".to_owned()))
 					.and_then(|v| match v {
 						1...25 => Ok(()),
-						_ => Err("day must be between 1 and 22".to_owned())
+						_ => Err("day must be between 1 and 25".to_owned())
 					})))
 		.get_matches();
 
