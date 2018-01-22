@@ -43,7 +43,12 @@ named!(arg(&str) -> Arg, alt!(
 	anychar => { |c| Arg::Reg(c) }
 ));
 
-fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64>>) -> i64 {
+enum Msg {
+	Val(i64),
+	Count(usize)
+}
+
+fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<Msg>>, rx: Option<Receiver<Msg>>) -> i64 {
 	let mut pc = 0;
 	let mut regs = HashMap::<char, i64>::new();
 
@@ -51,12 +56,13 @@ fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64
 
 	let mut played = 0;
 	let mut sent = 0;
+	let mut received = 0;
 
 	while let Some(cmd) = ins.get(pc as usize) {
 		match cmd {
 			Cmd::Snd(r) => {
 				if let Some(sender) = &tx {
-					sender.send(*regs.get(r).unwrap_or(&0)).unwrap();
+					sender.send(Msg::Val(*regs.get(r).unwrap_or(&0))).unwrap();
 					sent += 1;
 				} else {
 					played = *regs.get(r).unwrap_or(&0);
@@ -68,10 +74,25 @@ fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64
 			Cmd::Mod(r, a) => *regs.entry(*r).or_insert(0) %= a.value(&regs),
 			Cmd::Rcv(r) => {
 				if let Some(receiver) = &rx {
-					if let Ok(val) = receiver.recv_timeout(Duration::from_secs(1)) {
-						*regs.entry(*r).or_insert(0) = val;
+					if let Some(sender) = &tx {
+						sender.send(Msg::Count(received)).unwrap_or(());
+					}
+
+					if let Ok(msg) = receiver.recv() {
+						match msg {
+							Msg::Val(val) => {
+								received += 1;
+								*regs.entry(*r).or_insert(0) = val;
+							},
+							Msg::Count(count) => {
+								if count == sent {
+									return sent as i64;
+								}
+								continue;
+							}
+						}
 					} else {
-						return sent
+						return sent as i64
 					}
 				} else {
 					return played;
