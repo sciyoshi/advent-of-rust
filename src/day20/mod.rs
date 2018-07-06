@@ -1,7 +1,8 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
 use std::ops::{Add, AddAssign};
-use util::num;
+use nom::*;
+use crate::util::num;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, PartialOrd, Ord)]
 struct Point3D(i64, i64, i64);
@@ -47,7 +48,7 @@ named!(point3d(&str) -> Point3D, do_parse!(
 	(Point3D(x as i64, y as i64, z as i64))
 ));
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let mut particles: Vec<(usize, Particle)> = vec![];
 

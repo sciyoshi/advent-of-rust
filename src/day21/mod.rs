@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
-use ndarray::{Array2, Axis};
+use ndarray::{Array2, Axis, s};
 
 fn parse(val: &str) -> Array2<bool> {
 	let data: Vec<_> = val.chars().filter_map(|c| match c {
@@ -35,7 +35,7 @@ fn expand(pattern: &Array2<bool>, replacements: &HashMap<Array2<bool>, Array2<bo
 	result
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let mut replacements = HashMap::new();
 

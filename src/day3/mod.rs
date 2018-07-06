@@ -1,8 +1,8 @@
-use util::Pt;
+use crate::util::Pt;
 use std::io::{self, BufRead};
 use std::collections::HashMap;
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let input: u32 = stdin.lock().lines().next().unwrap().unwrap().parse().unwrap();
 

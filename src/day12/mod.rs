@@ -1,10 +1,10 @@
 use std::io::{self, BufRead};
 use itertools::Itertools;
-use nom::digit;
+use nom::*;
 use petgraph::unionfind::UnionFind;
 
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let lines: Vec<_> = stdin.lock().lines().collect();
 

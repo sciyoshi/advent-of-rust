@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 
-pub fn solve() {
+crate fn solve() {
 	// Read stdin into an array of memory bank values
 	let stdin = io::stdin();
 	let mut data: Vec<_> = stdin.lock().lines()

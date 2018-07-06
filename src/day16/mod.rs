@@ -25,7 +25,7 @@ fn permute(mut vals: Vec<char>, cmds: &[Cmd]) -> Vec<char> {
 	vals
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let line = stdin.lock().lines().next().unwrap().unwrap();
 

@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 
-pub fn solve() {
+crate fn solve() {
 	// Get the first line from standard input
 	let stdin = io::stdin();
 	let input = stdin.lock().lines().next().unwrap().unwrap();

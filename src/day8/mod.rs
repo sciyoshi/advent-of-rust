@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 use std::io::{self, BufRead};
 use std::cmp;
-use nom::alpha;
-use util::num;
+use nom::*;
+use crate::util::num;
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let mut regs = HashMap::<String, i64>::new();
 	let mut maxseen = 0;

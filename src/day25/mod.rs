@@ -2,8 +2,8 @@ use std::io::{self, Read};
 use std::collections::HashMap;
 use std::ops::Index;
 use bit_vec::BitVec;
-use util::num;
-use nom::anychar;
+use crate::util::num;
+use nom::*;
 
 #[derive(Debug)]
 struct Tape {
@@ -60,7 +60,7 @@ impl Index<isize> for Tape {
 	}
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let mut input = String::new();
 

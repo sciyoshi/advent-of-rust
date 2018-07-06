@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
-use util::Pt;
+use crate::util::Pt;
 
 #[derive(Clone, Debug)]
 enum Status {
@@ -54,7 +54,7 @@ fn run(mut map: HashMap<Pt, Status>, steps: u32, evolved: bool) -> u32 {
 	count
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 
 	let mut map: HashMap<Pt, Status> = HashMap::new();
@@ -64,7 +64,7 @@ pub fn solve() {
 	let width = lines[0].len() as isize;
 
 	for (line, j) in lines.into_iter().zip((-(height / 2)..=height / 2).rev()) {
-		for (c, i) in line.chars().zip((-(width / 2)..=width / 2)) {
+		for (c, i) in line.chars().zip(-(width / 2)..=width / 2) {
 			map.insert(Pt(i, j), if c == '#' { Status::Infected } else { Status::Clean });
 		}
 	}

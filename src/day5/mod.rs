@@ -15,7 +15,7 @@ fn run(mut data: Vec<isize>, updater: fn(isize) -> isize) -> usize {
 	count
 }
 
-pub fn solve() {
+crate fn solve() {
 	// Read stdin into an array of instructions
 	let stdin = io::stdin();
 	let data: Vec<_> = stdin.lock().lines()

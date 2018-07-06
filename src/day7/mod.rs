@@ -11,7 +11,7 @@ struct Node {
 	total: u32
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let re = Regex::new("[[:word:]]+").unwrap();
 

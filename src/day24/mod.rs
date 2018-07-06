@@ -1,5 +1,6 @@
 use std::io::{self, BufRead};
-use util::num;
+use nom::*;
+use crate::util::num;
 use petgraph::{Graph, Undirected, visit::{EdgeRef, NodeIndexable}, graph::NodeIndex};
 use bit_set::BitSet;
 
@@ -34,7 +35,7 @@ fn visit(graph: &Graph<u32, u32, Undirected>, node: NodeIndex<u32>, visited: &mu
 	}
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 
 	let edges: Vec<(u32, u32, u32)> = stdin.lock().lines()

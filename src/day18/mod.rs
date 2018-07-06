@@ -4,7 +4,7 @@ use std::time::Duration;
 use std::thread;
 use std::sync::Arc;
 use std::sync::mpsc::{channel, Sender, Receiver};
-use nom::{digit, anychar};
+use nom::*;
 
 type Reg = char;
 
@@ -91,7 +91,7 @@ fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64
 	return 0;
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let ins: Vec<Cmd> = stdin.lock().lines()
 		.filter_map(|l| l.ok())

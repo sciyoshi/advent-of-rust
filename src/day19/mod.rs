@@ -1,8 +1,8 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
-use util::Pt;
+use crate::util::Pt;
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 
 	let mut map: HashMap<Pt, char> = HashMap::new();
@@ -24,7 +24,7 @@ pub fn solve() {
 	while let Some(c) = map.get(&pos) {
 		match c {
 			' ' => break,
-			'A'...'Z' => path.push(c),
+			'A'..='Z' => path.push(c),
 			'+' => {
 				if *map.get(&(pos + dir.rot90r())).unwrap_or(&' ') != ' ' {
 					dir = dir.rot90r();

@@ -1,7 +1,7 @@
 use std::io::{self, BufRead};
 use itertools::Itertools;
 
-pub fn solve() {
+crate fn solve() {
 	// Read stdin into an array of arrays of u32s.
 	let stdin = io::stdin();
 	let lines: Vec<Vec<u32>> = stdin.lock().lines()

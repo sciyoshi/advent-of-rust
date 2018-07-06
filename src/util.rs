@@ -1,6 +1,6 @@
 use std::ops::{Add, Sub, Mul, Div, Neg};
 use std::cmp::max;
-use nom::digit;
+use nom::*;
 use num::traits::Signed;
 
 named!(pub num(&str) -> i64, do_parse!(

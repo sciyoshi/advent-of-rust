@@ -1,5 +1,5 @@
 use std::io::{self, BufRead};
-use nom::IResult;
+use nom::*;
 
 struct Stats {
 	score: usize,
@@ -38,7 +38,7 @@ fn group(input: &[u8], depth: usize) -> IResult<&[u8], Stats> {
 	)
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let line = stdin.lock().lines().next().unwrap().unwrap();
 

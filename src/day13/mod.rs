@@ -1,7 +1,7 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 
 	let mut heights = HashMap::<u32, u32>::new();

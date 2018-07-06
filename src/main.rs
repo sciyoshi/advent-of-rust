@@ -1,23 +1,10 @@
-#![feature(const_fn, inclusive_range_syntax, universal_impl_trait, i128_type, slice_rotate, match_default_bindings, iterator_step_by, entry_or_default, use_nested_groups)]
+#![feature(rust_2018_preview, use_extern_macros, const_fn, slice_rotate, iterator_step_by, entry_or_default)]
 
-#[macro_use]
-extern crate nom;
-extern crate num;
-extern crate clap;
-extern crate regex;
-extern crate primal;
-extern crate bit_set;
-extern crate bit_vec;
-extern crate colored;
-#[macro_use]
-extern crate ndarray;
-extern crate petgraph;
-extern crate itertools;
-extern crate byteorder;
+#![warn(rust_2018_idioms)]
 
 use clap::{Arg, App};
 
-mod util;
+pub mod util;
 mod day1;
 mod day2;
 mod day3;
@@ -54,7 +41,7 @@ fn main() {
 				str.parse::<u32>()
 					.or(Err("day must be an integer".to_owned()))
 					.and_then(|v| match v {
-						1...25 => Ok(()),
+						1..=25 => Ok(()),
 						_ => Err("day must be between 1 and 25".to_owned())
 					})))
 		.get_matches();

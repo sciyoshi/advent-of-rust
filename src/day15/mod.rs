@@ -20,7 +20,7 @@ impl Iterator for Gen {
 	}
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 
 	let vals: Vec<u64> = stdin.lock().lines()

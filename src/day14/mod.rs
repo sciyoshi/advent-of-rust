@@ -1,9 +1,9 @@
 use std::io::{self, BufRead};
 use std::collections::HashSet;
 use bit_vec::BitVec;
-use super::day10::knothash;
+use crate::day10::knothash;
 use byteorder::{ByteOrder, BigEndian};
-use util::Pt;
+use crate::util::Pt;
 
 fn bits128(val: u128) -> BitVec {
 	let mut bytes = [0u8; 16];
@@ -20,7 +20,7 @@ fn dfs(pts: &mut HashSet<Pt>, pt: Pt) {
 	}
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let value = stdin.lock().lines().next().unwrap().unwrap();
 

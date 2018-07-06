@@ -1,7 +1,7 @@
 use std::io::{self, BufRead};
 use itertools::Itertools;
 
-pub fn solve() {
+crate fn solve() {
 	// Read stdin into an array of vectors of words
 	let stdin = io::stdin();
 	let lines: Vec<Vec<_>> = stdin.lock().lines()

@@ -17,7 +17,7 @@ fn dist(pt: Pt) -> i32 {
 	(pt.0.abs() + pt.1.abs() + (pt.0 + pt.1).abs()) / 2
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 
 	let (end, max) = stdin.lock().lines().next().unwrap().unwrap()

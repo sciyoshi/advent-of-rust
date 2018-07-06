@@ -1,7 +1,7 @@
 use std::io::{self, BufRead};
 use std::collections::HashMap;
-use nom::anychar;
-use util::num;
+use nom::*;
+use crate::util::num;
 use primal::is_prime;
 
 type Reg = char;
@@ -69,7 +69,7 @@ fn run(ins: &[Cmd], debug: bool) -> (HashMap<char, i64>, i64) {
 	(regs, count)
 }
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let ins: Vec<Cmd> = stdin.lock().lines()
 		.filter_map(|l| l.ok())

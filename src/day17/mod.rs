@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 
-pub fn solve() {
+crate fn solve() {
 	let stdin = io::stdin();
 	let step: usize = stdin.lock().lines()
 		.next().unwrap().unwrap()
