@@ -3,11 +3,11 @@ use std::io::{self, BufRead};
 use std::iter::Iterator;
 
 struct Board {
-    rows: Vec<Vec<u64>>,
+    rows: Vec<Vec<i64>>,
 }
 
 impl Board {
-    fn check(&self, rolls: &[u64]) -> bool {
+    fn check(&self, rolls: &[i64]) -> bool {
         for i in 0..5 {
             if (0..5).map(|j| self.rows[i][j]).all(|v| rolls.contains(&v)) {
                 return true;
@@ -20,7 +20,7 @@ impl Board {
         false
     }
 
-    fn wins(&self, rolls: &[u64]) -> (usize, u64) {
+    fn wins(&self, rolls: &[i64]) -> (usize, i64) {
         for i in 1..rolls.len() {
             if self.check(&rolls[..i]) {
                 let mut score = 0;
@@ -57,7 +57,7 @@ pub fn solve() {
         i += 6;
     }
 
-    let scores: Vec<(usize, u64)> = boards.iter().map(|board| board.wins(&rolls)).collect();
+    let scores: Vec<(usize, i64)> = boards.iter().map(|board| board.wins(&rolls)).collect();
 
     println!(
         "[Part 1] {:?}",
