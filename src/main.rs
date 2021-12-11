@@ -1,6 +1,7 @@
 use clap::{App, Arg};
 
 mod day1;
+mod day10;
 mod day2;
 mod day3;
 mod day4;
@@ -8,6 +9,7 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 mod util;
 
 fn main() {
@@ -37,6 +39,8 @@ fn main() {
         6 => day6::solve(),
         7 => day7::solve(),
         8 => day8::solve(),
+        9 => day9::solve(),
+        10 => day10::solve(),
         _ => (),
     }
 }
