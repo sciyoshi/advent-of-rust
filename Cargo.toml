@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 nom = "*"
+num = "*"
 clap = "*"
 regex = "*"
