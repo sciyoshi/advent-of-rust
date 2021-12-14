@@ -75,35 +75,14 @@ pub fn solve() {
         .map(|point| folds.iter().fold(*point, |pt, fold| fold.transform(pt)))
         .collect::<HashSet<_>>();
 
-    let width = folds
-        .iter()
-        .filter_map(|f| {
-            if let Fold::Left(num) = f {
-                Some(*num)
-            } else {
-                None
-            }
-        })
-        .min()
-        .unwrap();
-
-    let height = folds
-        .iter()
-        .filter_map(|f| {
-            if let Fold::Up(num) = f {
-                Some(*num)
-            } else {
-                None
-            }
-        })
-        .min()
-        .unwrap();
+    let width = code.iter().map(|pt| pt.0).max().unwrap();
+    let height = code.iter().map(|pt| pt.1).max().unwrap();
 
     println!("[Part 1] {:?}", first.len());
     println!("[Part 2]");
 
-    for j in 0..height {
-        for i in 0..width {
+    for j in 0..=height {
+        for i in 0..=width {
             if code.contains(&(i, j)) {
                 print!("#")
             } else {
