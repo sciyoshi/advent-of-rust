@@ -11,7 +11,7 @@ pub fn ints(str: &str) -> Vec<i64> {
         .collect()
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub struct Pt<T: Signed + Ord + Copy + ToPrimitive>(pub T, pub T);
 
 impl<T: Signed + Ord + Copy + ToPrimitive> Pt<T> {
