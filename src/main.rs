@@ -1,4 +1,4 @@
-#![feature(generators, destructuring_assignment, let_chains)]
+#![feature(generators, destructuring_assignment, map_first_last)]
 
 use clap::{App, Arg};
 
@@ -12,6 +12,7 @@ mod day15;
 mod day16;
 mod day17;
 mod day18;
+mod day19;
 mod day2;
 mod day3;
 mod day4;
@@ -59,6 +60,7 @@ fn main() {
         16 => day16::solve(),
         17 => day17::solve(),
         18 => day18::solve(),
+        19 => day19::solve(),
         _ => (),
     }
 }
