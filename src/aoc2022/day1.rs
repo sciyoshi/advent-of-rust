@@ -1,6 +1,6 @@
 use std::io::stdin;
 
-pub fn solve() -> (u32, u32) {
+pub fn solve() {
     let mut big: [u32; 3] = [0, 0, 0];
     let mut cur = 0;
 
@@ -9,7 +9,6 @@ pub fn solve() -> (u32, u32) {
 
         if line.is_empty() {
             if cur <= big[2] {
-                
             } else if cur <= big[1] {
                 big[2] = cur;
             } else if cur <= big[0] {
@@ -27,5 +26,6 @@ pub fn solve() -> (u32, u32) {
         }
     }
 
-    (big[0], big[0] + big[1] + big[2])
+    println!("part1: {}", big[0]);
+    println!("part2: {}", big[0] + big[1] + big[2]);
 }

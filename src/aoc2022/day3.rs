@@ -9,10 +9,10 @@ fn priority(item: char) -> u32 {
     }
 }
 
-pub fn solve() -> (u32, u32) {
+pub fn solve() {
     let lines: Vec<String> = stdin().lines().map(|l| l.unwrap()).collect();
 
-    let part1 = lines
+    let part1: u32 = lines
         .iter()
         .map(|l| {
             let set1 = l[..l.len() / 2].chars().collect::<BTreeSet<char>>();
@@ -22,7 +22,7 @@ pub fn solve() -> (u32, u32) {
         })
         .sum();
 
-    let part2 = lines
+    let part2: u32 = lines
         .array_chunks::<3>()
         .map(|l| {
             let set1 = l[0].chars().collect::<BTreeSet<char>>();
@@ -39,5 +39,6 @@ pub fn solve() -> (u32, u32) {
         })
         .sum();
 
-    (part1, part2)
+    println!("part1: {}", part1);
+    println!("part2: {}", part2);
 }

@@ -1,6 +1,6 @@
 use std::io::stdin;
 
-pub fn solve() -> (u32, u32) {
+pub fn solve() {
     let mut result = (0, 0);
 
     for line in stdin().lines() {
@@ -14,12 +14,13 @@ pub fn solve() -> (u32, u32) {
             "C X" => (1 + 6, 2 + 0),
             "C Y" => (2 + 0, 3 + 3),
             "C Z" => (3 + 3, 1 + 6),
-            _ => panic!("invalid line")
+            _ => panic!("invalid line"),
         };
 
         result.0 += score1;
         result.1 += score2;
     }
 
-    result
+    println!("part1: {}", result.0);
+    println!("part2: {}", result.1);
 }
