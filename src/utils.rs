@@ -1,10 +1,11 @@
+use num::Num;
 use regex::Regex;
 use std::str::FromStr;
 
-pub fn extract_integers(s: &str) -> Vec<i32> {
-    let re = Regex::new(r"\d+").unwrap();
+pub fn extract_integers<T: Num>(s: &str) -> Vec<T> {
+    let re = Regex::new(r"-?\d+").unwrap();
     re.find_iter(s)
-        .map(|x| i32::from_str(&x.as_str()))
+        .map(|x| T::from_str_radix(&x.as_str(), 10))
         .filter_map(Result::ok)
         .collect()
 }

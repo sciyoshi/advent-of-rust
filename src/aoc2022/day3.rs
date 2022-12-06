@@ -1,5 +1,6 @@
 use std::collections::BTreeSet;
-use std::io::stdin;
+
+use crate::Solution;
 
 fn priority(item: char) -> u32 {
     if item.is_ascii_uppercase() {
@@ -9,11 +10,9 @@ fn priority(item: char) -> u32 {
     }
 }
 
-pub fn solve() {
-    let lines: Vec<String> = stdin().lines().map(|l| l.unwrap()).collect();
-
-    let part1: u32 = lines
-        .iter()
+pub fn solve(input: &str) -> Solution<u32, u32> {
+    let part1: u32 = input
+        .lines()
         .map(|l| {
             let set1 = l[..l.len() / 2].chars().collect::<BTreeSet<char>>();
             let set2 = l[l.len() / 2..].chars().collect::<BTreeSet<char>>();
@@ -22,7 +21,8 @@ pub fn solve() {
         })
         .sum();
 
-    let part2: u32 = lines
+    let part2: u32 = input
+        .lines()
         .array_chunks::<3>()
         .map(|l| {
             let set1 = l[0].chars().collect::<BTreeSet<char>>();
@@ -39,6 +39,13 @@ pub fn solve() {
         })
         .sum();
 
-    println!("part1: {}", part1);
-    println!("part2: {}", part2);
+    Solution(part1, part2)
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve(include_str!("examples/day3.txt")) == crate::Solution(157, 70));
+    }
 }

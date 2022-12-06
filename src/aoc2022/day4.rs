@@ -1,5 +1,4 @@
-use crate::utils::extract_integers;
-use std::io::stdin;
+use crate::Solution;
 
 fn range_contains(
     range1: &std::ops::RangeInclusive<i32>,
@@ -16,24 +15,35 @@ fn range_overlaps(
     range1.start() <= range2.end() && range1.end() >= range2.start()
 }
 
-pub fn solve() {
-    let ranges = stdin()
+pub fn solve(input: &str) -> Solution<usize, usize> {
+    let ranges = input
         .lines()
-        .map(Result::unwrap)
-        .map(|s| extract_integers(s.as_str()))
-        .map(|l| (l[0]..=l[1], l[2]..=l[3]))
+        .map(|l| {
+            l.split(&['-', ','])
+                .map(str::parse)
+                .map(Result::unwrap)
+                .collect()
+        })
+        .map(|l: Vec<i32>| (l[0]..=l[1], l[2]..=l[3]))
         .collect::<Vec<_>>();
 
     let part1 = ranges
         .iter()
         .filter(|(r1, r2)| range_contains(r1, r2))
-        .count() as u32;
+        .count();
 
     let part2 = ranges
         .iter()
         .filter(|(r1, r2)| range_overlaps(r1, r2))
-        .count() as u32;
+        .count();
 
-    println!("part1: {}", part1);
-    println!("part2: {}", part2);
+    Solution(part1, part2)
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve(include_str!("examples/day4.txt")) == crate::Solution(2, 4));
+    }
 }

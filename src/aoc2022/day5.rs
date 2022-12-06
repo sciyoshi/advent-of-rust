@@ -1,5 +1,5 @@
-use crate::utils::extract_integers;
-use std::io::stdin;
+use crate::{utils::extract_integers, Solution};
+use itertools::Itertools;
 
 fn move_crates(
     mut stacks: Vec<Vec<char>>,
@@ -20,14 +20,11 @@ fn move_crates(
     stacks.iter().map(|s| s.last().unwrap()).collect::<String>()
 }
 
-pub fn solve() {
-    let mut stacks: Vec<Vec<char>> = vec![vec![]; 9];
+pub fn solve(input: &str) -> Solution<String, String> {
+    let mut lines = input.lines().peekable();
+    let mut stacks: Vec<Vec<char>> = vec![vec![]; lines.peek().unwrap().len() / 4 + 1];
 
-    for line in stdin().lines().map(Result::unwrap) {
-        if line == "" {
-            break;
-        }
-
+    for line in lines.take_while_ref(|line| !line.is_empty()) {
         for (i, j) in (1..line.len()).step_by(4).enumerate() {
             let val = line.as_bytes()[j] as char;
 
@@ -37,20 +34,28 @@ pub fn solve() {
         }
     }
 
-    let moves = stdin()
-        .lines()
-        .map(Result::unwrap)
+    let moves = lines
+        .skip(1)
         .map(|l| {
-            let action = extract_integers(&l);
+            let action = extract_integers::<usize>(&l);
 
-            (
-                action[0] as usize,
-                (action[1] - 1) as usize,
-                (action[2] - 1) as usize,
-            )
+            (action[0], action[1] - 1, action[2] - 1)
         })
         .collect::<Vec<(usize, usize, usize)>>();
 
-    println!("part1: {}", move_crates(stacks.clone(), &moves, false));
-    println!("part1: {}", move_crates(stacks, &moves, true));
+    Solution(
+        move_crates(stacks.clone(), &moves, false),
+        move_crates(stacks, &moves, true),
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(
+            super::solve(include_str!("examples/day5.txt"))
+                == crate::Solution("CMZ".to_string(), "MCD".to_string())
+        );
+    }
 }

@@ -1,31 +1,32 @@
-use std::io::stdin;
+use crate::utils::extract_integers;
+use crate::Solution;
 
-pub fn solve() {
+pub fn solve(input: &str) -> Solution<u32, u32> {
     let mut big: [u32; 3] = [0, 0, 0];
-    let mut cur = 0;
 
-    for line in stdin().lines() {
-        let line = line.unwrap();
+    for gr in input.split("\n\n") {
+        let val = extract_integers::<u32>(gr).into_iter().sum();
 
-        if line.is_empty() {
-            if cur <= big[2] {
-            } else if cur <= big[1] {
-                big[2] = cur;
-            } else if cur <= big[0] {
-                big[2] = big[1];
-                big[1] = cur;
-            } else {
-                big[2] = big[1];
-                big[1] = big[0];
-                big[0] = cur;
-            }
-
-            cur = 0;
+        if val <= big[2] {
+        } else if val <= big[1] {
+            big[2] = val;
+        } else if val <= big[0] {
+            big[2] = big[1];
+            big[1] = val;
         } else {
-            cur += line.parse::<u32>().unwrap();
+            big[2] = big[1];
+            big[1] = big[0];
+            big[0] = val;
         }
     }
 
-    println!("part1: {}", big[0]);
-    println!("part2: {}", big[0] + big[1] + big[2]);
+    Solution(big[0], big[0] + big[1] + big[2])
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve(include_str!("examples/day1.txt")) == crate::Solution(24000, 45000));
+    }
 }
