@@ -1,5 +1,4 @@
 use std::io::stdin;
-use std::iter::empty;
 
 use super::intcode::exec;
 use crate::utils::extract_integers;

@@ -1,4 +1,12 @@
-#![feature(portable_simd, array_chunks, iter_array_chunks, type_alias_impl_trait)]
+#![feature(
+    box_syntax,
+    anonymous_lifetime_in_impl_trait,
+    portable_simd,
+    array_chunks,
+    array_windows,
+    iter_array_chunks,
+    type_alias_impl_trait
+)]
 
 use clap::Parser;
 use std::fmt::Display;
@@ -37,6 +45,8 @@ fn main() {
         (2022, 03) => println!("{}", aoc2022::day3::solve(&input)),
         (2022, 04) => println!("{}", aoc2022::day4::solve(&input)),
         (2022, 05) => println!("{}", aoc2022::day5::solve(&input)),
+        (2022, 06) => println!("{}", aoc2022::day6::solve(&input)),
+        (2022, 07) => println!("{}", aoc2022::day7::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 }
