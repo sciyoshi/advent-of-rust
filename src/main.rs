@@ -12,6 +12,7 @@ use clap::Parser;
 use std::fmt::Display;
 use std::io::{stdin, Read};
 
+mod aoc2017;
 mod aoc2019;
 mod aoc2022;
 mod utils;
@@ -37,6 +38,7 @@ fn main() {
     let input = String::from_utf8(stdin().bytes().map(Result::unwrap).collect()).unwrap();
 
     match (args.year, args.day) {
+        (2017, 01) => println!("{}", aoc2017::day1::solve(&input)),
         (2019, 02) => aoc2019::day2::solve(),
         (2019, 05) => aoc2019::day5::solve(),
         (2019, 06) => aoc2019::day6::solve(),
@@ -48,6 +50,7 @@ fn main() {
         (2022, 06) => println!("{}", aoc2022::day6::solve(&input)),
         (2022, 07) => println!("{}", aoc2022::day7::solve(&input)),
         (2022, 08) => println!("{}", aoc2022::day8::solve(&input)),
+        (2022, 09) => println!("{}", aoc2022::day9::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 }
