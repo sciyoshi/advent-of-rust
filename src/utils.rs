@@ -60,6 +60,14 @@ impl<T: Signed + Ord + Copy + ToPrimitive> Pt<T> {
         Pt(-T::one(), T::one())
     }
 
+    pub fn rot90r(self) -> Self {
+        Pt(self.1, -self.0)
+    }
+
+    pub fn rot90l(self) -> Self {
+        Pt(-self.1, self.0)
+    }
+
     pub fn within(self, x1: T, y1: T, x2: T, y2: T) -> bool {
         self.0 >= x1 && self.0 <= x2 && self.1 >= y1 && self.1 <= y2
     }
@@ -86,7 +94,7 @@ impl<T: Signed + Ord + Copy + ToPrimitive> Pt<T> {
         ]
     }
 
-    pub fn norm0(&self) -> T {
+    pub fn norm1(&self) -> T {
         self.0.abs() + self.1.abs()
     }
 
