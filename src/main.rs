@@ -47,6 +47,7 @@ fn main() {
         (2022, 05) => println!("{}", aoc2022::day5::solve(&input)),
         (2022, 06) => println!("{}", aoc2022::day6::solve(&input)),
         (2022, 07) => println!("{}", aoc2022::day7::solve(&input)),
+        (2022, 08) => println!("{}", aoc2022::day8::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 }
