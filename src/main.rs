@@ -47,6 +47,8 @@ fn main() {
         (2017, 07) => println!("{}", aoc2017::day07::solve(&input)),
         (2017, 08) => println!("{}", aoc2017::day08::solve(&input)),
         (2017, 09) => println!("{}", aoc2017::day09::solve(&input)),
+        (2017, 10) => println!("{}", aoc2017::day10::solve(&input)),
+        (2017, 11) => println!("{}", aoc2017::day11::solve(&input)),
         (2019, 02) => aoc2019::day2::solve(),
         (2019, 05) => aoc2019::day5::solve(),
         (2019, 06) => aoc2019::day6::solve(),
