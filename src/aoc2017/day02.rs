@@ -38,3 +38,12 @@ pub fn solve(input: &str) -> Solution<u32, u32> {
 
     Solution(checksum1, checksum2)
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve("5 1 9 5\n7 5 3\n2 4 6 8").0 == 18);
+        assert!(super::solve("5 9 2 8\n9 4 7 3\n3 8 6 5").1 == 9);
+    }
+}

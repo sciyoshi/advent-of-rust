@@ -27,3 +27,12 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     Solution(count1, count2)
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve("aa bb cc dd ee\naa bb cc dd aa\naa bb cc dd aaa").0 == 2);
+        assert!(super::solve("abcde fghij\nabcde xyz ecdab\na ab abc abd abf abj\niiii oiii ooii oooi oooo\noiii ioii iioi iiio").1 == 3);
+    }
+}

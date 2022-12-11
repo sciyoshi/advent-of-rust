@@ -56,3 +56,12 @@ pub fn solve(input: &str) -> Solution<i32, i32> {
         pos = pos + dir;
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve("1024").0 == 31);
+        assert!(super::solve("800").1 == 806);
+    }
+}
