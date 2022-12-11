@@ -1,30 +1,37 @@
-use std::io::{self, BufRead};
+use crate::Solution;
 use std::collections::HashMap;
 
-crate fn solve() {
-	let stdin = io::stdin();
+pub fn solve(input: &str) -> Solution<u32, u32> {
+    let mut heights = HashMap::<u32, u32>::new();
 
-	let mut heights = HashMap::<u32, u32>::new();
+    for line in input.lines() {
+        let split: Vec<_> = line.split(": ").collect();
 
-	for line in stdin.lock().lines() {
-		let line = line.unwrap();
-		let split: Vec<_> = line.split(": ").collect();
+        heights.insert(split[0].parse().unwrap(), split[1].parse().unwrap());
+    }
 
-		heights.insert(split[0].parse().unwrap(), split[1].parse().unwrap());
-	}
+    let severity: u32 = heights
+        .iter()
+        .filter(|&(&pos, &height)| pos % (2 * (height - 1)) == 0)
+        .map(|(pos, height)| pos * height)
+        .sum();
 
-	let severity: u32 = heights.iter()
-		.filter(|&(&pos, &height)| pos % (2 * (height - 1)) == 0)
-		.map(|(pos, height)| pos * height)
-		.sum();
+    let wait: u32 = (0..)
+        .filter(|wait| {
+            !heights
+                .iter()
+                .any(|(&pos, &height)| (wait + pos) % (2 * (height - 1)) == 0)
+        })
+        .next()
+        .unwrap();
 
-	println!("[Part 1] Severity is: {}", severity);
+    Solution(severity, wait)
+}
 
-	let wait: u32 = (0..)
-		.filter(|wait| !heights.iter()
-			.any(|(&pos, &height)| (wait + pos) % (2 * (height - 1)) == 0))
-		.next()
-		.unwrap();
-
-	println!("[Part 2] Wait time is: {}", wait);
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve("0: 3\n1: 2\n4: 4\n6: 4") == crate::Solution(24, 10));
+    }
 }

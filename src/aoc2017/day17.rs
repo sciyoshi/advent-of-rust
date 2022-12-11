@@ -1,32 +1,45 @@
-use std::io::{self, BufRead};
+use crate::Solution;
 
-crate fn solve() {
-	let stdin = io::stdin();
-	let step: usize = stdin.lock().lines()
-		.next().unwrap().unwrap()
-		.parse().unwrap();
+pub fn solve(input: &str) -> Solution<i64, i64> {
+    let stdin = io::stdin();
+    let step: usize = stdin
+        .lock()
+        .lines()
+        .next()
+        .unwrap()
+        .unwrap()
+        .parse()
+        .unwrap();
 
-	let mut buf = vec![0];
-	let mut pos = 0;
+    let mut buf = vec![0];
+    let mut pos = 0;
 
-	for i in 1..2018 {
-		pos = (pos + step) % buf.len() + 1;
-		buf.insert(pos, i);
-	}
+    for i in 1..2018 {
+        pos = (pos + step) % buf.len() + 1;
+        buf.insert(pos, i);
+    }
 
-	println!("[Part 1] Value is: {}", buf[pos + 1]);
+    println!("[Part 1] Value is: {}", buf[pos + 1]);
 
-	let mut buflen = 1;
-	let mut pos = 0;
-	let mut result = 0;
+    let mut buflen = 1;
+    let mut pos = 0;
+    let mut result = 0;
 
-	for i in 1..50_000_000 {
-		pos = (pos + step) % buflen + 1;
-		buflen += 1;
-		if pos == 1 {
-			result = i;
-		}
-	}
+    for i in 1..50_000_000 {
+        pos = (pos + step) % buflen + 1;
+        buflen += 1;
+        if pos == 1 {
+            result = i;
+        }
+    }
 
-	println!("[Part 2] Value is: {}", result);
+    println!("[Part 2] Value is: {}", result);
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve("") == crate::Solution(0, 0));
+    }
 }

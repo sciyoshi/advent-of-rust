@@ -18,7 +18,7 @@ fn step(lengths: &[u8], rope: &mut Vec<usize>, rounds: usize) {
     }
 }
 
-fn knothash<T: IntoIterator<Item = u8>>(line: T) -> u128 {
+pub fn knothash<T: IntoIterator<Item = u8>>(line: T) -> u128 {
     let mut els: Vec<u8> = line.into_iter().collect();
 
     els.extend(&[17, 31, 73, 47, 23]);

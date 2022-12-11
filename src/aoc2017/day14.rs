@@ -1,50 +1,55 @@
-use std::io::{self, BufRead};
-use std::collections::HashSet;
+use super::day10::knothash;
+use crate::utils::Pt;
+use crate::Solution;
 use bit_vec::BitVec;
-use crate::day10::knothash;
-use byteorder::{ByteOrder, BigEndian};
-use crate::util::Pt;
+use byteorder::{BigEndian, ByteOrder};
+use std::collections::HashSet;
 
 fn bits128(val: u128) -> BitVec {
-	let mut bytes = [0u8; 16];
-	BigEndian::write_u128(&mut bytes, val);
-	BitVec::from_bytes(&bytes)
+    let mut bytes = [0u8; 16];
+    BigEndian::write_u128(&mut bytes, val);
+    BitVec::from_bytes(&bytes)
 }
 
-fn dfs(pts: &mut HashSet<Pt>, pt: Pt) {
-	pts.remove(&pt);
-	for nb in pt.nb4() {
-		if pts.contains(&nb) {
-			dfs(pts, nb);
-		}
-	}
+fn dfs(pts: &mut HashSet<Pt<i32>>, pt: Pt<i32>) {
+    pts.remove(&pt);
+    for nb in pt.nb4() {
+        if pts.contains(&nb) {
+            dfs(pts, nb);
+        }
+    }
 }
 
-crate fn solve() {
-	let stdin = io::stdin();
-	let value = stdin.lock().lines().next().unwrap().unwrap();
+pub fn solve(input: &str) -> Solution<usize, usize> {
+    let rows: Vec<_> = (0..128)
+        .map(|i| knothash(format!("{}-{}", input, i).bytes()))
+        .collect();
 
-	let rows: Vec<_> = (0..128)
-		.map(|i| knothash(format!("{}-{}", value, i).bytes()))
-		.collect();
+    let mut pts: HashSet<Pt<i32>> = HashSet::new();
 
-	let mut pts: HashSet<Pt> = HashSet::new();
+    for (i, &row) in rows.iter().enumerate() {
+        for (j, bit) in bits128(row).iter().enumerate() {
+            if bit {
+                pts.insert(Pt(i as i32, j as i32));
+            }
+        }
+    }
 
-	for (i, &row) in rows.iter().enumerate() {
-		for (j, bit) in bits128(row).iter().enumerate() {
-			if bit {
-				pts.insert(Pt(i as isize, j as isize));
-			}
-		}
-	}
+    let part1 = pts.len();
 
-	println!("[Part 1] Count is: {}", pts.len());
+    let mut count = 0;
+    while let Some(&pt) = pts.iter().next() {
+        dfs(&mut pts, pt);
+        count += 1;
+    }
 
-	let mut count = 0;
-	while let Some(&pt) = pts.iter().next() {
-		dfs(&mut pts, pt);
-		count += 1;
-	}
+    Solution(part1, count)
+}
 
-	println!("[Part 2] Regions: {}", count);
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(super::solve("flqrgnkx") == crate::Solution(8108, 1242));
+    }
 }
