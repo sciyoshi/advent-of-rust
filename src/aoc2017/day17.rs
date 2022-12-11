@@ -1,15 +1,7 @@
 use crate::Solution;
 
 pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-    let step: usize = stdin
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .parse()
-        .unwrap();
+    let step: usize = input.parse().unwrap();
 
     let mut buf = vec![0];
     let mut pos = 0;
@@ -19,7 +11,7 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         buf.insert(pos, i);
     }
 
-    println!("[Part 1] Value is: {}", buf[pos + 1]);
+    let part1 = buf[pos + 1];
 
     let mut buflen = 1;
     let mut pos = 0;
@@ -33,13 +25,13 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         }
     }
 
-    println!("[Part 2] Value is: {}", result);
+    Solution(part1, result)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve("3").0 == 638);
     }
 }

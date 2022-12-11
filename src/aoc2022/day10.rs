@@ -60,14 +60,15 @@ pub fn solve(input: &str) -> Solution<i64, String> {
     }
 
     let part2 = "\n".to_string()
-        + &crt
+        + crt
             .chunks(40)
             .map(|row| {
                 row.iter()
                     .map(|&pixel| if pixel { '#' } else { '.' })
                     .collect::<String>()
             })
-            .join("\n");
+            .join("\n")
+            .as_str();
 
     Solution(strength, part2)
 }

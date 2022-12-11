@@ -20,13 +20,9 @@ impl Iterator for Gen {
     }
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-
-    let vals: Vec<u64> = stdin
-        .lock()
+pub fn solve(input: &str) -> Solution<usize, usize> {
+    let vals: Vec<u64> = input
         .lines()
-        .filter_map(|line| line.ok())
         .map(|line| line.split_whitespace().last().unwrap().to_string())
         .filter_map(|el| el.parse().ok())
         .collect();
@@ -48,8 +44,6 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         .filter(|&(v1, v2)| v1 as u16 == v2 as u16)
         .count();
 
-    println!("[Part 1] Count is: {}", part1);
-
     let gen1 = Gen {
         value: vals[0],
         factor: 16807,
@@ -67,13 +61,13 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         .filter(|&(v1, v2)| v1 as u16 == v2 as u16)
         .count();
 
-    println!("[Part 2] Count is: {}", part2);
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve("65\n8921") == crate::Solution(588, 309));
     }
 }

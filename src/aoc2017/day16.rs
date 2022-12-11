@@ -25,11 +25,8 @@ fn permute(mut vals: Vec<char>, cmds: &[Cmd]) -> Vec<char> {
     vals
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-    let line = stdin.lock().lines().next().unwrap().unwrap();
-
-    let cmds: Vec<Cmd> = line
+pub fn solve(input: &str) -> Solution<String, String> {
+    let cmds: Vec<Cmd> = input
         .split(",")
         .map(|cmd| {
             let (op, arg) = cmd.split_at(1);
@@ -45,10 +42,7 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
 
     let mut vals: Vec<char> = "abcdefghijklmnop".chars().collect();
 
-    println!(
-        "[Part 1] Order is: {}",
-        permute(vals.clone(), &cmds).iter().collect::<String>()
-    );
+    let part1 = permute(vals.clone(), &cmds).iter().collect::<String>();
 
     let mut cycle = vec![vals.clone()];
 
@@ -62,18 +56,17 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         cycle.push(vals.clone());
     }
 
-    println!(
-        "[Part 2] Order is: {}",
-        cycle[1_000_000_000 % cycle.len()]
-            .iter()
-            .collect::<String>()
-    );
+    let part2 = cycle[1_000_000_000 % cycle.len()]
+        .iter()
+        .collect::<String>();
+
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve("s1,x3/4,pe/b").0 == "paedcbfghijklmno".to_string());
     }
 }

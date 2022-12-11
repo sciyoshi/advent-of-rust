@@ -32,10 +32,12 @@ struct Args {
     day: u16,
 }
 
-fn main() {
+fn main() -> anyhow::Result<()> {
     let args = Args::parse();
 
-    let input = String::from_utf8(stdin().bytes().map(Result::unwrap).collect()).unwrap();
+    let mut input = String::new();
+
+    stdin().lock().read_to_string(&mut input)?;
 
     match (args.year, args.day) {
         (2017, 01) => println!("{}", aoc2017::day01::solve(&input)),
@@ -52,9 +54,9 @@ fn main() {
         (2017, 12) => println!("{}", aoc2017::day12::solve(&input)),
         (2017, 13) => println!("{}", aoc2017::day13::solve(&input)),
         (2017, 14) => println!("{}", aoc2017::day14::solve(&input)),
-        // (2017, 15) => println!("{}", aoc2017::day15::solve(&input)),
-        // (2017, 16) => println!("{}", aoc2017::day16::solve(&input)),
-        // (2017, 17) => println!("{}", aoc2017::day17::solve(&input)),
+        (2017, 15) => println!("{}", aoc2017::day15::solve(&input)),
+        (2017, 16) => println!("{}", aoc2017::day16::solve(&input)),
+        (2017, 17) => println!("{}", aoc2017::day17::solve(&input)),
         // (2017, 18) => println!("{}", aoc2017::day18::solve(&input)),
         // (2017, 19) => println!("{}", aoc2017::day19::solve(&input)),
         // (2017, 20) => println!("{}", aoc2017::day20::solve(&input)),
@@ -76,6 +78,9 @@ fn main() {
         (2022, 08) => println!("{}", aoc2022::day08::solve(&input)),
         (2022, 09) => println!("{}", aoc2022::day09::solve(&input)),
         (2022, 10) => println!("{}", aoc2022::day10::solve(&input)),
+        (2022, 11) => println!("{}", aoc2022::day11::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
+
+    Ok(())
 }

@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.66"
 bit-set = "0.5.3"
 bit-vec = "0.6.3"
 byteorder = { version = "1.4.3", features = ["i128"] }
@@ -18,3 +19,4 @@ petgraph = "0.6.2"
 primal = "0.3.1"
 rand = "0.8.5"
 regex = "1.7.0"
+rhai = "1.11.0"
