@@ -149,5 +149,9 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn test_example() {}
+    fn test_example() {
+        assert!(
+            super::solve(include_str!("examples/day11.txt")) == crate::Solution(10605, 2713310158)
+        );
+    }
 }
