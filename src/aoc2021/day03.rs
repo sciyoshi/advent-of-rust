@@ -66,8 +66,6 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     let part2 = v1 * v2;
 
-    println!("{:?} {:?}", part1, part2);
-
     Solution(part1, part2)
 }
 
