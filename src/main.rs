@@ -57,7 +57,7 @@ fn main() -> anyhow::Result<()> {
         (2017, 15) => println!("{}", aoc2017::day15::solve(&input)),
         (2017, 16) => println!("{}", aoc2017::day16::solve(&input)),
         (2017, 17) => println!("{}", aoc2017::day17::solve(&input)),
-        // (2017, 18) => println!("{}", aoc2017::day18::solve(&input)),
+        (2017, 18) => println!("{}", aoc2017::day18::solve(&input)),
         // (2017, 19) => println!("{}", aoc2017::day19::solve(&input)),
         // (2017, 20) => println!("{}", aoc2017::day20::solve(&input)),
         // (2017, 21) => println!("{}", aoc2017::day21::solve(&input)),

@@ -1,5 +1,12 @@
 use crate::Solution;
-use nom::*;
+use nom::{
+    branch::alt,
+    bytes::complete::tag,
+    character::complete::{anychar, i64, space0},
+    combinator::map,
+    sequence::{delimited, tuple},
+    IResult,
+};
 use std::collections::HashMap;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::sync::Arc;
@@ -34,14 +41,16 @@ enum Cmd {
     Jgz(Arg, Arg),
 }
 
-named!(reg(&str) -> Reg, do_parse!(
-    c: anychar >> (c)
-));
+fn reg(input: &str) -> IResult<&str, char> {
+    delimited(space0, anychar, space0)(input)
+}
 
-named!(arg(&str) -> Arg, alt!(
-    recognize!(pair!(opt!(tag_s!("-")), call!(digit))) => { |s: &str| Arg::Val(s.parse().unwrap()) } |
-    anychar => { |c| Arg::Reg(c) }
-));
+fn arg(input: &str) -> IResult<&str, Arg> {
+    alt((
+        map(delimited(space0, i64, space0), |v| Arg::Val(v)),
+        map(reg, |c| Arg::Reg(c)),
+    ))(input)
+}
 
 fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64>>) -> i64 {
     let mut pc = 0;
@@ -91,34 +100,25 @@ fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64
     return 0;
 }
 
+fn parse_inst(input: &str) -> IResult<&str, Cmd> {
+    alt((
+        map(tuple((tag("snd"), reg)), |(_, reg)| Cmd::Snd(reg)),
+        map(tuple((tag("set"), reg, arg)), |(_, a, b)| Cmd::Set(a, b)),
+        map(tuple((tag("add"), reg, arg)), |(_, a, b)| Cmd::Add(a, b)),
+        map(tuple((tag("mul"), reg, arg)), |(_, a, b)| Cmd::Mul(a, b)),
+        map(tuple((tag("mod"), reg, arg)), |(_, a, b)| Cmd::Mod(a, b)),
+        map(tuple((tag("rcv"), reg)), |(_, reg)| Cmd::Rcv(reg)),
+        map(tuple((tag("jgz"), arg, arg)), |(_, a, b)| Cmd::Jgz(a, b)),
+    ))(input)
+}
+
 pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-    let ins: Vec<Cmd> = stdin
-        .lock()
+    let ins: Vec<Cmd> = input
         .lines()
-        .filter_map(|l| l.ok())
-        .filter_map(|l| {
-            ws!(
-                l.as_str(),
-                alt!(
-                    do_parse!(tag_s!("snd") >> reg: reg >> (Cmd::Snd(reg)))
-                        | do_parse!(tag_s!("set") >> a: reg >> b: arg >> (Cmd::Set(a, b)))
-                        | do_parse!(tag_s!("add") >> a: reg >> b: arg >> (Cmd::Add(a, b)))
-                        | do_parse!(tag_s!("mul") >> a: reg >> b: arg >> (Cmd::Mul(a, b)))
-                        | do_parse!(tag_s!("mod") >> a: reg >> b: arg >> (Cmd::Mod(a, b)))
-                        | do_parse!(tag_s!("rcv") >> reg: reg >> (Cmd::Rcv(reg)))
-                        | do_parse!(tag_s!("jgz") >> a: arg >> b: arg >> (Cmd::Jgz(a, b)))
-                )
-            )
-            .to_result()
-            .ok()
-        })
+        .map(|l| parse_inst(l).expect("invalid line").1)
         .collect();
 
-    println!(
-        "[Part 1] Recovered frequency is: {}",
-        run(&ins, 0, None, None)
-    );
+    let part1 = run(&ins, 0, None, None);
 
     let (tx1, rx1) = channel();
     let (tx2, rx2) = channel();
@@ -136,13 +136,13 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
     let _res1 = child1.join().unwrap();
     let res2 = child2.join().unwrap();
 
-    println!("[Part 2] Sent: {}", res2);
+    Solution(part1, res2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day18.txt")).0 == 4);
     }
 }
