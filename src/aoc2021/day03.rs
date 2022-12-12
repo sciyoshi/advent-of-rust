@@ -1,18 +1,18 @@
 use crate::Solution;
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<Vec<usize>> = io::stdin()
-        .lock()
+    let data: Vec<Vec<usize>> = input
         .lines()
         .map(|line| {
-            line.unwrap()
-                .chars()
+            line.chars()
                 .map(|c| c.to_digit(2).unwrap() as usize)
                 .collect()
         })
         .collect();
 
-    let mut counts = [0; 12];
+    let width = data[0].len();
+
+    let mut counts = vec![0; width];
 
     for line in &data {
         for (i, c) in line.iter().enumerate() {
@@ -25,15 +25,15 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     let mut v1 = 0;
     let mut v2 = 0;
 
-    for i in 0..12 {
-        if counts[i] > 500 {
-            v1 += 1 << (11 - i);
+    for i in 0..width {
+        if counts[i] > data.len() / 2 {
+            v1 += 1 << (width - 1 - i);
         } else {
-            v2 += 1 << (11 - i);
+            v2 += 1 << (width - 1 - i);
         }
     }
 
-    println!("[Part 1] {:?}", v1 * v2);
+    let part1 = v1 * v2;
 
     v1 = 0;
     v2 = 0;
@@ -41,7 +41,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     let mut d1 = data.clone();
     let mut d2 = data.clone();
 
-    for i in 0..12 {
+    for i in 0..width {
         let c1 = d1.iter().map(|l| l[i]).sum::<usize>();
         let c2 = d2.iter().map(|l| l[i]).sum::<usize>();
 
@@ -60,17 +60,21 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         d1.retain(|l| l[i] == b1);
         d2.retain(|l| l[i] == b2);
 
-        v1 += b1 * (1 << (11 - i));
-        v2 += b2 * (1 << (11 - i));
+        v1 += b1 * (1 << (width - 1 - i));
+        v2 += b2 * (1 << (width - 1 - i));
     }
 
-    println!("[Part 2] {:?}", v1 * v2);
+    let part2 = v1 * v2;
+
+    println!("{:?} {:?}", part1, part2);
+
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve("00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010") == crate::Solution(198, 230));
     }
 }

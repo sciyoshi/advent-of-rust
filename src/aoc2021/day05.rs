@@ -1,16 +1,12 @@
-use crate::util::ints;
+use crate::utils::extract_integers;
+use crate::Solution;
 use std::{
     cmp::{max, min},
     collections::HashMap,
-    io::{self, BufRead},
 };
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = io::stdin()
-        .lock()
-        .lines()
-        .map(|line| ints(line.unwrap().as_str()))
-        .collect();
+    let data: Vec<_> = input.lines().map(|line| extract_integers(line)).collect();
 
     let mut points: HashMap<(i64, i64), u64> = HashMap::new();
 
@@ -30,7 +26,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         }
     }
 
-    println!("[Part 1] {:?}", points.values().filter(|c| **c > 1).count());
+    let part1 = points.values().filter(|c| **c > 1).count();
 
     for l in &data {
         let (x1, y1, x2, y2) = (l[0], l[1], l[2], l[3]);
@@ -47,13 +43,15 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         }
     }
 
-    println!("[Part 2] {:?}", points.values().filter(|c| **c > 1).count());
+    let part2 = points.values().filter(|c| **c > 1).count();
+
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day05.txt")) == crate::Solution(5, 12));
     }
 }
