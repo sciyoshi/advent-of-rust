@@ -70,7 +70,7 @@ fn main() -> anyhow::Result<()> {
         (2019, 05) => println!("{}", aoc2019::day05::solve(&input)),
         (2019, 06) => println!("{}", aoc2019::day06::solve(&input)),
         (2021, 01) => println!("{}", aoc2021::day01::solve(&input)),
-        // (2021, 02) => println!("{}", aoc2021::day02::solve(&input)),
+        (2021, 02) => println!("{}", aoc2021::day02::solve(&input)),
         // (2021, 03) => println!("{}", aoc2021::day03::solve(&input)),
         // (2021, 04) => println!("{}", aoc2021::day04::solve(&input)),
         // (2021, 05) => println!("{}", aoc2021::day05::solve(&input)),

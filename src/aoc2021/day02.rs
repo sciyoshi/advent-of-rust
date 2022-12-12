@@ -33,12 +33,8 @@ fn parse(i: &str) -> IResult<&str, (Direction, i64)> {
     )(i)
 }
 
-pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = io::stdin()
-        .lock()
-        .lines()
-        .map(|line| parse(line.unwrap().as_str()).unwrap().1)
-        .collect();
+pub fn solve(input: &str) -> Solution<i64, i64> {
+    let data: Vec<_> = input.lines().map(|line| parse(line).unwrap().1).collect();
 
     let mut pt = Pt { x: 0, y: 0 };
 
@@ -50,7 +46,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         }
     }
 
-    println!("[Part 1] {:?}", pt.x * pt.y.abs());
+    let part1 = pt.x * pt.y.abs();
 
     let mut pt = Pt { x: 0, y: 0 };
     let mut aim = 0;
@@ -70,13 +66,18 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         }
     }
 
-    println!("[Part 2] {:?}", pt.x * pt.y.abs());
+    let part2 = pt.x * pt.y.abs();
+
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(
+            super::solve("forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2")
+                == crate::Solution(150, 900)
+        );
     }
 }
