@@ -1,14 +1,6 @@
 use crate::{utils::extract_integers, Solution};
 use itertools::Itertools;
-use nom::{
-    branch::alt,
-    bytes::complete::tag,
-    character::complete::{i64, space1},
-    combinator::{map, value},
-    sequence::separated_pair,
-    Finish, IResult,
-};
-use rhai::{Engine, EvalAltResult, Scope, AST};
+use rhai::{Engine, Scope, AST};
 
 #[derive(Clone)]
 struct Monkey {
@@ -109,7 +101,7 @@ fn run_round(monkeys: &mut Vec<Monkey>, engine: &Engine, lcm: i64, relief: bool)
 pub fn solve(input: &str) -> Solution<usize, usize> {
     let engine = Engine::new_raw();
 
-    let mut monkeys = parse_monkeys(input, &engine);
+    let monkeys = parse_monkeys(input, &engine);
 
     let lcm = monkeys.iter().map(|m| m.test).fold(1, num::integer::lcm);
 
