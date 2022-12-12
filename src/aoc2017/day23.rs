@@ -1,6 +1,12 @@
-use crate::util::num;
 use crate::Solution;
-use nom::*;
+use nom::{
+    branch::alt,
+    bytes::complete::tag,
+    character::complete::{anychar, i64, space0},
+    combinator::map,
+    sequence::{delimited, tuple},
+    IResult,
+};
 use primal::is_prime;
 use std::collections::HashMap;
 
@@ -29,14 +35,16 @@ enum Cmd {
     Jnz(Arg, Arg),
 }
 
-named!(reg(&str) -> Reg, do_parse!(
-    c: anychar >> (c)
-));
+fn reg(input: &str) -> IResult<&str, char> {
+    delimited(space0, anychar, space0)(input)
+}
 
-named!(arg(&str) -> Arg, alt!(
-    num => { |v: i64| Arg::Val(v) } |
-    anychar => { |c| Arg::Reg(c) }
-));
+fn arg(input: &str) -> IResult<&str, Arg> {
+    alt((
+        map(delimited(space0, i64, space0), |v| Arg::Val(v)),
+        map(reg, |c| Arg::Reg(c)),
+    ))(input)
+}
 
 fn run(ins: &[Cmd], debug: bool) -> (HashMap<char, i64>, i64) {
     let mut pc = 0;
@@ -69,28 +77,22 @@ fn run(ins: &[Cmd], debug: bool) -> (HashMap<char, i64>, i64) {
     (regs, count)
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-    let ins: Vec<Cmd> = stdin
-        .lock()
+fn parse_inst(input: &str) -> IResult<&str, Cmd> {
+    alt((
+        map(tuple((tag("set"), reg, arg)), |(_, a, b)| Cmd::Set(a, b)),
+        map(tuple((tag("sub"), reg, arg)), |(_, a, b)| Cmd::Sub(a, b)),
+        map(tuple((tag("mul"), reg, arg)), |(_, a, b)| Cmd::Mul(a, b)),
+        map(tuple((tag("jnz"), arg, arg)), |(_, a, b)| Cmd::Jnz(a, b)),
+    ))(input)
+}
+
+pub fn solve(input: &str) -> Solution<i64, usize> {
+    let ins: Vec<Cmd> = input
         .lines()
-        .filter_map(|l| l.ok())
-        .filter_map(|l| {
-            ws!(
-                l.as_str(),
-                alt!(
-                    do_parse!(tag_s!("set") >> a: reg >> b: arg >> (Cmd::Set(a, b)))
-                        | do_parse!(tag_s!("sub") >> a: reg >> b: arg >> (Cmd::Sub(a, b)))
-                        | do_parse!(tag_s!("mul") >> a: reg >> b: arg >> (Cmd::Mul(a, b)))
-                        | do_parse!(tag_s!("jnz") >> a: arg >> b: arg >> (Cmd::Jnz(a, b)))
-                )
-            )
-            .to_result()
-            .ok()
-        })
+        .map(|l| parse_inst(l).expect("invalid instruction").1)
         .collect();
 
-    println!("[Part 1] Mul ops: {}", run(&ins, true).1);
+    let part1 = run(&ins, true).1;
 
     let regs = run(&ins[..8], false).0;
     let min = regs[&'b'] as u64;
@@ -102,13 +104,5 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
     };
     let count = (min..=max).step_by(step).filter(|&n| !is_prime(n)).count();
 
-    println!("[Part 2] Output value: {}", count);
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
-    }
+    Solution(part1, count)
 }
