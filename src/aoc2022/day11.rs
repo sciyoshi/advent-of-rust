@@ -98,6 +98,27 @@ fn run_round(monkeys: &mut Vec<Monkey>, engine: &Engine, lcm: i64, relief: bool)
     }
 }
 
+fn run_rounds(
+    monkeys: &Vec<Monkey>,
+    engine: &Engine,
+    lcm: i64,
+    rounds: usize,
+    relief: bool,
+) -> usize {
+    let mut monkeys = monkeys.clone();
+
+    for _ in 0..rounds {
+        run_round(&mut monkeys, &engine, lcm, relief);
+    }
+
+    monkeys
+        .into_iter()
+        .map(|m| m.inspect_count)
+        .sorted_by(|a, b| b.cmp(a))
+        .take(2)
+        .product()
+}
+
 pub fn solve(input: &str) -> Solution<usize, usize> {
     let engine = Engine::new_raw();
 
@@ -105,35 +126,8 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     let lcm = monkeys.iter().map(|m| m.test).fold(1, num::integer::lcm);
 
-    let part1: usize = {
-        let mut monkeys = monkeys.clone();
-
-        for _ in 0..20 {
-            run_round(&mut monkeys, &engine, lcm, true);
-        }
-
-        monkeys
-            .into_iter()
-            .map(|m| m.inspect_count)
-            .sorted_by(|a, b| b.cmp(a))
-            .take(2)
-            .product()
-    };
-
-    let part2: usize = {
-        let mut monkeys = monkeys.clone();
-
-        for _ in 0..10_000 {
-            run_round(&mut monkeys, &engine, lcm, false);
-        }
-
-        monkeys
-            .into_iter()
-            .map(|m| m.inspect_count)
-            .sorted_by(|a, b| b.cmp(a))
-            .take(2)
-            .product()
-    };
+    let part1 = run_rounds(&monkeys, &engine, lcm, 20, true);
+    let part2 = run_rounds(&monkeys, &engine, lcm, 10_000, false);
 
     Solution(part1, part2)
 }
