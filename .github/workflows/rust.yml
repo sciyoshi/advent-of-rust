@@ -18,6 +18,7 @@ jobs:
       with:
         toolchain: nightly
         override: true
+        components: rustfmt
     - name: Build
       run: cargo build --verbose
     - name: Check formatting

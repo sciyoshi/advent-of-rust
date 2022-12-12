@@ -1,6 +1,12 @@
-use crate::util::num;
 use crate::Solution;
-use nom::*;
+use nom::{
+    bytes::complete::tag,
+    character::complete::{i64, space0},
+    combinator::map,
+    multi::separated_list1,
+    sequence::delimited,
+    IResult,
+};
 use std::collections::HashMap;
 use std::ops::{Add, AddAssign};
 
@@ -37,40 +43,33 @@ impl Particle {
     }
 }
 
-named!(point3d(&str) -> Point3D, do_parse!(
-    tag_s!("<") >>
-    x: call!(num) >>
-    tag_s!(",") >>
-    y: call!(num) >>
-    tag_s!(",") >>
-    z: call!(num) >>
-    tag_s!(">") >>
-    (Point3D(x as i64, y as i64, z as i64))
-));
+fn point3d(input: &str) -> IResult<&str, Point3D> {
+    map(
+        delimited(
+            tag("<"),
+            separated_list1(delimited(space0, tag(","), space0), i64),
+            tag(">"),
+        ),
+        |pts| Point3D(pts[0], pts[1], pts[2]),
+    )(input)
+}
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
+fn parse_particle(input: &str) -> IResult<&str, Particle> {
+    let (input, _) = tag("p=")(input)?;
+    let (input, pos) = point3d(input)?;
+    let (input, _) = tag(", v=")(input)?;
+    let (input, vel) = point3d(input)?;
+    let (input, _) = tag(", a=")(input)?;
+    let (input, acc) = point3d(input)?;
+
+    Ok((input, Particle { pos, vel, acc }))
+}
+
+pub fn solve(input: &str) -> Solution<usize, usize> {
     let mut particles: Vec<(usize, Particle)> = vec![];
 
-    for (i, line) in stdin.lock().lines().enumerate() {
-        let line = line.unwrap();
-
-        let particle = do_parse!(
-            line.as_str(),
-            tag_s!("p=")
-                >> p: point3d
-                >> tag_s!(", v=")
-                >> v: point3d
-                >> tag_s!(", a=")
-                >> a: point3d
-                >> (Particle {
-                    pos: p,
-                    vel: v,
-                    acc: a
-                })
-        )
-        .unwrap()
-        .1;
+    for (i, line) in input.lines().enumerate() {
+        let particle = parse_particle(line).expect("invalid particle").1;
 
         particles.push((i, particle));
     }
@@ -88,8 +87,6 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         .min_by_key(|(_, p)| p.pos.0.abs() + p.pos.1.abs() + p.pos.2.abs())
         .unwrap();
 
-    println!("[Part 1] Closest particle: {}", closest.0);
-
     for _ in 0..5000 {
         let mut positions = HashMap::new();
 
@@ -103,13 +100,17 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         colliding.retain(|(_, p)| positions[&p.pos] == 1);
     }
 
-    println!("[Part 2] Particles remaining: {}", colliding.len());
+    Solution(closest.0, colliding.len())
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(
+            super::solve("p=<3,0,0>, v=<2,0,0>, a=<-1,0,0>\np=<4,0,0>, v=<0,0,0>, a=<-2,0,0>").0
+                == 0
+        );
+        assert!(super::solve("p=<-6,0,0>, v=<3,0,0>, a=<0,0,0>\np=<-4,0,0>, v=<2,0,0>, a=<0,0,0>\np=<-2,0,0>, v=<1,0,0>, a=<0,0,0>\np=<3,0,0>, v=<-1,0,0>, a=<0,0,0>").1 == 1);
     }
 }
