@@ -12,7 +12,7 @@ pub fn extract_integers<T: Num>(s: &str) -> Vec<T> {
         .collect()
 }
 
-pub fn extract_floats(s: &str) -> Vec<f64> {
+pub fn _extract_floats(s: &str) -> Vec<f64> {
     let re = Regex::new(r"-?\d+(\.\d+)?").unwrap();
     re.find_iter(s)
         .map(|x| f64::from_str(&x.as_str()))
@@ -68,7 +68,7 @@ impl<T: Signed + Ord + Copy + ToPrimitive> Pt<T> {
         Pt(-self.1, self.0)
     }
 
-    pub fn within(self, x1: T, y1: T, x2: T, y2: T) -> bool {
+    pub fn _within(self, x1: T, y1: T, x2: T, y2: T) -> bool {
         self.0 >= x1 && self.0 <= x2 && self.1 >= y1 && self.1 <= y2
     }
 
@@ -98,7 +98,7 @@ impl<T: Signed + Ord + Copy + ToPrimitive> Pt<T> {
         self.0.abs() + self.1.abs()
     }
 
-    pub fn norm2(&self) -> f64 {
+    pub fn _norm2(&self) -> f64 {
         (self.0 * self.0 + self.1 * self.1).to_f64().unwrap().sqrt()
     }
 

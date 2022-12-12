@@ -6,7 +6,7 @@ pub fn exec(
 ) -> Option<usize> {
     let arg1_mode = ((ops[ip] % 1000) / 100) != 0;
     let arg2_mode = ((ops[ip] % 10000) / 1000) != 0;
-    let arg3_mode = ((ops[ip] % 100000) / 10000) != 0;
+    let _arg3_mode = ((ops[ip] % 100000) / 10000) != 0;
 
     match ops[ip] % 100 {
         1 => {
