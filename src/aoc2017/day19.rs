@@ -1,22 +1,20 @@
-use crate::util::Pt;
+use crate::utils::Pt;
 use crate::Solution;
 use std::collections::HashMap;
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-
-    let mut map: HashMap<Pt, char> = HashMap::new();
+pub fn solve(input: &str) -> Solution<String, usize> {
+    let mut map: HashMap<Pt<i64>, char> = HashMap::new();
     let mut pos = Pt(0, 0);
     let mut dir = Pt::e();
     let mut steps = 0;
     let mut path = vec![];
 
-    for (i, line) in stdin.lock().lines().enumerate() {
-        for (j, c) in line.unwrap().chars().enumerate() {
-            map.insert(Pt(i as isize, j as isize), c);
+    for (i, line) in input.lines().enumerate() {
+        for (j, c) in line.chars().enumerate() {
+            map.insert(Pt(i as i64, j as i64), c);
 
             if i == 0 && c == '|' {
-                pos = Pt(i as isize, j as isize);
+                pos = Pt(i as i64, j as i64);
             }
         }
     }
@@ -38,14 +36,16 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         steps += 1;
     }
 
-    println!("[Part 1] Path: {}", path.into_iter().collect::<String>());
-    println!("[Part 2] Steps: {}", steps);
+    Solution(path.into_iter().collect::<String>(), steps)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(
+            super::solve(include_str!("examples/day19.txt"))
+                == crate::Solution("ABCDEF".to_string(), 38)
+        );
     }
 }
