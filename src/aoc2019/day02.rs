@@ -1,13 +1,11 @@
-use std::io::stdin;
+use crate::Solution;
 use std::iter::empty;
 
 use super::intcode::exec;
 use crate::utils::extract_integers;
 
-pub fn solve() {
-    let line = stdin().lines().next().unwrap().unwrap();
-
-    let mut ops: Vec<_> = extract_integers::<isize>(&line).into_iter().collect();
+pub fn solve(input: &str) -> Solution<isize, isize> {
+    let ops: Vec<_> = extract_integers::<isize>(input).into_iter().collect();
 
     let mut ip = 0;
 
@@ -23,7 +21,7 @@ pub fn solve() {
         ip = next_ip;
     }
 
-    println!("part1: {:?}", ops1[0]);
+    let part1 = ops1[0];
 
     for i in 0..100 {
         for j in 0..100 {
@@ -38,9 +36,10 @@ pub fn solve() {
             }
 
             if ops2[0] == 19690720 {
-                println!("part2: {}", 100 * i + j);
-                return;
+                return Solution(part1, 100 * i + j);
             }
         }
     }
+
+    unreachable!();
 }

@@ -1,8 +1,8 @@
+use crate::Solution;
 use petgraph::graphmap::UnGraphMap;
-use std::io::stdin;
 
-pub fn solve() {
-    let edges: Vec<_> = stdin().lines().map(Result::unwrap).collect();
+pub fn solve(input: &str) -> Solution<u32, usize> {
+    let edges: Vec<_> = input.lines().collect();
 
     let graph = UnGraphMap::<_, ()>::from_edges(edges.iter().map(|l| {
         let edge: Vec<_> = l.split(')').collect();
@@ -31,6 +31,8 @@ pub fn solve() {
     // Use the astar() function to find the shortest path between the nodes labeled "YOU" and "SAN".
     let path = petgraph::algo::astar(&graph, "YOU", |node| node == "SAN", |_| 1, |_| 0);
 
-    println!("part1: {}", distances.into_iter().sum::<u32>());
-    println!("part2: {}", path.map(|(_, path)| path.len()).unwrap() - 3);
+    let part1 = distances.into_iter().sum::<u32>();
+    let part2 = path.map(|(_, path)| path.len()).unwrap() - 3;
+
+    Solution(part1, part2)
 }

@@ -1,12 +1,9 @@
-use std::io::stdin;
-
 use super::intcode::exec;
 use crate::utils::extract_integers;
+use crate::Solution;
 
-pub fn solve() {
-    let line = stdin().lines().next().unwrap().unwrap();
-
-    let mut ops: Vec<_> = extract_integers::<isize>(&line).into_iter().collect();
+pub fn solve(input: &str) -> Solution<usize, usize> {
+    let mut ops: Vec<_> = extract_integers::<isize>(input).into_iter().collect();
 
     let mut inp = vec![1isize].into_iter();
     let mut out = vec![];
@@ -17,4 +14,6 @@ pub fn solve() {
     }
 
     println!("{:?}", out);
+
+    Solution(0, 0)
 }
