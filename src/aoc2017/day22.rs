@@ -1,4 +1,4 @@
-use crate::util::Pt;
+use crate::utils::Pt;
 use crate::Solution;
 use std::collections::HashMap;
 
@@ -16,7 +16,7 @@ impl Default for Status {
     }
 }
 
-fn run(mut map: HashMap<Pt, Status>, steps: u32, evolved: bool) -> u32 {
+fn run(mut map: HashMap<Pt<i64>, Status>, steps: u32, evolved: bool) -> u32 {
     let mut pos = Pt(0, 0);
     let mut dir = Pt::n();
     let mut count = 0;
@@ -58,14 +58,12 @@ fn run(mut map: HashMap<Pt, Status>, steps: u32, evolved: bool) -> u32 {
     count
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
+pub fn solve(input: &str) -> Solution<u32, u32> {
+    let mut map: HashMap<Pt<i64>, Status> = HashMap::new();
 
-    let mut map: HashMap<Pt, Status> = HashMap::new();
-
-    let lines: Vec<String> = stdin.lock().lines().filter_map(|l| l.ok()).collect();
-    let height = lines.len() as isize;
-    let width = lines[0].len() as isize;
+    let lines: Vec<String> = input.lines().map(str::to_string).collect();
+    let height = lines.len() as i64;
+    let width = lines[0].len() as i64;
 
     for (line, j) in lines.into_iter().zip((-(height / 2)..=height / 2).rev()) {
         for (c, i) in line.chars().zip(-(width / 2)..=width / 2) {
@@ -80,17 +78,16 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         }
     }
 
-    println!(
-        "[Part 1] Times infected: {}",
-        run(map.clone(), 10_000, false)
-    );
-    println!("[Part 2] Times infected: {}", run(map, 10_000_000, true));
+    let part1 = run(map.clone(), 10_000, false);
+    let part2 = run(map, 10_000_000, true);
+
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve("..#\n#.....") == crate::Solution(5587, 2511944));
     }
 }
