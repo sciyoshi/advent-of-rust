@@ -48,10 +48,6 @@ pub fn solve(input: &str) -> Solution<usize, String> {
 
     step(&lengths, &mut rope, 1);
 
-    println!("[Part 1] Product is: {}", rope[0] * rope[1]);
-
-    println!("[Part 2] {:032x}", knothash(input.bytes()));
-
     Solution(
         rope[0] * rope[1],
         format!("{:032x}", knothash(input.bytes())),

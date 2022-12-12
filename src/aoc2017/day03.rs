@@ -3,7 +3,7 @@ use crate::Solution;
 use std::collections::HashMap;
 
 pub fn solve(input: &str) -> Solution<i32, i32> {
-    let input: u32 = input.parse().unwrap();
+    let input: u32 = input.trim().parse().unwrap();
 
     // Create a grid mapping points to their contents
     let mut grid = HashMap::new();

@@ -27,6 +27,7 @@ fn permute(mut vals: Vec<char>, cmds: &[Cmd]) -> Vec<char> {
 
 pub fn solve(input: &str) -> Solution<String, String> {
     let cmds: Vec<Cmd> = input
+        .trim()
         .split(",")
         .map(|cmd| {
             let (op, arg) = cmd.split_at(1);

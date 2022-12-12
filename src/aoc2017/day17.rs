@@ -1,7 +1,7 @@
 use crate::Solution;
 
 pub fn solve(input: &str) -> Solution<i64, i64> {
-    let step: usize = input.parse().unwrap();
+    let step: usize = input.trim().parse().unwrap();
 
     let mut buf = vec![0];
     let mut pos = 0;

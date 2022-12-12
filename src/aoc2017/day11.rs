@@ -18,20 +18,23 @@ fn dist(pt: Pt) -> i32 {
 }
 
 pub fn solve(input: &str) -> Solution<i32, i32> {
-    let (end, max) = input.split(",").fold((Pt(0, 0), 0), |(pos, max), dir| {
-        let next = pos
-            + match dir {
-                "n" => Pt(0, 1),
-                "ne" => Pt(1, 0),
-                "se" => Pt(1, -1),
-                "s" => Pt(0, -1),
-                "sw" => Pt(-1, 0),
-                "nw" => Pt(-1, 1),
-                _ => panic!(),
-            };
+    let (end, max) = input
+        .trim()
+        .split(",")
+        .fold((Pt(0, 0), 0), |(pos, max), dir| {
+            let next = pos
+                + match dir {
+                    "n" => Pt(0, 1),
+                    "ne" => Pt(1, 0),
+                    "se" => Pt(1, -1),
+                    "s" => Pt(0, -1),
+                    "sw" => Pt(-1, 0),
+                    "nw" => Pt(-1, 1),
+                    _ => panic!(),
+                };
 
-        (next, cmp::max(dist(next), max))
-    });
+            (next, cmp::max(dist(next), max))
+        });
 
     Solution(dist(end), max)
 }
