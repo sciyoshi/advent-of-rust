@@ -18,7 +18,7 @@ mod aoc2022;
 mod utils;
 
 #[derive(PartialEq)]
-pub struct Solution<P1: PartialEq + Display, P2: PartialEq + Display>(P1, P2);
+pub struct Solution<P1: PartialEq, P2: PartialEq>(P1, P2);
 
 impl<P1: PartialEq + Display, P2: PartialEq + Display> Display for Solution<P1, P2> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -63,7 +63,7 @@ fn main() -> anyhow::Result<()> {
         (2017, 21) => println!("{}", aoc2017::day21::solve(&input)),
         (2017, 22) => println!("{}", aoc2017::day22::solve(&input)),
         (2017, 23) => println!("{}", aoc2017::day23::solve(&input)),
-        // (2017, 24) => println!("{}", aoc2017::day24::solve(&input)),
+        (2017, 24) => println!("{}", aoc2017::day24::solve(&input)),
         // (2017, 25) => println!("{}", aoc2017::day25::solve(&input)),
         (2019, 02) => aoc2019::day2::solve(),
         (2019, 05) => aoc2019::day5::solve(),

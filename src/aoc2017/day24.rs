@@ -1,7 +1,6 @@
-use crate::util::num;
+use crate::utils::extract_integers;
 use crate::Solution;
 use bit_set::BitSet;
-use nom::*;
 use petgraph::{
     graph::NodeIndex,
     visit::{EdgeRef, NodeIndexable},
@@ -44,19 +43,14 @@ fn visit(
     }
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-
-    let edges: Vec<(u32, u32, u32)> = stdin
-        .lock()
+pub fn solve(input: &str) -> Solution<u32, u32> {
+    let edges: Vec<(u32, u32, u32)> = input
         .lines()
-        .filter_map(|line| line.ok())
-        .filter_map(|line| {
-            separated_pair!(line.as_str(), call!(num), tag_s!("/"), call!(num))
-                .to_result()
-                .ok()
+        .map(|line| {
+            let ints = extract_integers(line);
+            (ints[0], ints[1])
         })
-        .map(|(left, right)| (left as u32, right as u32, (left + right) as u32))
+        .map(|(left, right)| (left, right, left + right))
         .collect();
 
     let graph = Graph::<u32, u32, Undirected>::from_edges(&edges);
@@ -65,14 +59,15 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
 
     visit(&graph, graph.from_index(0), &mut visited, 0, &mut stats);
 
-    println!("[Part 1] Strongest bridge: {}", stats.strongest);
-    println!("[Part 2] Strength of longest bridge: {}", stats.longest);
+    Solution(stats.strongest, stats.longest)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(
+            super::solve("0/2\n2/2\n2/3\n3/4\n3/5\n0/1\n10/1\n9/10") == crate::Solution(31, 19)
+        );
     }
 }
