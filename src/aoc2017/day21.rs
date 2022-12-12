@@ -49,13 +49,10 @@ fn expand(
     result
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
+fn parse_replacements(input: &str) -> HashMap<Array2<bool>, Array2<bool>> {
     let mut replacements = HashMap::new();
 
-    for line in stdin.lock().lines() {
-        let line = line.unwrap();
-
+    for line in input.lines() {
         let parts: Vec<&str> = line.split(" => ").collect();
         let mut source = parse(parts[0]);
         let target = parse(parts[1]);
@@ -68,31 +65,40 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         }
     }
 
+    replacements
+}
+
+pub fn solve(input: &str) -> Solution<usize, usize> {
+    let replacements = parse_replacements(input);
     let mut pattern = parse(".#./..#/###");
 
     for _i in 0..5 {
         pattern = expand(&pattern, &replacements);
     }
 
-    println!(
-        "[Part 1] Pixels on after 5 iterations: {}",
-        pattern.iter().filter(|&&cell| cell).count()
-    );
+    let part1 = pattern.iter().filter(|&&cell| cell).count();
 
     for _i in 5..18 {
         pattern = expand(&pattern, &replacements);
     }
 
-    println!(
-        "[Part 2] Pixels on after 18 iterations: {}",
-        pattern.iter().filter(|&&cell| cell).count()
-    );
+    let part2 = pattern.iter().filter(|&&cell| cell).count();
+
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        let replacements =
+            super::parse_replacements("../.# => ##./#../...\n.#./..#/### => #..#/..../..../#..#");
+        let mut pattern = super::parse(".#./..#/###");
+
+        for _i in 0..2 {
+            pattern = super::expand(&pattern, &replacements);
+        }
+
+        assert!(pattern.iter().filter(|&&cell| cell).count() == 12);
     }
 }
