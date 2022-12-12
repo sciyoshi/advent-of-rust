@@ -1,9 +1,12 @@
-use crate::util::num;
+use crate::Solution;
 use bit_vec::BitVec;
-use nom::*;
+use nom::{
+    bytes::complete::tag, character::complete::anychar, character::complete::u64,
+    sequence::preceded, IResult,
+};
 use std::collections::HashMap;
-use std::io::{self, Read};
 use std::ops::Index;
+use std::str::Lines;
 
 #[derive(Debug)]
 struct Tape {
@@ -60,55 +63,85 @@ impl Index<isize> for Tape {
     }
 }
 
-pub fn solve(input: &str) -> Solution<i64, i64> {
-    let stdin = io::stdin();
-    let mut input = String::new();
+fn parse_transition(lines: &mut Lines) -> (usize, Direction, char) {
+    let next_value: usize = lines
+        .next()
+        .unwrap()
+        .strip_prefix("    - Write the value ")
+        .unwrap()
+        .strip_suffix(".")
+        .unwrap()
+        .parse()
+        .unwrap();
 
-    stdin.lock().read_to_string(&mut input).unwrap();
+    let direction = match lines
+        .next()
+        .unwrap()
+        .strip_prefix("    - Move one slot to the ")
+        .unwrap()
+    {
+        "left." => Direction::Left,
+        "right." => Direction::Right,
+        _ => panic!("invalid direction"),
+    };
 
-    let (start, steps, states) = ws!(
-        input.as_str(),
-        do_parse!(
-            tag_s!("Begin in state")
-                >> start: terminated!(anychar, tag_s!("."))
-                >> tag_s!("Perform a diagnostic checksum after")
-                >> steps: terminated!(num, tag_s!("steps."))
-                >> states:
-                    many0!(ws!(do_parse!(
-                        tag_s!("In state")
-                            >> state: terminated!(anychar, tag_s!(":"))
-                            >> transitions:
-                                many1!(ws!(do_parse!(
-                                    tag_s!("If the current value is")
-                                        >> _value: terminated!(num, tag_s!(":"))
-                                        >> tag_s!("- Write the value")
-                                        >> next_value: terminated!(num, tag_s!("."))
-                                        >> tag_s!("- Move one slot to the")
-                                        >> direction:
-                                            terminated!(
-                                                alt!(
-                                                    tag_s!("left") => { |_| Direction::Left } |
-                                                    tag_s!("right") => { |_| Direction::Right }
-                                                ),
-                                                tag_s!(".")
-                                            )
-                                        >> tag_s!("- Continue with state")
-                                        >> next_state: terminated!(anychar, tag_s!("."))
-                                        >> ((next_value as usize, direction, next_state))
-                                )))
-                            >> ((state, transitions))
-                    )))
-                >> ((
-                    start,
-                    steps,
-                    states
-                        .into_iter()
-                        .collect::<HashMap<char, Vec<(usize, Direction, char)>>>()
-                ))
-        )
-    )
-    .to_result()
-    .unwrap();
+    let next_state = lines
+        .next()
+        .unwrap()
+        .strip_prefix("    - Continue with state ")
+        .unwrap()
+        .chars()
+        .next()
+        .unwrap();
+
+    (next_value, direction, next_state)
+}
+
+fn parse_rule(input: &str) -> (char, Vec<(usize, Direction, char)>) {
+    let mut lines = input.lines();
+    let mut rules = vec![];
+
+    let state = lines
+        .next()
+        .unwrap()
+        .strip_prefix("In state ")
+        .unwrap()
+        .chars()
+        .next()
+        .unwrap();
+
+    //   If the current value is 0:
+    lines.next().unwrap();
+    rules.push(parse_transition(&mut lines));
+
+    //   If the current value is 1:
+    lines.next().unwrap();
+    rules.push(parse_transition(&mut lines));
+
+    (state, rules)
+}
+
+fn parse_blueprint(
+    input: &str,
+) -> IResult<&str, (char, u64, HashMap<char, Vec<(usize, Direction, char)>>)> {
+    let mut groups = input.split("\n\n");
+
+    let mut lines = groups.next().expect("invalid input").lines();
+
+    let (_, start) =
+        preceded(tag("Begin in state "), anychar)(lines.next().expect("no begin line"))?;
+
+    let (_, steps) = preceded(tag("Perform a diagnostic checksum after "), u64)(
+        lines.next().expect("no begin line"),
+    )?;
+
+    let states = groups.map(parse_rule).collect();
+
+    Ok(("", (start, steps, states)))
+}
+
+pub fn solve(input: &str) -> Solution<usize, &str> {
+    let (start, steps, states) = parse_blueprint(input).expect("invalid input").1;
 
     let mut tape = Tape::new();
     let mut state = start;
@@ -130,13 +163,13 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
         tape.grow(index);
     }
 
-    println!("[Part 1] Diagnostic checksum is: {}", tape.count());
+    Solution(tape.count(), "")
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day25.txt")).0 == 3);
     }
 }
