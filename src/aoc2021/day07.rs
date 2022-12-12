@@ -1,9 +1,9 @@
-use crate::util::ints;
+use crate::utils::extract_integers;
 use crate::Solution;
 use std::iter::Iterator;
 
-pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = ints(io::stdin().lock().lines().next().unwrap().unwrap().as_str());
+pub fn solve(input: &str) -> Solution<i64, i64> {
+    let data: Vec<i64> = extract_integers(input);
 
     let max = *data.iter().max().unwrap();
 
@@ -11,8 +11,6 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .map(|n| data.iter().map(|c| (c - n).abs()).sum::<i64>())
         .min()
         .unwrap();
-
-    println!("[Part 1] {:?}", part1);
 
     let part2 = (0..=max)
         .map(|n| {
@@ -23,13 +21,13 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .min()
         .unwrap();
 
-    println!("[Part 2] {:?}", part2);
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve("16,1,2,0,4,2,7,1,2,14") == crate::Solution(37, 168));
     }
 }

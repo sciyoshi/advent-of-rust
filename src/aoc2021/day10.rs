@@ -43,12 +43,8 @@ fn parse(i: &str) -> ParseResult {
     }
 }
 
-pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = io::stdin()
-        .lock()
-        .lines()
-        .map(|line| line.unwrap())
-        .collect();
+pub fn solve(input: &str) -> Solution<usize, u64> {
+    let data: Vec<_> = input.lines().collect();
 
     let mut part1 = 0;
     let mut part2 = vec![];
@@ -72,14 +68,13 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     part2.sort();
 
-    println!("[Part 1] {:?}", part1);
-    println!("[Part 2] {:?}", part2[part2.len() / 2]);
+    Solution(part1, part2[part2.len() / 2])
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day10.txt")) == crate::Solution(26397, 288957));
     }
 }

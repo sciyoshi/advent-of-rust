@@ -1,7 +1,5 @@
-use std::{
-    collections::HashSet,
-    io::{self, BufRead},
-};
+use crate::Solution;
+use std::collections::HashSet;
 
 fn flood(grid: &Vec<Vec<u32>>, pt: (usize, usize)) -> usize {
     let mut stack = vec![pt];
@@ -46,12 +44,8 @@ fn flood(grid: &Vec<Vec<u32>>, pt: (usize, usize)) -> usize {
     seen.len()
 }
 
-pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = io::stdin()
-        .lock()
-        .lines()
-        .map(|line| line.unwrap())
-        .collect();
+pub fn solve(input: &str) -> Solution<u32, usize> {
+    let data: Vec<_> = input.lines().collect();
 
     let grid: Vec<Vec<u32>> = data
         .iter()
@@ -79,17 +73,16 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     basins.sort();
 
-    println!("[Part 1] {:?}", part1);
-    println!(
-        "[Part 2] {:?}",
-        basins[basins.len() - 3..].iter().product::<usize>()
-    );
+    Solution(part1, basins[basins.len() - 3..].iter().product::<usize>())
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(
+            super::solve("2199943210\n3987894921\n9856789892\n8767896789\n9899965678")
+                == crate::Solution(15, 1134)
+        );
     }
 }

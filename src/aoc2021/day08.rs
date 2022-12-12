@@ -1,11 +1,7 @@
 use crate::Solution;
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = io::stdin()
-        .lock()
-        .lines()
-        .map(|line| line.unwrap())
-        .collect();
+    let data: Vec<_> = input.lines().collect();
 
     let mut part1 = 0;
     let mut part2 = 0;
@@ -61,14 +57,13 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
             .unwrap();
     }
 
-    println!("[Part 1] {:?}", part1);
-    println!("[Part 2] {:?}", part2);
+    Solution(part1, part2)
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day08.txt")) == crate::Solution(26, 61229));
     }
 }
