@@ -1,19 +1,26 @@
-use super::intcode::exec;
 use crate::utils::extract_integers;
 use crate::Solution;
 
-pub fn solve(input: &str) -> Solution<usize, usize> {
-    let mut ops: Vec<_> = extract_integers::<isize>(input).into_iter().collect();
+use super::intcode::Intcode;
 
-    let mut inp = vec![1isize].into_iter();
-    let mut out = vec![];
-    let mut ip = 0;
+pub fn solve(input: &str) -> Solution<isize, isize> {
+    let ops: Vec<_> = extract_integers::<isize>(input).into_iter().collect();
 
-    while let Some(next_ip) = exec(&mut ops, ip, &mut inp, &mut out) {
-        ip = next_ip;
+    let (code, input, output) = Intcode::new(&ops);
+    code.run();
+    input.send(1).unwrap();
+    let mut part1 = 0;
+    while let Ok(out) = output.recv() {
+        part1 = out;
     }
 
-    println!("{:?}", out);
+    let (code, input, output) = Intcode::new(&ops);
+    code.run();
+    input.send(5).unwrap();
+    let mut part2 = 0;
+    while let Ok(out) = output.recv() {
+        part2 = out;
+    }
 
-    Solution(0, 0)
+    Solution(part1, part2)
 }

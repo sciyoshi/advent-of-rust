@@ -1,3 +1,4 @@
+// #![deny(warnings)]
 #![feature(
     box_syntax,
     anonymous_lifetime_in_impl_trait,
@@ -66,9 +67,12 @@ fn main() -> anyhow::Result<()> {
         (2017, 23) => println!("{}", aoc2017::day23::solve(&input)),
         (2017, 24) => println!("{}", aoc2017::day24::solve(&input)),
         (2017, 25) => println!("{}", aoc2017::day25::solve(&input)),
+        (2019, 01) => println!("{}", aoc2019::day01::solve(&input)),
         (2019, 02) => println!("{}", aoc2019::day02::solve(&input)),
+        (2019, 03) => println!("{}", aoc2019::day03::solve(&input)),
         (2019, 05) => println!("{}", aoc2019::day05::solve(&input)),
         (2019, 06) => println!("{}", aoc2019::day06::solve(&input)),
+        (2019, 07) => println!("{}", aoc2019::day07::solve(&input)),
         (2021, 01) => println!("{}", aoc2021::day01::solve(&input)),
         (2021, 02) => println!("{}", aoc2021::day02::solve(&input)),
         (2021, 03) => println!("{}", aoc2021::day03::solve(&input)),
@@ -106,6 +110,7 @@ fn main() -> anyhow::Result<()> {
         (2022, 10) => println!("{}", aoc2022::day10::solve(&input)),
         (2022, 11) => println!("{}", aoc2022::day11::solve(&input)),
         (2022, 12) => println!("{}", aoc2022::day12::solve(&input)),
+        (2022, 13) => println!("{}", aoc2022::day13::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 

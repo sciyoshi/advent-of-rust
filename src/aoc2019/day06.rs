@@ -36,3 +36,14 @@ pub fn solve(input: &str) -> Solution<u32, usize> {
 
     Solution(part1, part2)
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_example() {
+        assert!(
+            super::solve("COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\nK)YOU\nI)SAN").1
+                == 4
+        );
+    }
+}
