@@ -6,6 +6,7 @@
     array_chunks,
     array_windows,
     iter_array_chunks,
+    const_for,
     type_alias_impl_trait
 )]
 
@@ -113,6 +114,8 @@ fn main() -> anyhow::Result<()> {
         (2022, 13) => println!("{}", aoc2022::day13::solve(&input)),
         (2022, 14) => println!("{}", aoc2022::day14::solve(&input)),
         (2022, 15) => println!("{}", aoc2022::day15::solve(&input)),
+        (2022, 16) => println!("{}", aoc2022::day16::solve(&input)),
+        (2022, 17) => println!("{}", aoc2022::day17::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 

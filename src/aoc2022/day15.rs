@@ -27,7 +27,7 @@ fn ranges(data: &[Sensor], y: isize, max: isize) -> impl Iterator<Item = (isize,
 }
 
 fn all_overlap(mut ranges: impl Iterator<Item = (isize, isize)>) -> Option<isize> {
-    let (mut min, mut max) = ranges.next().unwrap();
+    let (_, mut max) = ranges.next().unwrap();
 
     for (next_min, next_max) in ranges {
         if next_min == max + 2 {
