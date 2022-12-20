@@ -159,10 +159,6 @@ impl Blueprint {
                 }
             }
 
-            if state.time_remaining > 20 {
-                println!("{}. {:?}", best, state);
-            }
-
             if !has_next {
                 let geode = state.geode + state.geode_robots * state.time_remaining;
                 if geode > best {
