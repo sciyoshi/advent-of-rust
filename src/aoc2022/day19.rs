@@ -13,6 +13,16 @@ struct State {
     geode: usize,
 }
 
+impl State {
+    fn evolve(&mut self, time: usize) {
+        self.time_remaining -= time;
+        self.ore += time * self.ore_robots;
+        self.clay += time * self.clay_robots;
+        self.obsidian += time * self.obsidian_robots;
+        self.geode += time * self.geode_robots;
+    }
+}
+
 #[derive(Debug)]
 pub struct Blueprint {
     id: usize,
@@ -65,11 +75,8 @@ impl Blueprint {
 
                     if step <= state.time_remaining {
                         let mut state = state.clone();
-                        state.time_remaining -= step;
-                        state.ore = state.ore + step * state.ore_robots - self.ore;
-                        state.clay += step * state.clay_robots;
-                        state.obsidian += step * state.obsidian_robots;
-                        state.geode += step * state.geode_robots;
+                        state.evolve(step);
+                        state.ore -= self.ore;
                         state.ore_robots += 1;
                         stack.push(state);
                         has_next = true;
@@ -85,11 +92,8 @@ impl Blueprint {
 
                     if step <= state.time_remaining {
                         let mut state = state.clone();
-                        state.time_remaining -= step;
-                        state.ore = state.ore + step * state.ore_robots - self.clay;
-                        state.clay += step * state.clay_robots;
-                        state.obsidian += step * state.obsidian_robots;
-                        state.geode += step * state.geode_robots;
+                        state.evolve(step);
+                        state.ore -= self.clay;
                         state.clay_robots += 1;
                         stack.push(state);
                         has_next = true;
@@ -116,11 +120,9 @@ impl Blueprint {
 
                     if step <= state.time_remaining {
                         let mut state = state.clone();
-                        state.time_remaining -= step;
-                        state.ore = state.ore + step * state.ore_robots - self.obsidian_ore;
-                        state.clay = state.clay + step * state.clay_robots - self.obsidian_clay;
-                        state.obsidian += step * state.obsidian_robots;
-                        state.geode += step * state.geode_robots;
+                        state.evolve(step);
+                        state.ore -= self.obsidian_ore;
+                        state.clay -= self.obsidian_clay;
                         state.obsidian_robots += 1;
                         stack.push(state);
                         has_next = true;
@@ -146,12 +148,9 @@ impl Blueprint {
 
                     if step <= state.time_remaining {
                         let mut state = state.clone();
-                        state.time_remaining -= step;
-                        state.ore = state.ore + step * state.ore_robots - self.geode_ore;
-                        state.clay += step * state.clay_robots;
-                        state.obsidian =
-                            state.obsidian + step * state.obsidian_robots - self.geode_obsidian;
-                        state.geode += step * state.geode_robots;
+                        state.evolve(step);
+                        state.ore -= self.geode_ore;
+                        state.obsidian -= self.geode_obsidian;
                         state.geode_robots += 1;
                         stack.push(state);
                         has_next = true;
