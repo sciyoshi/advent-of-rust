@@ -18,6 +18,7 @@ mod aoc2017;
 mod aoc2019;
 mod aoc2021;
 mod aoc2022;
+mod util;
 mod utils;
 
 #[derive(PartialEq)]
@@ -117,6 +118,7 @@ fn main() -> anyhow::Result<()> {
         (2022, 16) => println!("{}", aoc2022::day16::solve(&input)),
         (2022, 17) => println!("{}", aoc2022::day17::solve(&input)),
         (2022, 18) => println!("{}", aoc2022::day18::solve(&input)),
+        (2022, 19) => println!("{}", aoc2022::day19::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 

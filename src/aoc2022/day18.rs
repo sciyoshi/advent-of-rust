@@ -1,10 +1,11 @@
 use std::collections::BTreeSet;
 
-use crate::utils::{extract_integers, flood_fill, P};
+use crate::util::Pt;
+use crate::utils::{extract_integers, flood_fill};
 use crate::Solution;
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let pts: BTreeSet<P<isize, 3>> = input.lines().map(|l| extract_integers(l).into()).collect();
+    let pts: BTreeSet<Pt<isize, 3>> = input.lines().map(|l| extract_integers(l).into()).collect();
 
     let part1 = pts
         .iter()
@@ -12,7 +13,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .filter(|pt| !pts.contains(pt))
         .count();
 
-    let exterior: BTreeSet<P<isize, 3>> = flood_fill(P([0, 0, 0]), |pt| {
+    let exterior: BTreeSet<Pt<isize, 3>> = flood_fill(Pt([0, 0, 0]), |pt| {
         pt.nb_ortho().filter(|nb| {
             nb.0[0] >= -1
                 && nb.0[0] <= 21

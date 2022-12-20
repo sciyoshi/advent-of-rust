@@ -4,8 +4,7 @@ use std::cmp::{max, Ord};
 use std::collections::VecDeque;
 use std::fmt::Debug;
 use std::hash::Hash;
-use std::ops::{Add, AddAssign, Div, Index, IndexMut, Mul, Neg, Sub};
-use std::slice::SliceIndex;
+use std::ops::{Add, AddAssign, Div, Mul, Neg, Sub};
 use std::str::FromStr;
 
 pub fn extract_integers<T: Num>(s: &str) -> Vec<T> {
@@ -22,87 +21,6 @@ pub fn _extract_floats(s: &str) -> Vec<f64> {
         .map(|x| f64::from_str(&x.as_str()))
         .filter_map(Result::ok)
         .collect()
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct P<T: Signed + Ord + Copy + ToPrimitive, const N: usize>(pub [T; N]);
-
-impl<T: Signed + Ord + Copy + ToPrimitive, const N: usize, Idx: SliceIndex<[T], Output = T>>
-    Index<Idx> for P<T, N>
-{
-    type Output = T;
-
-    fn index(&self, index: Idx) -> &Self::Output {
-        &self.0[index]
-    }
-}
-
-impl<T: Signed + Ord + Copy + ToPrimitive, const N: usize, Idx: SliceIndex<[T], Output = T>>
-    IndexMut<Idx> for P<T, N>
-{
-    fn index_mut(&mut self, index: Idx) -> &mut Self::Output {
-        &mut self.0[index]
-    }
-}
-
-impl<T: Signed + Ord + Copy + ToPrimitive + Debug, const N: usize> From<Vec<T>> for P<T, N> {
-    fn from(value: Vec<T>) -> Self {
-        let mut result = Self::zero();
-        for i in 0..N {
-            result[i] = value[i];
-        }
-        result
-    }
-}
-
-impl<T: Signed + Ord + Copy + ToPrimitive, const N: usize> P<T, N> {
-    pub fn zero() -> Self {
-        P([T::zero(); N])
-    }
-
-    pub fn _unit(dir: usize) -> Self {
-        let mut result = P::zero();
-        result[dir] = T::one();
-        result
-    }
-
-    pub fn _norm1(&self) -> T {
-        self.0
-            .iter()
-            .map(|&e| e.abs())
-            .reduce(|acc, v| acc + v)
-            .unwrap()
-    }
-
-    pub fn _norm2(&self) -> f64 {
-        self.0
-            .iter()
-            .map(|&e| e * e)
-            .reduce(|acc, v| acc + v)
-            .unwrap()
-            .to_f64()
-            .unwrap()
-            .sqrt()
-    }
-
-    pub fn _normi(&self) -> T {
-        self.0.iter().map(|&e| e.abs()).max().unwrap()
-    }
-
-    pub fn nb_ortho(&self) -> impl Iterator<Item = Self> {
-        let pt = self.clone();
-        (0..N).flat_map(move |e| {
-            [T::one().neg(), T::one()].map(move |s| {
-                let mut result = pt.clone();
-                result.0[e] = result.0[e] + s;
-                result
-            })
-        })
-    }
-
-    // pub fn nb_normi(&self) -> impl Iterator<Item = Self> + '_ {
-    //     (0..N).map(|i| )
-    // }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
