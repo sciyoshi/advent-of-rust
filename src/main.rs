@@ -120,6 +120,7 @@ fn main() -> anyhow::Result<()> {
         (2022, 18) => println!("{}", aoc2022::day18::solve(&input)),
         (2022, 19) => println!("{}", aoc2022::day19::solve(&input)),
         (2022, 20) => println!("{}", aoc2022::day20::solve(&input)),
+        (2022, 21) => println!("{}", aoc2022::day21::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 
