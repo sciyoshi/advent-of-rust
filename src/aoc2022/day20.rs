@@ -87,6 +87,6 @@ pub fn solve(input: &str) -> Solution<isize, isize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("1\n2\n-3\n3\n-2\n0\n4") == crate::Solution(5904, 1623178306));
+        assert!(super::solve("1\n2\n-3\n3\n-2\n0\n4") == crate::Solution(3, 1623178306));
     }
 }
