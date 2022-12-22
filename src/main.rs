@@ -1,4 +1,5 @@
 // #![deny(warnings)]
+#![allow(incomplete_features)]
 #![feature(
     box_syntax,
     anonymous_lifetime_in_impl_trait,
@@ -7,7 +8,9 @@
     array_windows,
     iter_array_chunks,
     const_for,
-    type_alias_impl_trait
+    type_alias_impl_trait,
+    let_chains,
+    return_position_impl_trait_in_trait
 )]
 
 use clap::Parser;
@@ -121,6 +124,7 @@ fn main() -> anyhow::Result<()> {
         (2022, 19) => println!("{}", aoc2022::day19::solve(&input)),
         (2022, 20) => println!("{}", aoc2022::day20::solve(&input)),
         (2022, 21) => println!("{}", aoc2022::day21::solve(&input)),
+        (2022, 22) => println!("{}", aoc2022::day22::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 

@@ -1,3 +1,158 @@
+pub use euclid::default::{Point2D as Pt2, Vector2D as Vec2};
+
+pub trait Vec2Ext<T> {
+    fn n() -> Self
+    where
+        T: num::Zero + num::One;
+
+    fn s() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn e() -> Self
+    where
+        T: num::Zero + num::One;
+
+    fn w() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn rot90r(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>;
+
+    fn rot90l(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>;
+}
+
+impl<T> Vec2Ext<T> for Vec2<T> {
+    fn n() -> Self
+    where
+        T: num::Zero + num::One,
+    {
+        Vec2::new(T::zero(), T::one())
+    }
+
+    fn s() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Vec2::new(T::zero(), T::one().neg())
+    }
+
+    fn e() -> Self
+    where
+        T: num::Zero + num::One,
+    {
+        Vec2::new(T::one(), T::zero())
+    }
+
+    fn w() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Vec2::new(T::one().neg(), T::zero())
+    }
+
+    fn rot90r(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>,
+    {
+        Vec2::new(self.y, self.x.neg())
+    }
+
+    fn rot90l(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>,
+    {
+        Vec2::new(self.y.neg(), self.x)
+    }
+}
+
+pub trait Pt2Ext<T> {
+    fn n() -> Self
+    where
+        T: num::Zero + num::One;
+
+    fn s() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn e() -> Self
+    where
+        T: num::Zero + num::One;
+
+    fn w() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn rot90r(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>;
+
+    fn rot90l(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>;
+
+    fn nb_ortho(&self) -> impl Iterator + '_
+    where
+        T: num::Zero + num::One + Copy;
+}
+
+impl<T> Pt2Ext<T> for Pt2<T> {
+    fn n() -> Self
+    where
+        T: num::Zero + num::One,
+    {
+        Pt2::new(T::zero(), T::one())
+    }
+
+    fn s() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Pt2::new(T::zero(), T::one().neg())
+    }
+
+    fn e() -> Self
+    where
+        T: num::Zero + num::One,
+    {
+        Pt2::new(T::one(), T::zero())
+    }
+
+    fn w() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Pt2::new(T::one().neg(), T::zero())
+    }
+
+    fn rot90r(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>,
+    {
+        Pt2::new(self.y, self.x.neg())
+    }
+
+    fn rot90l(self) -> Self
+    where
+        T: std::ops::Neg<Output = T>,
+    {
+        Pt2::new(self.y.neg(), self.x)
+    }
+
+    fn nb_ortho(&self) -> impl Iterator<Item = Self> + '_
+    where
+        T: num::Zero + num::One + Copy,
+    {
+        [Vec2::new(T::one(), T::zero())]
+            .into_iter()
+            .map(|d| *self + d)
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Pt<T, const N: usize>(pub [T; N]);
 
@@ -157,10 +312,15 @@ impl<T: num::Signed + Ord + Copy + std::ops::AddAssign + num::ToPrimitive, const
 
 #[cfg(test)]
 mod tests {
-    use super::Pt;
+    use super::{Pt, Pt2, Pt2Ext};
 
     #[test]
     fn test_pt_add() {
         assert!(Pt([1, 2, 3]) + Pt([4, 5, 6]) == Pt([5, 7, 9]));
+    }
+
+    #[test]
+    fn test_euclid_nb() {
+        assert!(Pt2::new(3, 5).nb_ortho().collect::<Vec<_>>() == vec![Pt2::new(4, 5)]);
     }
 }
