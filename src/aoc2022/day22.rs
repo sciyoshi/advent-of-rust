@@ -20,6 +20,33 @@ struct Seams {
     map: HashMap<(Pt2<isize>, Vec2<isize>), (Pt2<isize>, Vec2<isize>)>,
 }
 
+enum Side {
+    Top,
+    Right,
+    Bottom,
+    Left,
+}
+
+impl Side {
+    fn offset(&self, clockwise: bool) -> Vec2<isize> {
+        match (self, clockwise) {
+            (Side::Bottom, false) | (Side::Left, true) => Vec2::new(0, 0),
+            (Side::Right, false) | (Side::Bottom, true) => Vec2::new(1, 0),
+            (Side::Top, false) | (Side::Right, true) => Vec2::new(1, 1),
+            (Side::Left, false) | (Side::Top, true) => Vec2::new(0, 1),
+        }
+    }
+
+    fn direction(&self, clockwise: bool) -> Vec2<isize> {
+        match (self, clockwise) {
+            (Side::Bottom, false) | (Side::Top, true) => Vec2::new(1, 0),
+            (Side::Right, false) | (Side::Left, true) => Vec2::new(0, 1),
+            (Side::Top, false) | (Side::Bottom, true) => Vec2::new(-1, 0),
+            (Side::Left, false) | (Side::Right, true) => Vec2::new(0, -1),
+        }
+    }
+}
+
 impl Seams {
     fn new(size: isize) -> Self {
         Seams {
@@ -37,17 +64,76 @@ impl Seams {
         }
     }
 
+    fn add_cube(&mut self, p1: Pt2<isize>, side1: Side, p2: Pt2<isize>, side2: Side) {
+        self.add(
+            p1 * self.size + side1.offset(false) * (self.size - 1),
+            side1.direction(false),
+            p2 * self.size + side2.offset(true) * (self.size - 1),
+            side2.direction(true),
+        );
+    }
+
+    fn add_flat_x(&mut self, x1: isize, x2: isize, y: isize) {
+        self.add(
+            Pt2::new(x2 * self.size - 1, y * self.size),
+            Vec2::n(),
+            Pt2::new(x1 * self.size, y * self.size),
+            Vec2::n(),
+        )
+    }
+
+    fn add_flat_y(&mut self, y1: isize, y2: isize, x: isize) {
+        self.add(
+            Pt2::new(x * self.size, y1 * self.size),
+            Vec2::e(),
+            Pt2::new(x * self.size, y2 * self.size - 1),
+            Vec2::e(),
+        )
+    }
+
     #[cfg(test)]
     fn example() -> Self {
         let mut seams = Self::new(4);
 
-        seams.add(Pt2::new(8, 0), Vec2::e(), Pt2::new(3, 4), Vec2::w());
-        seams.add(Pt2::new(8, 3), Vec2::s(), Pt2::new(7, 4), Vec2::w());
-        seams.add(Pt2::new(12, 0), Vec2::e(), Pt2::new(0, 4), Vec2::n());
-        seams.add(Pt2::new(3, 7), Vec2::w(), Pt2::new(8, 11), Vec2::e());
-        seams.add(Pt2::new(7, 7), Vec2::w(), Pt2::new(8, 8), Vec2::n());
-        seams.add(Pt2::new(11, 4), Vec2::n(), Pt2::new(12, 3), Vec2::e());
-        seams.add(Pt2::new(11, 8), Vec2::n(), Pt2::new(15, 3), Vec2::s());
+        //             ┌──2──┐
+        //             2     3
+        // ┌──2──┬──2──┼─────┤
+        // 0     │     │     3
+        // └──1──┴──1──┼─────┼──1──┐
+        //             2     │     3
+        //             └──0──┴──0──┘
+
+        seams.add_flat_x(2, 3, 2);
+        seams.add_flat_x(0, 3, 1);
+        seams.add_flat_x(2, 4, 0);
+
+        seams.add_flat_y(1, 2, 0);
+        seams.add_flat_y(1, 2, 1);
+        seams.add_flat_y(0, 3, 2);
+        seams.add_flat_y(0, 1, 3);
+
+        seams
+    }
+
+    #[cfg(test)]
+    fn example_cube() -> Self {
+        let mut seams = Self::new(4);
+
+        //             ┌──D──┐
+        //             E 2,2 g
+        // ┌──d──┬──e──┼─────┤
+        // C 0,1 │ 1,1 │ 2,1 f
+        // └──A──┴──B──┼─────┼──F──┐
+        //             b 2,0 │ 3,0 G
+        //             └──a──┴──c──┘
+
+        seams.add_cube(Pt2::new(2, 0), Side::Bottom, Pt2::new(0, 1), Side::Bottom);
+        seams.add_cube(Pt2::new(2, 0), Side::Left, Pt2::new(1, 1), Side::Bottom);
+        seams.add_cube(Pt2::new(3, 0), Side::Bottom, Pt2::new(0, 1), Side::Left);
+        seams.add_cube(Pt2::new(0, 1), Side::Top, Pt2::new(2, 2), Side::Top);
+        seams.add_cube(Pt2::new(1, 1), Side::Top, Pt2::new(2, 2), Side::Left);
+        seams.add_cube(Pt2::new(2, 1), Side::Right, Pt2::new(3, 0), Side::Top);
+        seams.add_cube(Pt2::new(2, 2), Side::Right, Pt2::new(3, 0), Side::Right);
 
         seams
     }
@@ -55,98 +141,85 @@ impl Seams {
     fn input() -> Self {
         let mut seams = Self::new(50);
 
-        seams.add(Pt2::new(50, 50), Vec2::e(), Pt2::new(49, 49), Vec2::s());
-        seams.add(Pt2::new(99, 50), Vec2::n(), Pt2::new(149, 199), Vec2::s());
-        seams.add(Pt2::new(99, 100), Vec2::n(), Pt2::new(149, 150), Vec2::w());
-        seams.add(Pt2::new(0, 0), Vec2::e(), Pt2::new(100, 199), Vec2::e());
-        seams.add(Pt2::new(0, 49), Vec2::s(), Pt2::new(50, 199), Vec2::e());
-        seams.add(Pt2::new(0, 99), Vec2::s(), Pt2::new(50, 150), Vec2::n());
-        seams.add(Pt2::new(49, 99), Vec2::w(), Pt2::new(50, 100), Vec2::n());
+        //       ┌──4──┬──4──┐
+        //       1     │     3
+        //       ├─────┼──3──┘
+        //       1     2
+        // ┌──2──┼─────┤
+        // 0     │     2
+        // ├─────┼──1──┘
+        // 0     1
+        // └──0──┘
+
+        seams.add_flat_x(1, 3, 3);
+        seams.add_flat_x(1, 2, 2);
+        seams.add_flat_x(0, 2, 1);
+        seams.add_flat_x(0, 1, 0);
+
+        seams.add_flat_y(0, 2, 0);
+        seams.add_flat_y(1, 4, 1);
+        seams.add_flat_y(3, 4, 2);
+
+        seams
+    }
+
+    fn input_cube() -> Self {
+        let mut seams = Self::new(50);
+
+        //       ┌──E──┬──D──┐
+        //       F 1,3 │ 2,3 B
+        //       ├─────┼──C──┘
+        //       G 1,2 c
+        // ┌──g──┼─────┤
+        // f 0,1 │ 1,1 b
+        // ├─────┼──a──┘
+        // e 0,0 A
+        // └──d──┘
+
+        seams.add_cube(Pt2::new(1, 1), Side::Bottom, Pt2::new(0, 0), Side::Right);
+        seams.add_cube(Pt2::new(1, 1), Side::Right, Pt2::new(2, 3), Side::Right);
+        seams.add_cube(Pt2::new(1, 2), Side::Right, Pt2::new(2, 3), Side::Bottom);
+        seams.add_cube(Pt2::new(0, 0), Side::Bottom, Pt2::new(2, 3), Side::Top);
+        seams.add_cube(Pt2::new(0, 0), Side::Left, Pt2::new(1, 3), Side::Top);
+        seams.add_cube(Pt2::new(0, 1), Side::Left, Pt2::new(1, 3), Side::Left);
+        seams.add_cube(Pt2::new(0, 1), Side::Top, Pt2::new(1, 2), Side::Left);
 
         seams
     }
 }
 
-#[derive(Debug)]
 struct Board {
+    height: isize,
+    start_x: isize,
     walls: HashSet<Pt2<isize>>,
-    range_x: Vec<(isize, isize)>,
-    range_y: Vec<(isize, isize)>,
+    seams: Seams,
 }
 
 impl Board {
-    fn parse(input: &str) -> Self {
-        let mut walls = HashSet::new();
-        let mut range_x = vec![];
-        let mut range_y = vec![];
-
-        for (y, line) in input.lines().rev().enumerate() {
-            range_x.push((isize::MAX, isize::MIN));
-
-            for (x, c) in line.chars().enumerate() {
-                if range_y.len() <= x {
-                    range_y.push((isize::MAX, isize::MIN));
-                }
-
-                if c == '#' {
-                    walls.insert(Pt2::new(x as isize, y as isize));
-                }
-
-                if c != ' ' {
-                    range_x[y] = (range_x[y].0.min(x as isize), range_x[y].1.max(x as isize));
-                    range_y[x] = (range_y[x].0.min(y as isize), range_y[x].1.max(y as isize));
-                }
-            }
-        }
-
+    fn parse(input: &str, start_x: isize, seams: Seams) -> Self {
         Board {
-            walls,
-            range_x,
-            range_y,
+            height: input.lines().count() as isize,
+            start_x,
+            seams,
+            walls: input
+                .lines()
+                .rev()
+                .enumerate()
+                .flat_map(|(y, line)| {
+                    line.chars()
+                        .enumerate()
+                        .filter(|(_, c)| *c == '#')
+                        .map(move |(x, _)| Pt2::new(x as isize, y as isize))
+                })
+                .collect(),
         }
     }
 
-    fn start_point(&self) -> Pt2<isize> {
-        let y = self.range_x.len() - 1;
-        Pt2::new(self.range_x[y].0, y as isize)
-    }
-
-    fn step(
-        &self,
-        pt: Pt2<isize>,
-        dir: Vec2<isize>,
-        seams: Option<&Seams>,
-    ) -> (Pt2<isize>, Vec2<isize>) {
-        if let Some(seams) = seams {
-            if let Some(&(new_pt, new_dir)) = seams.map.get(&(pt, dir)) {
-                (new_pt, new_dir)
-            } else {
-                (pt + dir, dir)
-            }
+    fn step(&self, pt: Pt2<isize>, dir: Vec2<isize>) -> (Pt2<isize>, Vec2<isize>) {
+        if let Some(&(new_pt, new_dir)) = self.seams.map.get(&(pt, dir)) {
+            (new_pt, new_dir)
         } else {
-            let mut new_pt = pt + dir;
-
-            let range = if dir.x == 0 {
-                self.range_y[pt.x as usize]
-            } else {
-                self.range_x[pt.y as usize]
-            };
-
-            if dir.x == 0 {
-                if new_pt.y < range.0 {
-                    new_pt.y = range.1;
-                } else if new_pt.y > range.1 {
-                    new_pt.y = range.0;
-                }
-            } else {
-                if new_pt.x < range.0 {
-                    new_pt.x = range.1;
-                } else if new_pt.x > range.1 {
-                    new_pt.x = range.0;
-                }
-            }
-
-            (new_pt, dir)
+            (pt + dir, dir)
         }
     }
 
@@ -155,10 +228,9 @@ impl Board {
         mut pt: Pt2<isize>,
         mut dir: Vec2<isize>,
         steps: usize,
-        seams: Option<&Seams>,
     ) -> (Pt2<isize>, Vec2<isize>) {
         for _ in 0..steps {
-            let (new_pt, new_dir) = self.step(pt, dir, seams);
+            let (new_pt, new_dir) = self.step(pt, dir);
 
             if self.walls.contains(&new_pt) {
                 return (pt, dir);
@@ -171,14 +243,14 @@ impl Board {
         (pt, dir)
     }
 
-    fn password(&self, moves: &[Move], seams: Option<&Seams>) -> isize {
-        let mut pt = self.start_point();
+    fn password(&self, moves: &[Move]) -> isize {
+        let mut pt = Pt2::new(self.start_x, self.height - 1);
         let mut dir = Vec2::new(1, 0);
 
         for step in moves {
             match step {
                 &Move::Forward(n) => {
-                    (pt, dir) = self.walk(pt, dir, n, seams);
+                    (pt, dir) = self.walk(pt, dir, n);
                 }
                 &Move::TurnLeft => {
                     dir = dir.rot90l();
@@ -189,7 +261,7 @@ impl Board {
             }
         }
 
-        1000 * (self.range_x.len() as isize - pt.y)
+        1000 * (self.height - pt.y)
             + 4 * (pt.x + 1)
             + match dir {
                 Vec2 { x: 1, y: 0, .. } => 0,
@@ -211,12 +283,11 @@ fn parse_steps(input: &str) -> IResult<&str, Vec<Move>> {
 
 pub fn solve(input: &str) -> Solution<isize, isize> {
     let mut parts = input.split("\n\n");
-
-    let board = Board::parse(parts.next().unwrap());
+    let board = parts.next().unwrap();
     let steps = parse_steps(parts.next().unwrap()).unwrap().1;
 
-    let part1 = board.password(&steps, None);
-    let part2 = board.password(&steps, Some(&Seams::input()));
+    let part1 = Board::parse(board, 50, Seams::input()).password(&steps);
+    let part2 = Board::parse(board, 50, Seams::input_cube()).password(&steps);
 
     Solution(part1, part2)
 }
@@ -229,11 +300,10 @@ mod tests {
     fn test_example() {
         let input = include_str!("examples/day22.txt");
         let mut parts = input.split("\n\n");
-
-        let board = Board::parse(parts.next().unwrap());
+        let board = parts.next().unwrap();
         let steps = parse_steps(parts.next().unwrap()).unwrap().1;
 
-        assert!(board.password(&steps, None) == 6032);
-        assert!(board.password(&steps, Some(&Seams::example())) == 5031);
+        assert!(Board::parse(board, 8, Seams::example()).password(&steps) == 6032);
+        assert!(Board::parse(board, 8, Seams::example_cube()).password(&steps) == 5031);
     }
 }
