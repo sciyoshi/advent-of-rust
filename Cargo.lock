@@ -40,6 +40,7 @@ dependencies = [
  "byteorder",
  "clap",
  "colored",
+ "counter",
  "euclid",
  "itertools",
  "ndarray",
@@ -178,6 +179,15 @@ dependencies = [
  "once_cell",
  "proc-macro-hack",
  "tiny-keccak",
+]
+
+[[package]]
+name = "counter"
+version = "0.5.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d458e66999348f56fd3ffcfbb7f7951542075ca8359687c703de6500c1ddccd"
+dependencies = [
+ "num-traits",
 ]
 
 [[package]]
