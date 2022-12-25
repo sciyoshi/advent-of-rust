@@ -333,6 +333,14 @@ mod tests {
 
     #[test]
     fn test_euclid_nb() {
-        assert!(Pt2::new(3, 5).nb_ortho().collect::<Vec<_>>() == vec![Pt2::new(4, 5)]);
+        assert!(
+            Pt2::new(3, 5).nb_ortho().collect::<Vec<_>>()
+                == vec![
+                    Pt2::new(3, 6),
+                    Pt2::new(4, 5),
+                    Pt2::new(3, 4),
+                    Pt2::new(2, 5)
+                ]
+        );
     }
 }

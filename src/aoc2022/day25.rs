@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 use num::Integer;
 
 use crate::Solution;
@@ -45,6 +43,9 @@ pub fn solve(input: &str) -> Solution<String, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("") == crate::Solution(0, 0));
+        assert!(
+            super::solve(include_str!("examples/day25.txt"))
+                == crate::Solution("2=-1=0".to_string(), 0)
+        );
     }
 }
