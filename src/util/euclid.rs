@@ -1,4 +1,5 @@
-pub use euclid::default::{Point2D as Pt2, Vector2D as Vec2};
+pub use euclid::default::{Box2D as Box2, Point2D as Pt2, Vector2D as Vec2};
+pub use euclid::{point2 as pt2, vec2};
 
 pub trait Vec2Ext<T> {
     fn n() -> Self
@@ -16,6 +17,10 @@ pub trait Vec2Ext<T> {
     fn w() -> Self
     where
         T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn norm1(&self) -> T
+    where
+        T: num::Signed;
 
     fn rot90r(self) -> Self
     where
@@ -53,6 +58,13 @@ impl<T> Vec2Ext<T> for Vec2<T> {
         T: num::Zero + num::One + std::ops::Neg<Output = T>,
     {
         Vec2::new(T::one().neg(), T::zero())
+    }
+
+    fn norm1(&self) -> T
+    where
+        T: num::Signed,
+    {
+        self.x.abs() + self.y.abs()
     }
 
     fn rot90r(self) -> Self
@@ -97,7 +109,7 @@ pub trait Pt2Ext<T> {
 
     fn nb_ortho(&self) -> impl Iterator + '_
     where
-        T: num::Zero + num::One + Copy;
+        T: num::Zero + num::One + std::ops::Neg<Output = T> + Copy;
 }
 
 impl<T> Pt2Ext<T> for Pt2<T> {
@@ -145,9 +157,9 @@ impl<T> Pt2Ext<T> for Pt2<T> {
 
     fn nb_ortho(&self) -> impl Iterator<Item = Self> + '_
     where
-        T: num::Zero + num::One + Copy,
+        T: num::Zero + num::One + std::ops::Neg<Output = T> + Copy,
     {
-        [Vec2::new(T::one(), T::zero())]
+        [Vec2::n(), Vec2::e(), Vec2::s(), Vec2::w()]
             .into_iter()
             .map(|d| *self + d)
     }
