@@ -8,7 +8,7 @@ anyhow = "1.0.71"
 bit-set = "0.5.3"
 bit-vec = "0.6.3"
 byteorder = { version = "1.4.3", features = ["i128"] }
-clap = { version = "4.2.5", features = ["derive"] }
+clap = { version = "4.2.7", features = ["derive"] }
 colored = "2.0.0"
 counter = "0.5.7"
 euclid = "0.22.9"
