@@ -9,7 +9,7 @@ bit-set = "0.5.3"
 bit-vec = "0.6.3"
 byteorder = { version = "1.4.3", features = ["i128"] }
 clap = { version = "4.3.11", features = ["derive"] }
-colored = "2.0.0"
+colored = "2.0.4"
 counter = "0.5.7"
 euclid = "0.22.9"
 itertools = "0.11.0"
