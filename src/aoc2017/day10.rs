@@ -39,7 +39,6 @@ pub fn knothash<T: IntoIterator<Item = u8>>(line: T) -> u128 {
 
 pub fn solve(input: &str) -> Solution<usize, String> {
     let lengths: Vec<_> = input
-        .clone()
         .split(",")
         .filter_map(|el| el.parse::<u8>().ok())
         .collect();

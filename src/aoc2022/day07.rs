@@ -44,10 +44,12 @@ fn parse(commands: &mut impl Iterator<Item = &str>) -> (Dir, usize) {
 }
 
 fn directory_sizes(dir: &Dir) -> Box<dyn Iterator<Item = usize> + '_> {
-    box iter::once(dir.size).chain(
-        dir.children
-            .iter()
-            .flat_map(|subdir| directory_sizes(subdir)),
+    Box::new(
+        iter::once(dir.size).chain(
+            dir.children
+                .iter()
+                .flat_map(|subdir| directory_sizes(subdir)),
+        ),
     )
 }
 

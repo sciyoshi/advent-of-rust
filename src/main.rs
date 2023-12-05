@@ -1,7 +1,6 @@
 // #![deny(warnings)]
 #![allow(incomplete_features)]
 #![feature(
-    box_syntax,
     anonymous_lifetime_in_impl_trait,
     portable_simd,
     array_chunks,
@@ -9,8 +8,7 @@
     iter_array_chunks,
     const_for,
     type_alias_impl_trait,
-    let_chains,
-    return_position_impl_trait_in_trait
+    let_chains
 )]
 
 use clap::Parser;
@@ -21,6 +19,7 @@ mod aoc2017;
 mod aoc2019;
 mod aoc2021;
 mod aoc2022;
+mod aoc2023;
 mod util;
 mod utils;
 
@@ -128,6 +127,11 @@ fn main() -> anyhow::Result<()> {
         (2022, 23) => println!("{}", aoc2022::day23::solve(&input)),
         (2022, 24) => println!("{}", aoc2022::day24::solve(&input)),
         (2022, 25) => println!("{}", aoc2022::day25::solve(&input)),
+        (2023, 01) => println!("{}", aoc2023::day01::solve(&input)),
+        (2023, 02) => println!("{}", aoc2023::day02::solve(&input)),
+        (2023, 03) => println!("{}", aoc2023::day03::solve(&input)),
+        (2023, 04) => println!("{}", aoc2023::day04::solve(&input)),
+        (2023, 05) => println!("{}", aoc2023::day05::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 

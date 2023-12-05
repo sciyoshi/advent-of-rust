@@ -1,5 +1,5 @@
 pub use euclid::default::{Box2D as Box2, Point2D as Pt2, Vector2D as Vec2};
-pub use euclid::{point2 as pt2, vec2};
+pub use euclid::point2 as pt2;
 
 pub trait Vec2Ext<T> {
     fn n() -> Self
