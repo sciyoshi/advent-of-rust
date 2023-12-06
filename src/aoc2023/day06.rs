@@ -1,5 +1,5 @@
 // Generated with ChatGPT 4.
-// https://chat.openai.com/share/d3ee1d07-db1b-490a-a756-0651fec38a77
+// https://chat.openai.com/share/0f59a9a3-cef2-4556-abae-0dfa670ba41a
 
 use crate::Solution;
 
@@ -19,23 +19,23 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .split_whitespace()
         .map(|n| n.parse().unwrap())
         .collect();
-    let ways_to_win_per_race: Vec<usize> = times
-        .iter()
-        .zip(distances.iter())
-        .map(|(&time, &distance)| {
-            (0..time)
-                .filter(|&hold_time| hold_time * (time - hold_time) > distance)
-                .count()
-        })
-        .collect();
-    let total_ways_original = ways_to_win_per_race.iter().product();
+    let mut total_ways_original = 1;
+    for (&time, &distance) in times.iter().zip(distances.iter()) {
+        let root1 = (time as f64 - (time.pow(2) as f64 - 4.0 * distance as f64).sqrt()) / 2.0;
+        let root2 = (time as f64 + (time.pow(2) as f64 - 4.0 * distance as f64).sqrt()) / 2.0;
+        total_ways_original *= (root2.ceil() as usize - root1.floor() as usize - 1).max(0);
+    }
 
     // Follow-up question
     let single_time: usize = times_str.replace(" ", "").parse().unwrap();
     let single_distance: usize = distances_str.replace(" ", "").parse().unwrap();
-    let ways_to_win_long_race = (0..single_time)
-        .filter(|&hold_time| hold_time * (single_time - hold_time) > single_distance)
-        .count();
+    let root1 = (single_time as f64
+        - (single_time.pow(2) as f64 - 4.0 * single_distance as f64).sqrt())
+        / 2.0;
+    let root2 = (single_time as f64
+        + (single_time.pow(2) as f64 - 4.0 * single_distance as f64).sqrt())
+        / 2.0;
+    let ways_to_win_long_race = (root2.ceil() as usize - root1.floor() as usize - 1).max(0);
 
     Solution(total_ways_original, ways_to_win_long_race)
 }
