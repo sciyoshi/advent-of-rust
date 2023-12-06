@@ -1,4 +1,5 @@
 // Generated with ChatGPT 4.
+// https://chat.openai.com/share/e2730af2-ab23-4fb5-a3f9-30880d617326
 
 use crate::Solution;
 
