@@ -35,7 +35,9 @@ fn round(elves: HashSet<Pt<isize>>, round: usize) -> (HashSet<Pt<isize>>, bool) 
     let mut any_moved = false;
 
     for &elf in elves.iter() {
-        if let Some(&target) = moves.get(&elf) && targets[&target] == 1 {
+        if let Some(&target) = moves.get(&elf)
+            && targets[&target] == 1
+        {
             new_elves.insert(target);
             any_moved = true;
         } else {
