@@ -19,6 +19,7 @@ without needing to manually modify any code.
 - [Day 5: If You Give A Seed A Fertilizer](src/aoc2023/day05.rs)
 - [Day 6: Wait For It](src/aoc2023/day06.rs)
 - [Day 7: Camel Cards](src/aoc2023/day07.rs)
+- [Day 8: Haunted Wasteland](src/aoc2023/day08.rs)
 - [Day 9: Mirage Maintenance](src/aoc2023/day09.rs)
 
 ## 2022 Solutions
