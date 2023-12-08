@@ -18,6 +18,7 @@ without needing to manually modify any code.
 - [Day 4: Scratchcards](src/aoc2023/day04.rs)
 - [Day 5: If You Give A Seed A Fertilizer](src/aoc2023/day05.rs)
 - [Day 6: Wait For It](src/aoc2023/day06.rs)
+- [Day 7: Camel Cards](src/aoc2023/day07.rs)
 
 ## 2022 Solutions
 
