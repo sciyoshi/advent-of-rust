@@ -21,6 +21,10 @@ without needing to manually modify any code.
 - [Day 7: Camel Cards](src/aoc2023/day07.rs)
 - [Day 8: Haunted Wasteland](src/aoc2023/day08.rs)
 - [Day 9: Mirage Maintenance](src/aoc2023/day09.rs)
+- [Day 10: Pipe Maze](src/aoc2023/day10.rs)
+- [Day 11: Cosmic Expansion](src/aoc2023/day11.rs)
+- [Day 12: Hot Springs](src/aoc2023/day12.rs)
+- [Day 13: Point of Incidence](src/aoc2023/day13.rs)
 
 ## 2022 Solutions
 
