@@ -25,6 +25,7 @@ without needing to manually modify any code.
 - [Day 11: Cosmic Expansion](src/aoc2023/day11.rs)
 - [Day 12: Hot Springs](src/aoc2023/day12.rs)
 - [Day 13: Point of Incidence](src/aoc2023/day13.rs)
+- [Day 13: Parabolic Reflector Dish](src/aoc2023/day14.rs)
 
 ## 2022 Solutions
 
