@@ -116,6 +116,9 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::place("?#?#???.#??????.??", &[6, 1, 1, 2, 1]) == 12);
+        assert!(
+            super::Record::new("?#?#???.#??????.??".to_string(), vec![6, 1, 1, 2, 1]).place(0, 0)
+                == 12
+        );
     }
 }
