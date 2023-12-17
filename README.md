@@ -27,6 +27,7 @@ without needing to manually modify any code.
 - [Day 13: Point of Incidence](src/aoc2023/day13.rs)
 - [Day 14: Parabolic Reflector Dish](src/aoc2023/day14.rs)
 - [Day 15: Lens Library](src/aoc2023/day15.rs)
+- [Day 16: The Floor Will Be Lava](src/aoc2023/day16.rs)
 
 ## 2022 Solutions
 
