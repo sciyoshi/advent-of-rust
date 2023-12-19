@@ -30,6 +30,7 @@ without needing to manually modify any code.
 - [Day 16: The Floor Will Be Lava](src/aoc2023/day16.rs)
 - [Day 17: Clumsy Crucible](src/aoc2023/day17.rs)
 - [Day 18: Lavaduct Lagoon](src/aoc2023/day18.rs)
+- [Day 19: Aplenty](src/aoc2023/day19.rs)
 
 ## 2022 Solutions
 
