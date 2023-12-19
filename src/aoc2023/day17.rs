@@ -33,7 +33,7 @@ impl PartialOrd for Node {
 }
 
 fn heuristic(pos: &Position, goal: &(usize, usize)) -> i32 {
-    ((goal.0 as i32 - pos.x as i32).abs() + (goal.1 as i32 - pos.y as i32).abs())
+    (goal.0 as i32 - pos.x as i32).abs() + (goal.1 as i32 - pos.y as i32).abs()
 }
 
 fn reconstruct_path(

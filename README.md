@@ -29,6 +29,7 @@ without needing to manually modify any code.
 - [Day 15: Lens Library](src/aoc2023/day15.rs)
 - [Day 16: The Floor Will Be Lava](src/aoc2023/day16.rs)
 - [Day 17: Clumsy Crucible](src/aoc2023/day17.rs)
+- [Day 18: Lavaduct Lagoon](src/aoc2023/day18.rs)
 
 ## 2022 Solutions
 
