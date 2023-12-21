@@ -32,6 +32,7 @@ without needing to manually modify any code.
 - [Day 18: Lavaduct Lagoon](src/aoc2023/day18.rs)
 - [Day 19: Aplenty](src/aoc2023/day19.rs)
 - [Day 20: Pulse Propagation](src/aoc2023/day20.rs)
+- [Day 21: Step Counter](src/aoc2023/day21.rs)
 
 ## 2022 Solutions
 
