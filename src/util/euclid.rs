@@ -1,4 +1,4 @@
-pub use euclid::default::{Box2D as Box2, Point2D as Pt2, Vector2D as Vec2};
+pub use euclid::default::{Box2D as Box2, Point2D as Pt2, Vector2D as Vec2, Vector3D as Vec3};
 pub use euclid::point2 as pt2;
 
 pub trait Vec2Ext<T> {
@@ -79,6 +79,20 @@ impl<T> Vec2Ext<T> for Vec2<T> {
         T: std::ops::Neg<Output = T>,
     {
         Vec2::new(self.y.neg(), self.x)
+    }
+}
+pub trait Vec3Ext<T> {
+    fn norm1(&self) -> T
+    where
+        T: num::Signed;
+}
+
+impl<T> Vec3Ext<T> for Vec3<T> {
+    fn norm1(&self) -> T
+    where
+        T: num::Signed,
+    {
+        self.x.abs() + self.y.abs() + self.z.abs()
     }
 }
 

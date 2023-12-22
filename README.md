@@ -33,6 +33,7 @@ without needing to manually modify any code.
 - [Day 19: Aplenty](src/aoc2023/day19.rs)
 - [Day 20: Pulse Propagation](src/aoc2023/day20.rs)
 - [Day 21: Step Counter](src/aoc2023/day21.rs)
+- [Day 22: Sand Slabs](src/aoc2023/day22.rs)
 
 ## 2022 Solutions
 
