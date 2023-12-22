@@ -14,15 +14,18 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .count();
 
     let exterior: BTreeSet<Pt<isize, 3>> = flood_fill(Pt([0, 0, 0]), |pt| {
-        pt.nb_ortho().filter(|nb| {
-            nb.0[0] >= -1
-                && nb.0[0] <= 21
-                && nb.0[1] >= -1
-                && nb.0[1] <= 21
-                && nb.0[2] >= -1
-                && nb.0[2] <= 21
-                && !pts.contains(&nb)
-        })
+        pt.nb_ortho()
+            .filter(|nb| {
+                nb.0[0] >= -1
+                    && nb.0[0] <= 21
+                    && nb.0[1] >= -1
+                    && nb.0[1] <= 21
+                    && nb.0[2] >= -1
+                    && nb.0[2] <= 21
+                    && !pts.contains(&nb)
+            })
+            .collect::<Vec<_>>()
+            .into_iter()
     })
     .collect();
 
