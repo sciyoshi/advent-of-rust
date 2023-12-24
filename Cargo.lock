@@ -91,6 +91,7 @@ dependencies = [
  "colored",
  "counter",
  "euclid",
+ "fixedbitset",
  "itertools",
  "ndarray",
  "nom",

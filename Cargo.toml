@@ -14,6 +14,7 @@ clap = { version = "4.4.10", features = ["derive"] }
 colored = "2.1.0"
 counter = "0.5.7"
 euclid = "0.22.9"
+fixedbitset = "0.4.2"
 itertools = "0.12.0"
 ndarray = "0.15.6"
 nom = "7.1.3"
