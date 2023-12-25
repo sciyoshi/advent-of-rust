@@ -35,6 +35,8 @@ without needing to manually modify any code.
 - [Day 21: Step Counter](src/aoc2023/day21.rs)
 - [Day 22: Sand Slabs](src/aoc2023/day22.rs)
 - [Day 23: A Long Walk](src/aoc2023/day23.rs)
+- [Day 24: Never Tell Me The Odds](src/aoc2023/day24.rs)
+- [Day 25: Snowverload](src/aoc2023/day25.rs)
 
 ## 2022 Solutions
 
