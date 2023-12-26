@@ -49,9 +49,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     let components = rustworkx_core::connectivity::connected_components(&graph);
 
-    println!("{:?}", components[0].len() * components[1].len());
-
-    Solution(0, 0)
+    Solution(components[0].len() * components[1].len(), 0)
 }
 
 #[cfg(test)]

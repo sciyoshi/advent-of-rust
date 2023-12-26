@@ -1,9 +1,11 @@
 use crate::Solution;
-use euclid::default::{Box2D, Box3D, Point2D, Point3D, Vector3D};
-use euclid::{point2, point3};
+use euclid::default::{Box2D, Point3D, Vector3D};
+use euclid::point2;
 use itertools::Itertools;
-use ndarray::{array, Array1, Array2};
+use ndarray::array;
 use ndarray_linalg::Solve;
+use rand::seq::SliceRandom;
+use std::collections::HashMap;
 
 #[derive(Debug, Copy, Clone)]
 struct Hail {
@@ -53,79 +55,34 @@ impl Hail {
 }
 
 fn find_rock(hails: &[Hail]) -> f64 {
-    let (h1, h2, h3) = (hails[4], hails[5], hails[6]);
-
-    // #[rustfmt::skip]
-    // let a = array![
-    //     [0f64, h1.vel.z - h2.vel.z, h2.vel.y - h1.vel.y, 0f64, h2.pos.z - h1.pos.z, h1.pos.y - h2.pos.y],
-    //     [h2.vel.z - h1.vel.z, 0f64, h1.vel.x - h2.vel.x, h1.pos.z - h2.pos.z, 0f64, h2.pos.x - h1.pos.x],
-    //     [h1.vel.y - h2.vel.y, h2.vel.x - h1.vel.x, 0f64, h2.pos.y - h1.pos.y, h1.pos.x - h2.pos.x, 0f64],
-    //     [0f64, h1.vel.z - h3.vel.z, h3.vel.y - h1.vel.y, 0f64, h3.pos.z - h1.pos.z, h1.pos.y - h3.pos.y],
-    //     [h3.vel.z - h1.vel.z, 0f64, h1.vel.x - h3.vel.x, h1.pos.z - h3.pos.z, 0f64, h3.pos.x - h1.pos.x],
-    //     [h1.vel.y - h3.vel.y, h3.vel.x - h1.vel.x, 0f64, h3.pos.y - h1.pos.y, h1.pos.x - h3.pos.x, 0f64],
-    // ];
-
-    // println!("{:?}", a);
-
-    // let b = array![
-    //     h1.vel.z * h1.pos.y - h2.vel.z * h2.pos.y + h2.vel.y * h2.pos.z - h1.vel.y * h1.pos.z,
-    //     h2.vel.z * h2.pos.x - h1.vel.z * h1.pos.x + h1.vel.x * h1.pos.z - h2.vel.x * h2.pos.z,
-    //     h1.vel.y * h1.pos.x - h2.vel.y * h2.pos.x + h2.vel.x * h2.pos.y - h1.vel.x * h1.pos.y,
-    //     h1.vel.z * h1.pos.y - h3.vel.z * h3.pos.y + h3.vel.y * h3.pos.z - h1.vel.y * h1.pos.z,
-    //     h3.vel.z * h3.pos.x - h1.vel.z * h1.pos.x + h1.vel.x * h1.pos.z - h3.vel.x * h3.pos.z,
-    //     h1.vel.y * h1.pos.x - h3.vel.y * h3.pos.x + h3.vel.x * h3.pos.y - h1.vel.x * h1.pos.y,
-    // ];
-
-    // let rock = a.solve(&b).unwrap();
-
-    // println!("{:?}", rock);
+    let (h1, h2, h3) = (hails[0], hails[1], hails[2]);
 
     #[rustfmt::skip]
-    let a = nalgebra::Matrix6::new(
-        0f64, h1.vel.z - h2.vel.z, h2.vel.y - h1.vel.y, 0f64, h2.pos.z - h1.pos.z, h1.pos.y - h2.pos.y,
-        h2.vel.z - h1.vel.z, 0f64, h1.vel.x - h2.vel.x, h1.pos.z - h2.pos.z, 0f64, h2.pos.x - h1.pos.x,
-        h1.vel.y - h2.vel.y, h2.vel.x - h1.vel.x, 0f64, h2.pos.y - h1.pos.y, h1.pos.x - h2.pos.x, 0f64,
-        0f64, h1.vel.z - h3.vel.z, h3.vel.y - h1.vel.y, 0f64, h3.pos.z - h1.pos.z, h1.pos.y - h3.pos.y,
-        h3.vel.z - h1.vel.z, 0f64, h1.vel.x - h3.vel.x, h1.pos.z - h3.pos.z, 0f64, h3.pos.x - h1.pos.x,
-        h1.vel.y - h3.vel.y, h3.vel.x - h1.vel.x, 0f64, h3.pos.y - h1.pos.y, h1.pos.x - h3.pos.x, 0f64,
-    );
+    let a = array![
+        [0f64, h1.vel.z - h2.vel.z, h2.vel.y - h1.vel.y, 0f64, h2.pos.z - h1.pos.z, h1.pos.y - h2.pos.y],
+        [h2.vel.z - h1.vel.z, 0f64, h1.vel.x - h2.vel.x, h1.pos.z - h2.pos.z, 0f64, h2.pos.x - h1.pos.x],
+        [h1.vel.y - h2.vel.y, h2.vel.x - h1.vel.x, 0f64, h2.pos.y - h1.pos.y, h1.pos.x - h2.pos.x, 0f64],
+        [0f64, h1.vel.z - h3.vel.z, h3.vel.y - h1.vel.y, 0f64, h3.pos.z - h1.pos.z, h1.pos.y - h3.pos.y],
+        [h3.vel.z - h1.vel.z, 0f64, h1.vel.x - h3.vel.x, h1.pos.z - h3.pos.z, 0f64, h3.pos.x - h1.pos.x],
+        [h1.vel.y - h3.vel.y, h3.vel.x - h1.vel.x, 0f64, h3.pos.y - h1.pos.y, h1.pos.x - h3.pos.x, 0f64],
+    ];
 
-    let b = nalgebra::Vector6::new(
+    let b = array![
         h1.vel.z * h1.pos.y - h2.vel.z * h2.pos.y + h2.vel.y * h2.pos.z - h1.vel.y * h1.pos.z,
         h2.vel.z * h2.pos.x - h1.vel.z * h1.pos.x + h1.vel.x * h1.pos.z - h2.vel.x * h2.pos.z,
         h1.vel.y * h1.pos.x - h2.vel.y * h2.pos.x + h2.vel.x * h2.pos.y - h1.vel.x * h1.pos.y,
         h1.vel.z * h1.pos.y - h3.vel.z * h3.pos.y + h3.vel.y * h3.pos.z - h1.vel.y * h1.pos.z,
         h3.vel.z * h3.pos.x - h1.vel.z * h1.pos.x + h1.vel.x * h1.pos.z - h3.vel.x * h3.pos.z,
         h1.vel.y * h1.pos.x - h3.vel.y * h3.pos.x + h3.vel.x * h3.pos.y - h1.vel.x * h1.pos.y,
-    );
+    ];
 
-    println!("{:?}", b);
-
-    let rock = a.lu().solve(&b).unwrap();
-
-    println!("{:?}", a.lu());
-    #[rustfmt::skip]
-    let a = nalgebra::Matrix3::new(
-        0f64, h1.vel.z - h2.vel.z, h2.vel.y - h1.vel.y,
-        h2.vel.z - h1.vel.z, 0f64, h1.vel.x - h2.vel.x,
-        h1.vel.y - h2.vel.y, h2.vel.x - h1.vel.x, 0f64,
-    );
-
-    println!("{:?}", a.lu());
-
-    // let b = nalgebra::Vector6::new(
-    //     h1.vel.z * h1.pos.y - h2.vel.z * h2.pos.y + h2.vel.y * h2.pos.z - h1.vel.y * h1.pos.z,
-    //     h2.vel.z * h2.pos.x - h1.vel.z * h1.pos.x + h1.vel.x * h1.pos.z - h2.vel.x * h2.pos.z,
-    //     h1.vel.y * h1.pos.x - h2.vel.y * h2.pos.x + h2.vel.x * h2.pos.y - h1.vel.x * h1.pos.y,
-    // );
-
-    println!("{:?}", rock);
+    let rock = a.solve(&b).unwrap();
 
     rock[0].round() + rock[1].round() + rock[2].round()
 }
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let hails = input.lines().map(Hail::parse).collect_vec();
+    let mut hails = input.lines().map(Hail::parse).collect_vec();
     // let area = Box2D::new(point2(7f64, 7f64), point2(27f64, 27f64));
     let area = Box2D::new(
         point2(200_000_000_000_000f64, 200_000_000_000_000f64),
@@ -138,7 +95,21 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .filter(|(a, b)| a.intersect(b, &area))
         .count();
 
-    let rock = find_rock(&hails) as usize;
+    // Due to precision issues, some combinations of hail will not be correct.
+    // Sample 100 different combinations and find the mode
+    let mut numbers_count = HashMap::new();
+    for _ in 0..100 {
+        hails.shuffle(&mut rand::thread_rng());
+        let rock = find_rock(&hails) as usize;
+        let count = numbers_count.entry(rock).or_insert(0);
+        *count += 1;
+    }
+
+    let rock = numbers_count
+        .into_iter()
+        .max_by_key(|(_, count)| *count)
+        .unwrap()
+        .0;
 
     Solution(count, rock)
 }
@@ -147,6 +118,6 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve(include_str!("examples/day24.txt")) == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day24.txt")) == crate::Solution(0, 47));
     }
 }
