@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: apt install libopenblas0 libopenblas64-0
+      - run: sudo apt-get install -y libopenblas0 libopenblas64-0
       - uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
         with:
