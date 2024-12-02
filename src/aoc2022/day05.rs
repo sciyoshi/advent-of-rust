@@ -37,7 +37,7 @@ pub fn solve(input: &str) -> Solution<String, String> {
     let moves = lines
         .skip(1)
         .map(|l| {
-            let action = extract_integers::<usize>(&l);
+            let action = extract_integers::<usize>(l);
 
             (action[0], action[1] - 1, action[2] - 1)
         })

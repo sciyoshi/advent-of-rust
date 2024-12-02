@@ -47,8 +47,8 @@ fn reg(input: &str) -> IResult<&str, char> {
 
 fn arg(input: &str) -> IResult<&str, Arg> {
     alt((
-        map(delimited(space0, i64, space0), |v| Arg::Val(v)),
-        map(reg, |c| Arg::Reg(c)),
+        map(delimited(space0, i64, space0), Arg::Val),
+        map(reg, Arg::Reg),
     ))(input)
 }
 
@@ -97,7 +97,7 @@ fn run(ins: &[Cmd], ident: i64, tx: Option<Sender<i64>>, rx: Option<Receiver<i64
         pc += 1;
     }
 
-    return 0;
+    0
 }
 
 fn parse_inst(input: &str) -> IResult<&str, Cmd> {
@@ -133,7 +133,7 @@ pub fn solve(input: &str) -> Solution<i64, i64> {
 
     let child2 = thread::spawn(move || run(&ins2, 1, Some(tx2), Some(rx1)));
 
-    let _res1 = child1.join().unwrap();
+    child1.join().unwrap();
     let res2 = child2.join().unwrap();
 
     Solution(part1, res2)

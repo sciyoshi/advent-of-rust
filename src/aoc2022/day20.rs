@@ -1,5 +1,5 @@
-use std::cell::RefCell;
 use std::rc::Rc;
+use std::{cell::RefCell, cmp::Ordering};
 
 use crate::{Solution, utils::extract_integers};
 
@@ -38,18 +38,22 @@ impl File {
         let dist = self.order[item].borrow().val;
         let new = (pos as isize + dist).rem_euclid(self.order.len() as isize - 1) as usize;
 
-        if new > pos {
-            self.items[pos].borrow_mut().pos = new;
-            self.items[pos + 1..=new]
-                .iter_mut()
-                .for_each(|e| e.borrow_mut().pos -= 1);
-            self.items[pos..=new].rotate_left(1);
-        } else if new < pos {
-            self.items[pos].borrow_mut().pos = new;
-            self.items[new..=pos - 1]
-                .iter_mut()
-                .for_each(|e| e.borrow_mut().pos += 1);
-            self.items[new..=pos].rotate_right(1);
+        match new.cmp(&pos) {
+            Ordering::Greater => {
+                self.items[pos].borrow_mut().pos = new;
+                self.items[pos + 1..=new]
+                    .iter_mut()
+                    .for_each(|e| e.borrow_mut().pos -= 1);
+                self.items[pos..=new].rotate_left(1);
+            }
+            Ordering::Less => {
+                self.items[pos].borrow_mut().pos = new;
+                self.items[new..=pos - 1]
+                    .iter_mut()
+                    .for_each(|e| e.borrow_mut().pos += 1);
+                self.items[new..=pos].rotate_right(1);
+            }
+            _ => {}
         }
     }
 

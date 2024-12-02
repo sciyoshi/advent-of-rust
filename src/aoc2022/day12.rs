@@ -16,7 +16,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
             let elevation = match c {
                 'S' => 0,
                 'E' => 25,
-                _ => (c as u8) - ('a' as u8),
+                _ => (c as u8) - b'a',
             };
             let node = graph.add_node(elevation);
             if c == 'S' {

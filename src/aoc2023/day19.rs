@@ -40,7 +40,7 @@ fn parse_condition(cond_str: &str) -> Condition {
         Cmp::Lt
     };
     let value = cond_str
-        .split(|c| c == '>' || c == '<')
+        .split(['>', '<'])
         .nth(1)
         .unwrap()
         .parse::<usize>()
@@ -185,8 +185,8 @@ fn split_range(
             } else if min >= condition.value {
                 (None, Some(cuboid))
             } else {
-                let mut cuboid1 = cuboid.clone();
-                let mut cuboid2 = cuboid.clone();
+                let mut cuboid1 = cuboid;
+                let mut cuboid2 = cuboid;
                 cuboid1.max[dimension] = condition.value - 1;
                 cuboid2.min[dimension] = condition.value;
                 (Some(cuboid1), Some(cuboid2))
@@ -198,8 +198,8 @@ fn split_range(
             } else if max <= condition.value {
                 (None, Some(cuboid))
             } else {
-                let mut cuboid1 = cuboid.clone();
-                let mut cuboid2 = cuboid.clone();
+                let mut cuboid1 = cuboid;
+                let mut cuboid2 = cuboid;
                 cuboid1.min[dimension] = condition.value + 1;
                 cuboid2.max[dimension] = condition.value;
                 (Some(cuboid1), Some(cuboid2))
@@ -216,15 +216,15 @@ fn explore(
     let mut total = 0;
     if let Some(rules) = workflows.get(workflow_name) {
         for rule in rules {
-            let mut new_range = range.clone();
+            let mut new_range = range;
 
             // Update new_range based on the rule's condition
             if let Some(condition) = &rule.condition {
                 let (range1, range2) = match condition.attribute {
-                    'x' => split_range(new_range, 0, &condition),
-                    'm' => split_range(new_range, 1, &condition),
-                    'a' => split_range(new_range, 2, &condition),
-                    's' => split_range(new_range, 3, &condition),
+                    'x' => split_range(new_range, 0, condition),
+                    'm' => split_range(new_range, 1, condition),
+                    'a' => split_range(new_range, 2, condition),
+                    's' => split_range(new_range, 3, condition),
                     _ => continue,
                 };
 

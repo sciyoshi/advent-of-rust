@@ -57,11 +57,11 @@ fn lcm_paths(instructions: &[char], node_mapping: &HashMap<String, (String, Stri
     let mut lcm = 1;
 
     for node in starting_nodes {
-        let (cycle_length, _) = find_cycle(&instructions, &node_mapping, node);
+        let (cycle_length, _) = find_cycle(instructions, node_mapping, node);
         lcm = lcm.lcm(&cycle_length);
     }
 
-    lcm as usize
+    lcm
 }
 
 fn find_cycle(

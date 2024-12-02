@@ -121,9 +121,9 @@ fn parse_rule(input: &str) -> (char, Vec<(usize, Direction, char)>) {
     (state, rules)
 }
 
-fn parse_blueprint(
-    input: &str,
-) -> IResult<&str, (char, u64, HashMap<char, Vec<(usize, Direction, char)>>)> {
+type Blueprint = (char, u64, HashMap<char, Vec<(usize, Direction, char)>>);
+
+fn parse_blueprint(input: &str) -> IResult<&str, Blueprint> {
     let mut groups = input.split("\n\n");
 
     let mut lines = groups.next().expect("invalid input").lines();

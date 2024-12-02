@@ -10,8 +10,8 @@ enum Cmd {
 fn permute(mut vals: Vec<char>, cmds: &[Cmd]) -> Vec<char> {
     let len = vals.len();
 
-    for ref cmd in cmds {
-        match *cmd {
+    for cmd in cmds {
+        match cmd {
             Cmd::Spin(val) => vals.rotate_left(len - val),
             Cmd::Exchange(i, j) => vals.swap(*i, *j),
             Cmd::Partner(i, j) => {
@@ -68,6 +68,6 @@ pub fn solve(input: &str) -> Solution<String, String> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("s1,x3/4,pe/b").0 == "paedcbfghijklmno".to_string());
+        assert!(super::solve("s1,x3/4,pe/b").0 == *"paedcbfghijklmno");
     }
 }

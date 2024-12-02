@@ -5,7 +5,7 @@ use crate::Solution;
 use std::collections::{HashMap, HashSet};
 
 fn path_positions(
-    grid: &Vec<Vec<char>>,
+    grid: &[Vec<char>],
     adjacency_list: &HashMap<(usize, usize), Vec<(usize, usize)>>,
 ) -> HashSet<(usize, usize)> {
     let mut visited = HashSet::new();
@@ -67,7 +67,7 @@ fn replacement_for_s(
 }
 
 fn create_grid_copy(
-    grid: &Vec<Vec<char>>,
+    grid: &[Vec<char>],
     path_positions: &HashSet<(usize, usize)>,
     adjacency_list: &HashMap<(usize, usize), Vec<(usize, usize)>>,
 ) -> Vec<Vec<char>> {
@@ -92,7 +92,7 @@ fn create_grid_copy(
         .collect()
 }
 
-fn find_start(grid: &Vec<Vec<char>>) -> Option<(usize, usize)> {
+fn find_start(grid: &[Vec<char>]) -> Option<(usize, usize)> {
     for (i, row) in grid.iter().enumerate() {
         for (j, &cell) in row.iter().enumerate() {
             if cell == 'S' {
@@ -172,7 +172,7 @@ fn to_adjacency_list(grid: &[Vec<char>]) -> HashMap<(usize, usize), Vec<(usize, 
                         neighbors.push((i, j + 1));
                     }
                 }
-                '.' | _ => {}
+                _ => {}
             }
             adjacency_list.insert((i, j), neighbors);
         }
@@ -181,7 +181,7 @@ fn to_adjacency_list(grid: &[Vec<char>]) -> HashMap<(usize, usize), Vec<(usize, 
     adjacency_list
 }
 
-fn loop_area(grid: &Vec<Vec<char>>) -> usize {
+fn loop_area(grid: &[Vec<char>]) -> usize {
     let mut total_count = 0;
 
     for row in grid {

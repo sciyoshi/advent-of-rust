@@ -10,7 +10,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         let all = line
             .split_whitespace()
             .filter(|&v| v != "|")
-            .map(|v| v.chars().map(|c| 1 << (c as u8 - 'a' as u8)).sum::<u8>())
+            .map(|v| v.chars().map(|c| 1 << (c as u8 - b'a')).sum::<u8>())
             .collect::<Vec<_>>();
         let digits = &all[..10];
         let output = &all[10..];

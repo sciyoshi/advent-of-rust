@@ -33,10 +33,10 @@ fn eval(monkeys: &BTreeMap<&str, Node>, node: &str) -> isize {
 }
 
 fn find_human(monkeys: &mut BTreeMap<&str, Node>, node: &str) -> bool {
-    let has_human = match &monkeys[node].monkey {
-        &Monkey::Human(_) => true,
-        &Monkey::Num(_) => false,
-        &Monkey::BinOp(_, l, r) => find_human(monkeys, l) || find_human(monkeys, r),
+    let has_human = match monkeys[node].monkey {
+        Monkey::Human(_) => true,
+        Monkey::Num(_) => false,
+        Monkey::BinOp(_, l, r) => find_human(monkeys, l) || find_human(monkeys, r),
     };
 
     monkeys.get_mut(node).unwrap().has_human = has_human;
@@ -51,12 +51,12 @@ fn rotate(monkeys: &mut BTreeMap<&str, Node>) -> isize {
         }
 
         loop {
-            match &monkeys[left].monkey {
-                &Monkey::Human(_) => {
+            match monkeys[left].monkey {
+                Monkey::Human(_) => {
                     break;
                 }
-                &Monkey::Num(_) => unreachable!(),
-                &Monkey::BinOp(op, x, y) => {
+                Monkey::Num(_) => unreachable!(),
+                Monkey::BinOp(op, x, y) => {
                     let x_monkey = monkeys[x].has_human;
                     let left_monkey = monkeys.get_mut(left).unwrap();
                     let y_monkey = if x_monkey { y } else { x };

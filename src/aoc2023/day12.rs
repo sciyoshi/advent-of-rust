@@ -2,7 +2,7 @@
 // https://chat.openai.com/share/dde4d3bb-88f1-454b-9ca7-65382312b1af
 
 use crate::Solution;
-use std::collections::HashMap;
+use std::{cmp::Ordering, collections::HashMap};
 
 struct Record {
     spec: String,
@@ -34,41 +34,43 @@ impl Record {
 
         let cur_piece = self.pieces[piece];
 
-        if cur_piece > self.spec.len() - pos {
-            0
-        } else if cur_piece == self.spec.len() - pos {
-            if self.spec[pos..].chars().all(|c| c == '#' || c == '?')
-                && piece == self.pieces.len() - 1
-            {
-                1
-            } else {
-                0
-            }
-        } else {
-            let mut total = 0;
-
-            for i in pos..=self.spec.len() - cur_piece {
-                if self.spec[i..i + cur_piece]
-                    .chars()
-                    .all(|c| c == '#' || c == '?')
+        match cur_piece.cmp(&(self.spec.len() - pos)) {
+            Ordering::Greater => 0,
+            Ordering::Equal => {
+                if self.spec[pos..].chars().all(|c| c == '#' || c == '?')
+                    && piece == self.pieces.len() - 1
                 {
-                    if i + cur_piece == self.spec.len() {
-                        total += self.place(self.spec.len(), piece + 1);
-                    } else if self.spec.chars().nth(i + cur_piece) == Some('.')
-                        || self.spec.chars().nth(i + cur_piece) == Some('?')
+                    1
+                } else {
+                    0
+                }
+            }
+            Ordering::Less => {
+                let mut total = 0;
+
+                for i in pos..=self.spec.len() - cur_piece {
+                    if self.spec[i..i + cur_piece]
+                        .chars()
+                        .all(|c| c == '#' || c == '?')
                     {
-                        total += self.place(i + cur_piece + 1, piece + 1);
+                        if i + cur_piece == self.spec.len() {
+                            total += self.place(self.spec.len(), piece + 1);
+                        } else if self.spec.chars().nth(i + cur_piece) == Some('.')
+                            || self.spec.chars().nth(i + cur_piece) == Some('?')
+                        {
+                            total += self.place(i + cur_piece + 1, piece + 1);
+                        }
+                    }
+
+                    if self.spec.chars().nth(i) == Some('#') {
+                        break;
                     }
                 }
 
-                if self.spec.chars().nth(i) == Some('#') {
-                    break;
-                }
+                self.cache.insert((pos, piece), total);
+
+                total
             }
-
-            self.cache.insert((pos, piece), total);
-
-            total
         }
     }
 }

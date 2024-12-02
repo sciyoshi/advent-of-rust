@@ -1,6 +1,6 @@
 use crate::Solution;
 
-fn step(lengths: &[u8], rope: &mut Vec<usize>, rounds: usize) {
+fn step(lengths: &[u8], rope: &mut [usize], rounds: usize) {
     let len = rope.len();
 
     let mut skip = 0;
@@ -34,7 +34,7 @@ pub fn knothash<T: IntoIterator<Item = u8>>(line: T) -> u128 {
         result |= chunk.iter().fold(0, |acc, &v| acc ^ v as u8) as u128;
     }
 
-    return result;
+    result
 }
 
 pub fn solve(input: &str) -> Solution<usize, String> {

@@ -17,10 +17,11 @@ struct Valley {
 impl Valley {
     fn parse(input: &str) -> Self {
         let lines: Vec<_> = input.lines().collect();
-        let mut valley = Valley::default();
-
-        valley.height = lines.len() as isize - 2;
-        valley.width = lines[0].len() as isize - 2;
+        let mut valley = Valley {
+            height: lines.len() as isize - 2,
+            width: lines[0].len() as isize - 2,
+            ..Default::default()
+        };
 
         for (y, line) in lines[1..lines.len() - 1].iter().rev().enumerate() {
             for (x, c) in line.chars().skip(1).enumerate() {

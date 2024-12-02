@@ -22,7 +22,7 @@ pub fn solve(input: &str) -> Solution<i32, i32> {
         }
 
         // Advance in the current direction
-        pos = pos + dir;
+        pos += dir;
     }
 
     let part1 = pos.norm1();
@@ -53,7 +53,7 @@ pub fn solve(input: &str) -> Solution<i32, i32> {
         }
 
         // Advance in the current direction
-        pos = pos + dir;
+        pos += dir;
     }
 }
 

@@ -8,10 +8,10 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
         .lines()
         .map(|line| {
             // Find the first digit in the line
-            let first_digit = line.chars().find(|c| c.is_digit(10));
+            let first_digit = line.chars().find(|c| c.is_ascii_digit());
 
             // Find the last digit in the line
-            let last_digit = line.chars().rev().find(|c| c.is_digit(10));
+            let last_digit = line.chars().rev().find(|c| c.is_ascii_digit());
 
             match (first_digit, last_digit) {
                 (Some(f), Some(l)) => {

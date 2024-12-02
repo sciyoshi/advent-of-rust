@@ -68,7 +68,7 @@ fn parse_monkeys(input: &str, engine: &Engine) -> Vec<Monkey> {
         .collect()
 }
 
-fn run_round(monkeys: &mut Vec<Monkey>, engine: &Engine, lcm: i64, relief: bool) {
+fn run_round(monkeys: &mut [Monkey], engine: &Engine, lcm: i64, relief: bool) {
     for i in 0..monkeys.len() {
         let items: Vec<_> = monkeys[i].items.drain(..).collect();
 
@@ -98,17 +98,11 @@ fn run_round(monkeys: &mut Vec<Monkey>, engine: &Engine, lcm: i64, relief: bool)
     }
 }
 
-fn run_rounds(
-    monkeys: &Vec<Monkey>,
-    engine: &Engine,
-    lcm: i64,
-    rounds: usize,
-    relief: bool,
-) -> usize {
-    let mut monkeys = monkeys.clone();
+fn run_rounds(monkeys: &[Monkey], engine: &Engine, lcm: i64, rounds: usize, relief: bool) -> usize {
+    let mut monkeys = monkeys.to_vec();
 
     for _ in 0..rounds {
-        run_round(&mut monkeys, &engine, lcm, relief);
+        run_round(&mut monkeys, engine, lcm, relief);
     }
 
     monkeys

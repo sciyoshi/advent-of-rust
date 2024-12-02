@@ -25,7 +25,7 @@ fn is_adjacent_to_valid_char(grid: &[Vec<char>], i: usize, j: usize) -> bool {
 
     for (di, dj) in directions {
         if let Some(adjacent_char) = get_char_at(grid, i as isize + di, j as isize + dj) {
-            if !adjacent_char.is_digit(10) && adjacent_char != '.' {
+            if !adjacent_char.is_ascii_digit() && adjacent_char != '.' {
                 return true;
             }
         }
@@ -41,9 +41,11 @@ fn get_char_at(grid: &[Vec<char>], i: isize, j: isize) -> Option<char> {
     grid.get(i).and_then(|row| row.get(j)).cloned()
 }
 
+type PartNumber = (usize, (usize, usize), (usize, usize));
+
 fn calculate_gear_ratio(
     grid: &[Vec<char>],
-    part_numbers: &[(usize, (usize, usize), (usize, usize))],
+    part_numbers: &[PartNumber],
     i: usize,
     j: usize,
 ) -> usize {
@@ -92,9 +94,9 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     for (i, row) in grid.iter().enumerate() {
         let mut j = 0;
         while j < row.len() {
-            if row[j].is_digit(10) {
+            if row[j].is_ascii_digit() {
                 let start = j;
-                while j < row.len() && row[j].is_digit(10) {
+                while j < row.len() && row[j].is_ascii_digit() {
                     j += 1;
                 }
                 let part_number: usize = row[start..j].iter().collect::<String>().parse().unwrap();
@@ -114,8 +116,8 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     }
 
     for (i, row) in grid.iter().enumerate() {
-        for j in 0..row.len() {
-            if row[j] == '*' {
+        for (j, el) in row.iter().enumerate() {
+            if *el == '*' {
                 gear_ratio += calculate_gear_ratio(&grid, &part_numbers, i, j);
             }
         }

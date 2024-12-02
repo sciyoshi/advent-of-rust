@@ -65,9 +65,9 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     let part1: usize = grids
         .iter()
         .map(|(rows, cols)| {
-            if let Some(row) = reflection_point(&rows) {
+            if let Some(row) = reflection_point(rows) {
                 100 * row
-            } else if let Some(col) = reflection_point(&cols) {
+            } else if let Some(col) = reflection_point(cols) {
                 col
             } else {
                 panic!("No reflection point found");
@@ -78,9 +78,9 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     let part2 = grids
         .iter()
         .map(|(rows, cols)| {
-            if let Some(row) = reflection_point_smudged(&rows) {
+            if let Some(row) = reflection_point_smudged(rows) {
                 100 * row
-            } else if let Some(col) = reflection_point_smudged(&cols) {
+            } else if let Some(col) = reflection_point_smudged(cols) {
                 col
             } else {
                 println!("{:?} {:?}", rows, cols);

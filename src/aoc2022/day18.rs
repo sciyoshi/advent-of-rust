@@ -22,7 +22,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
                     && nb.0[1] <= 21
                     && nb.0[2] >= -1
                     && nb.0[2] <= 21
-                    && !pts.contains(&nb)
+                    && !pts.contains(nb)
             })
             .collect::<Vec<_>>()
             .into_iter()

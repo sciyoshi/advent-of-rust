@@ -3,18 +3,15 @@ use crate::utils::Pt;
 use std::collections::HashMap;
 
 #[derive(Clone, Debug)]
+#[derive(Default)]
 enum Status {
+    #[default]
     Clean,
     Weakened,
     Infected,
     Flagged,
 }
 
-impl Default for Status {
-    fn default() -> Self {
-        Status::Clean
-    }
-}
 
 fn run(mut map: HashMap<Pt<i64>, Status>, steps: u32, evolved: bool) -> u32 {
     let mut pos = Pt(0, 0);
@@ -52,7 +49,7 @@ fn run(mut map: HashMap<Pt<i64>, Status>, steps: u32, evolved: bool) -> u32 {
             }
         }
 
-        pos = pos + dir;
+        pos += dir;
     }
 
     count

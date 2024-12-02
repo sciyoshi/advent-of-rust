@@ -6,7 +6,7 @@ use std::{
 };
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let data: Vec<_> = input.lines().map(|line| extract_integers(line)).collect();
+    let data: Vec<_> = input.lines().map(extract_integers).collect();
 
     let mut points: HashMap<(i64, i64), u64> = HashMap::new();
 

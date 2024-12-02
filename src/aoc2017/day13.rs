@@ -17,12 +17,11 @@ pub fn solve(input: &str) -> Solution<u32, u32> {
         .sum();
 
     let wait: u32 = (0..)
-        .filter(|wait| {
+        .find(|wait| {
             !heights
                 .iter()
                 .any(|(&pos, &height)| (wait + pos) % (2 * (height - 1)) == 0)
         })
-        .next()
         .unwrap();
 
     Solution(severity, wait)

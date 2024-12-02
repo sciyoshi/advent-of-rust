@@ -42,7 +42,7 @@ impl Board {
 pub fn solve(input: &str) -> Solution<i64, i64> {
     let data: Vec<_> = input.lines().collect();
 
-    let rolls = extract_integers(&data[0]);
+    let rolls = extract_integers(data[0]);
 
     let mut boards: Vec<Board> = vec![];
     let mut i = 2;

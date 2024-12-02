@@ -113,7 +113,7 @@ impl Configuration {
 
             let module = &mut self.graph[node];
 
-            if pulse == false {
+            if !pulse {
                 if let Some(target) = self.targets.iter().position(|&target| target == node) {
                     triggered = Some(target);
                 }

@@ -68,7 +68,7 @@ impl Blueprint {
 
                 if state.ore_robots < max_ore {
                     let step = if self.ore > state.ore {
-                        (self.ore - state.ore + state.ore_robots - 1) / state.ore_robots + 1
+                        (self.ore - state.ore).div_ceil(state.ore_robots) + 1
                     } else {
                         1
                     };
@@ -85,7 +85,7 @@ impl Blueprint {
 
                 if state.clay_robots < self.obsidian_clay {
                     let step = if self.clay > state.ore {
-                        (self.clay - state.ore + state.ore_robots - 1) / state.ore_robots + 1
+                        (self.clay - state.ore).div_ceil(state.ore_robots) + 1
                     } else {
                         1
                     };
@@ -102,15 +102,14 @@ impl Blueprint {
 
                 if state.clay_robots > 0 {
                     let step_ore = if self.obsidian_ore > state.ore {
-                        (self.obsidian_ore - state.ore + state.ore_robots - 1) / state.ore_robots
+                        (self.obsidian_ore - state.ore).div_ceil(state.ore_robots)
                             + 1
                     } else {
                         1
                     };
 
                     let step_clay = if self.obsidian_clay > state.clay {
-                        (self.obsidian_clay - state.clay + state.clay_robots - 1)
-                            / state.clay_robots
+                        (self.obsidian_clay - state.clay).div_ceil(state.clay_robots)
                             + 1
                     } else {
                         1
@@ -131,14 +130,13 @@ impl Blueprint {
 
                 if state.obsidian_robots > 0 {
                     let step_ore = if self.geode_ore > state.ore {
-                        (self.geode_ore - state.ore + state.ore_robots - 1) / state.ore_robots + 1
+                        (self.geode_ore - state.ore).div_ceil(state.ore_robots) + 1
                     } else {
                         1
                     };
 
                     let step_obsidian = if self.geode_obsidian > state.obsidian {
-                        (self.geode_obsidian - state.obsidian + state.obsidian_robots - 1)
-                            / state.obsidian_robots
+                        (self.geode_obsidian - state.obsidian).div_ceil(state.obsidian_robots)
                             + 1
                     } else {
                         1

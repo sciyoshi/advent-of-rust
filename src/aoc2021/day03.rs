@@ -25,8 +25,8 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     let mut v1 = 0;
     let mut v2 = 0;
 
-    for i in 0..width {
-        if counts[i] > data.len() / 2 {
+    for (i, &count) in counts.iter().enumerate() {
+        if count > data.len() / 2 {
             v1 += 1 << (width - 1 - i);
         } else {
             v2 += 1 << (width - 1 - i);

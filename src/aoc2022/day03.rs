@@ -17,7 +17,7 @@ pub fn solve(input: &str) -> Solution<u32, u32> {
             let set1 = l[..l.len() / 2].chars().collect::<BTreeSet<char>>();
             let set2 = l[l.len() / 2..].chars().collect::<BTreeSet<char>>();
 
-            priority(*set1.iter().filter(|c| set2.contains(c)).next().unwrap())
+            priority(*set1.iter().find(|c| set2.contains(c)).unwrap())
         })
         .sum();
 
@@ -31,9 +31,7 @@ pub fn solve(input: &str) -> Solution<u32, u32> {
 
             priority(
                 *set1
-                    .iter()
-                    .filter(|c| set2.contains(c) && set3.contains(c))
-                    .next()
+                    .iter().find(|c| set2.contains(c) && set3.contains(c))
                     .unwrap(),
             )
         })

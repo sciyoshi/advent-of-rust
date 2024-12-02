@@ -50,7 +50,7 @@ pub fn solve(input: &str) -> Solution<usize, u64> {
     let mut part2 = vec![];
 
     for l in data {
-        let parsed = parse(&l);
+        let parsed = parse(l);
 
         part1 += match parsed {
             ParseResult::Corrupted(')') => 3,
@@ -60,10 +60,7 @@ pub fn solve(input: &str) -> Solution<usize, u64> {
             _ => 0,
         };
 
-        match parsed {
-            ParseResult::Incomplete(n) => part2.push(n),
-            _ => (),
-        }
+        if let ParseResult::Incomplete(n) = parsed { part2.push(n) }
     }
 
     part2.sort();

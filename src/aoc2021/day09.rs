@@ -1,7 +1,7 @@
 use crate::Solution;
 use std::collections::HashSet;
 
-fn flood(grid: &Vec<Vec<u32>>, pt: (usize, usize)) -> usize {
+fn flood(grid: &[Vec<u32>], pt: (usize, usize)) -> usize {
     let mut stack = vec![pt];
     let mut seen: HashSet<(usize, usize)> = HashSet::new();
 

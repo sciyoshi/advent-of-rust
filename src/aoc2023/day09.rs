@@ -15,7 +15,7 @@ fn find_element(sequence: &[isize]) -> (isize, isize) {
     let differences: Vec<isize> = sequence.windows(2).map(|w| w[1] - w[0]).collect();
 
     if differences.iter().all(|&x| x == 0) {
-        (sequence.last().unwrap().clone(), sequence[0].clone())
+        (*sequence.last().unwrap(), sequence[0])
     } else {
         let (next, prev) = find_element(&differences);
         (sequence.last().unwrap() + next, sequence[0] - prev)

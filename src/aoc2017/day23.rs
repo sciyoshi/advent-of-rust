@@ -41,8 +41,8 @@ fn reg(input: &str) -> IResult<&str, char> {
 
 fn arg(input: &str) -> IResult<&str, Arg> {
     alt((
-        map(delimited(space0, i64, space0), |v| Arg::Val(v)),
-        map(reg, |c| Arg::Reg(c)),
+        map(delimited(space0, i64, space0), Arg::Val),
+        map(reg, Arg::Reg),
     ))(input)
 }
 

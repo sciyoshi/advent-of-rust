@@ -40,7 +40,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
     let part2 = interp[0]
         + x * (interp[1] - interp[0] + (x - 1) * (interp[2] - 2 * interp[1] + interp[0]) / 2);
 
-    Solution(part1 as usize, part2)
+    Solution(part1, part2)
 }
 
 #[cfg(test)]

@@ -33,7 +33,7 @@ pub fn solve(input: &str) -> Solution<i64, String> {
     let mut cycle = 1;
     let mut x: i64 = 1;
 
-    let checks = vec![20, 60, 100, 140, 180, 220];
+    let checks = [20, 60, 100, 140, 180, 220];
     let mut strength = 0;
     let mut crt = vec![];
 

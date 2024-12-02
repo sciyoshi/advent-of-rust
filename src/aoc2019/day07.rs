@@ -6,7 +6,7 @@ use crate::Solution;
 use crate::utils::extract_integers;
 use itertools::Itertools;
 
-fn simulate(ops: &Vec<isize>, phases: impl IntoIterator<Item = isize>) -> isize {
+fn simulate(ops: &[isize], phases: impl IntoIterator<Item = isize>) -> isize {
     let (mut pipe_tx, mut pipe_rx) = mpsc::channel();
     let first_tx = pipe_tx.clone();
 
@@ -25,7 +25,7 @@ fn simulate(ops: &Vec<isize>, phases: impl IntoIterator<Item = isize>) -> isize 
     thread::spawn(move || {
         loop {
             let out = pipe_rx.recv().unwrap();
-            if let Err(_) = first_tx.send(out) {
+            if first_tx.send(out).is_err() {
                 return out;
             }
         }

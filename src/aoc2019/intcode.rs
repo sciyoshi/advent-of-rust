@@ -9,14 +9,14 @@ pub struct Intcode {
 }
 
 impl Intcode {
-    pub fn new(ops: &Vec<isize>) -> (Self, Sender<isize>, Receiver<isize>) {
+    pub fn new(ops: &[isize]) -> (Self, Sender<isize>, Receiver<isize>) {
         let (input_tx, input_rx) = mpsc::channel();
         let (output_tx, output_rx) = mpsc::channel();
 
         (
             Intcode {
                 ip: 0,
-                ops: ops.clone(),
+                ops: ops.to_vec(),
                 input: input_rx,
                 output: output_tx,
             },
@@ -25,12 +25,12 @@ impl Intcode {
         )
     }
 
-    pub fn new_with_io(ops: &Vec<isize>, input: Receiver<isize>, output: Sender<isize>) -> Self {
+    pub fn new_with_io(ops: &[isize], input: Receiver<isize>, output: Sender<isize>) -> Self {
         Intcode {
             ip: 0,
-            ops: ops.clone(),
-            input: input,
-            output: output,
+            ops: ops.to_vec(),
+            input,
+            output,
         }
     }
 

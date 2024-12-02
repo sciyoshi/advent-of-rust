@@ -236,10 +236,10 @@ impl<T, const N: usize> Pt<T, N> {
     where
         T: num::Zero + num::One + std::ops::Neg<Output = T> + Copy,
     {
-        let pt = self.clone();
+        let pt = *self;
         (0..N).flat_map(move |e| {
             [T::one().neg(), T::one()].map(move |s| {
-                let mut result = pt.clone();
+                let mut result = pt;
                 result.0[e] = result.0[e] + s;
                 result
             })

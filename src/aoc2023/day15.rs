@@ -40,7 +40,7 @@ fn part2(input: &str) -> usize {
                     focal_length,
                 };
 
-                let lenses = boxes.entry(box_number).or_insert_with(Vec::new);
+                let lenses = boxes.entry(box_number).or_default();
                 if let Some(index) = lenses.iter().position(|l| l.label == label) {
                     lenses[index] = lens; // Replace the lens at the same position
                 } else {
@@ -54,7 +54,7 @@ fn part2(input: &str) -> usize {
     calculate_focusing_power(&boxes)
 }
 fn parse_step(step: &str) -> (String, char, Option<usize>) {
-    let (label, rest) = step.split_at(step.find(|c: char| c == '-' || c == '=').unwrap());
+    let (label, rest) = step.split_at(step.find(['-', '=']).unwrap());
     let operation = rest.chars().next().unwrap();
     let value = if operation == '=' {
         Some(rest[1..].parse::<usize>().unwrap())

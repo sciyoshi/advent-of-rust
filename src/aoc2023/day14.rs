@@ -119,10 +119,8 @@ fn total_load(grid: &[Vec<Option<Rock>>]) -> usize {
     let mut load = 0;
 
     for (row_idx, row) in grid.iter().enumerate() {
-        for rock in row {
-            if let Some(Rock::Round) = rock {
-                load += total_rows - row_idx;
-            }
+        for _rock in row.iter().flatten().filter(|&&r| r == Rock::Round) {
+            load += total_rows - row_idx;
         }
     }
 

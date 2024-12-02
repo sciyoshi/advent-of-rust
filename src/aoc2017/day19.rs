@@ -32,7 +32,7 @@ pub fn solve(input: &str) -> Solution<String, usize> {
             }
             _ => {}
         }
-        pos = pos + dir;
+        pos += dir;
         steps += 1;
     }
 

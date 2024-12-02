@@ -50,7 +50,7 @@ fn reconstruct_path(
 }
 
 fn a_star_search(
-    grid: &Vec<Vec<i32>>,
+    grid: &[Vec<i32>],
     min_steps: i32,
     max_steps: i32,
 ) -> Option<(i32, Vec<Position>)> {

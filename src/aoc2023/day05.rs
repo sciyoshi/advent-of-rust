@@ -3,7 +3,9 @@
 
 use crate::Solution;
 
-fn parse_file(input: &str) -> (Vec<usize>, Vec<Vec<(usize, usize, usize)>>) {
+type Input = (Vec<usize>, Vec<Vec<(usize, usize, usize)>>);
+
+fn parse_file(input: &str) -> Input {
     let lines: Vec<&str> = input.lines().collect();
     let mut seeds = Vec::new();
     let mut maps = Vec::new();

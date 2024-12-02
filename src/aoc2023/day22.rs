@@ -61,11 +61,8 @@ fn fall_count(graph: &Graph<usize, ()>, start: NodeIndex) -> usize {
         for succ in graph.neighbors(node) {
             if graph
                 .neighbors_directed(succ, petgraph::Direction::Incoming)
-                .all(|pred| visit_map.is_visited(&pred))
-            {
-                if visit_map.visit(succ) {
-                    stack.push_back(succ);
-                }
+                .all(|pred| visit_map.is_visited(&pred)) && visit_map.visit(succ) {
+                stack.push_back(succ);
             }
         }
     }

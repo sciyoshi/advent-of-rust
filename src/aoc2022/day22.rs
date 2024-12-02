@@ -14,10 +14,12 @@ enum Move {
     TurnLeft,
 }
 
+type PtVec = (Pt2<isize>, Vec2<isize>);
+
 #[derive(Default, Debug)]
 struct Seams {
     size: isize,
-    map: HashMap<(Pt2<isize>, Vec2<isize>), (Pt2<isize>, Vec2<isize>)>,
+    map: HashMap<PtVec, PtVec>,
 }
 
 enum Side {
@@ -248,14 +250,14 @@ impl Board {
         let mut dir = Vec2::new(1, 0);
 
         for step in moves {
-            match step {
-                &Move::Forward(n) => {
+            match *step {
+                Move::Forward(n) => {
                     (pt, dir) = self.walk(pt, dir, n);
                 }
-                &Move::TurnLeft => {
+                Move::TurnLeft => {
                     dir = dir.rot90l();
                 }
-                &Move::TurnRight => {
+                Move::TurnRight => {
                     dir = dir.rot90r();
                 }
             }

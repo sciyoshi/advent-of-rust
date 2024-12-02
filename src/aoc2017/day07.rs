@@ -17,7 +17,7 @@ pub fn solve(input: &str) -> Solution<String, u32> {
     // Read into an array of the form ["node", "(weight)", "child", ...]
     let lines: Vec<Vec<_>> = input
         .lines()
-        .map(|l| re.find_iter(&l).map(|m| m.as_str().to_string()).collect())
+        .map(|l| re.find_iter(l).map(|m| m.as_str().to_string()).collect())
         .collect();
 
     // Build a graph
@@ -25,7 +25,7 @@ pub fn solve(input: &str) -> Solution<String, u32> {
     let mut graph = Graph::<Node, ()>::new();
 
     // First, insert all the nodes
-    for ref line in &lines {
+    for line in &lines {
         let weight = line[1].parse::<u32>().unwrap();
         let node = Node {
             name: line[0].to_string(),

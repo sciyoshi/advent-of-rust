@@ -14,10 +14,10 @@ enum Packet {
 
 fn parse_packet(input: &str) -> IResult<&str, Packet> {
     alt((
-        map(i64, |v| Packet::Int(v)),
+        map(i64, Packet::Int),
         map(
             delimited(tag("["), separated_list0(tag(","), parse_packet), tag("]")),
-            |v| Packet::List(v),
+            Packet::List,
         ),
     ))(input)
 }
@@ -31,33 +31,28 @@ impl std::cmp::PartialEq for Packet {
 impl std::cmp::Eq for Packet {}
 
 impl std::cmp::PartialOrd for Packet {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        match (self, other) {
-            (Packet::Int(l), Packet::Int(r)) => l.partial_cmp(r),
-            (Packet::List(_), Packet::Int(_)) => {
-                self.partial_cmp(&Packet::List(vec![other.clone()]))
-            }
-            (Packet::Int(_), Packet::List(_)) => {
-                Packet::List(vec![self.clone()]).partial_cmp(other)
-            }
-            (Packet::List(l), Packet::List(r)) => {
-                for (i1, i2) in l.iter().zip(r) {
-                    if let Some(result) = i1.partial_cmp(i2) {
-                        if result != Ordering::Equal {
-                            return Some(result);
-                        }
-                    }
-                }
-
-                l.len().partial_cmp(&r.len())
-            }
-        }
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
     }
 }
 
 impl std::cmp::Ord for Packet {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.partial_cmp(other).unwrap()
+        match (self, other) {
+            (Packet::Int(l), Packet::Int(r)) => l.cmp(r),
+            (Packet::List(_), Packet::Int(_)) => self.cmp(&Packet::List(vec![other.clone()])),
+            (Packet::Int(_), Packet::List(_)) => Packet::List(vec![self.clone()]).cmp(other),
+            (Packet::List(l), Packet::List(r)) => {
+                for (i1, i2) in l.iter().zip(r) {
+                    let result = i1.cmp(i2);
+                    if result != Ordering::Equal {
+                        return result;
+                    }
+                }
+
+                l.len().cmp(&r.len())
+            }
+        }
     }
 }
 
