@@ -77,7 +77,6 @@ fn find_rock(hails: &[Hail]) -> f64 {
     ];
 
     let rock = a.solve(&b).unwrap();
-
     rock[0].round() + rock[1].round() + rock[2].round()
 }
 

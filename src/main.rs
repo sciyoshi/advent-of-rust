@@ -14,13 +14,14 @@
 
 use clap::Parser;
 use std::fmt::Display;
-use std::io::{stdin, Read};
+use std::io::{Read, stdin};
 
 mod aoc2017;
 mod aoc2019;
 mod aoc2021;
 mod aoc2022;
 mod aoc2023;
+mod aoc2024;
 mod util;
 mod utils;
 
@@ -153,6 +154,7 @@ fn main() -> anyhow::Result<()> {
         (2023, 23) => println!("{}", aoc2023::day23::solve(&input)),
         (2023, 24) => println!("{}", aoc2023::day24::solve(&input)),
         (2023, 25) => println!("{}", aoc2023::day25::solve(&input)),
+        (2024, 01) => println!("{}", aoc2024::day01::solve(&input)),
         (_, _) => panic!("invalid year/day"),
     };
 
