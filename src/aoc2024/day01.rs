@@ -33,6 +33,6 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve(include_str!("examples/day01.txt")) == crate::Solution(209, 281));
+        assert!(super::solve(include_str!("examples/day01.txt")) == crate::Solution(11, 31));
     }
 }
