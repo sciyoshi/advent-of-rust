@@ -96,6 +96,7 @@ impl<T> Vec3Ext<T> for Vec3<T> {
     }
 }
 
+#[allow(dead_code)]
 pub trait Pt2Ext<T> {
     fn n() -> Self
     where
@@ -121,7 +122,7 @@ pub trait Pt2Ext<T> {
     where
         T: std::ops::Neg<Output = T>;
 
-    fn nb_ortho(&self) -> impl Iterator + '_
+    fn nb_ortho(&self) -> impl Iterator<Item = Self> + '_
     where
         T: num::Zero + num::One + std::ops::Neg<Output = T> + Copy;
 }
