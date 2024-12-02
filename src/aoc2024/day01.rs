@@ -1,5 +1,3 @@
-// Generated with ChatGPT 4.
-
 use std::iter::zip;
 
 use counter::Counter;

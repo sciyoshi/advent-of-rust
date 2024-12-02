@@ -9,6 +9,7 @@ The program expects the puzzle input on standard input.
 ## 2024 Solutions
 
 - [Day 1: Historian Hysteria](src/aoc2024/day01.rs)
+- [Day 2: Red-Nosed Reports](src/aoc2024/day02.rs)
 
 ## 2023 Solutions
 
