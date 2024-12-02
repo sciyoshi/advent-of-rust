@@ -6,6 +6,10 @@ This repository contains my solutions for the [Advent of Code][aoc] challenges, 
 
 The program expects the puzzle input on standard input.
 
+## 2024 Solutions
+
+- [Day 1: Historian Hysteria](src/aoc2024/day01.rs)
+
 ## 2023 Solutions
 
 Note that for this year, my goal has been to explore the usage of ChatGPT for writing
