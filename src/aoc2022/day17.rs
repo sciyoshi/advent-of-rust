@@ -1,10 +1,10 @@
 use std::{
-    collections::{hash_map::DefaultHasher, BTreeMap, BTreeSet, VecDeque},
+    collections::{BTreeMap, BTreeSet, VecDeque, hash_map::DefaultHasher},
     fmt::Display,
     hash::{Hash, Hasher},
 };
 
-use crate::{utils::Pt, Solution};
+use crate::{Solution, utils::Pt};
 
 struct Shape {
     pts: &'static [Pt<isize>],

@@ -1,5 +1,5 @@
 use crate::Solution;
-use ndarray::{s, Array2, Axis};
+use ndarray::{Array2, Axis, s};
 use std::collections::HashMap;
 
 fn parse(val: &str) -> Array2<bool> {

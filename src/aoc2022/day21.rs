@@ -90,34 +90,28 @@ pub fn solve(input: &str) -> Solution<isize, isize> {
         let name = &l[..4];
 
         if let Ok(val) = l[6..].parse::<isize>() {
-            monkeys.insert(
-                name,
-                Node {
-                    monkey: if name == "humn" {
-                        Monkey::Human(val)
-                    } else {
-                        Monkey::Num(val)
-                    },
-                    has_human: name == "humn",
+            monkeys.insert(name, Node {
+                monkey: if name == "humn" {
+                    Monkey::Human(val)
+                } else {
+                    Monkey::Num(val)
                 },
-            );
+                has_human: name == "humn",
+            });
         } else {
             let left = &l[6..10];
             let right = &l[13..17];
 
-            monkeys.insert(
-                name,
-                Node {
-                    monkey: match &l[11..12] {
-                        "+" => Monkey::BinOp(Op::Add, left, right),
-                        "-" => Monkey::BinOp(Op::Sub, left, right),
-                        "*" => Monkey::BinOp(Op::Mul, left, right),
-                        "/" => Monkey::BinOp(Op::Div, left, right),
-                        _ => panic!(),
-                    },
-                    has_human: false,
+            monkeys.insert(name, Node {
+                monkey: match &l[11..12] {
+                    "+" => Monkey::BinOp(Op::Add, left, right),
+                    "-" => Monkey::BinOp(Op::Sub, left, right),
+                    "*" => Monkey::BinOp(Op::Mul, left, right),
+                    "/" => Monkey::BinOp(Op::Div, left, right),
+                    _ => panic!(),
                 },
-            );
+                has_human: false,
+            });
         }
     });
 

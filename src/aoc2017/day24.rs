@@ -1,10 +1,10 @@
-use crate::utils::extract_integers;
 use crate::Solution;
+use crate::utils::extract_integers;
 use bit_set::BitSet;
 use petgraph::{
+    Graph, Undirected,
     graph::NodeIndex,
     visit::{EdgeRef, NodeIndexable},
-    Graph, Undirected,
 };
 
 #[derive(Default)]

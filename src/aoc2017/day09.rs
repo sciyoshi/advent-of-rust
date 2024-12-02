@@ -1,11 +1,11 @@
 use crate::Solution;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::{is_not, tag, take},
     combinator::{map, value},
     multi::fold_many0,
     sequence::{delimited, pair},
-    IResult,
 };
 
 #[derive(Clone)]

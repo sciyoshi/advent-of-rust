@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use crate::{utils::extract_integers, Solution};
+use crate::{Solution, utils::extract_integers};
 
 #[derive(Debug, Clone)]
 struct Item {

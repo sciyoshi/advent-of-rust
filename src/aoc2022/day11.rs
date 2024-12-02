@@ -1,6 +1,6 @@
-use crate::{utils::extract_integers, Solution};
+use crate::{Solution, utils::extract_integers};
 use itertools::Itertools;
-use rhai::{Engine, Scope, AST};
+use rhai::{AST, Engine, Scope};
 
 #[derive(Clone)]
 struct Monkey {

@@ -2,8 +2,8 @@ use itertools::Itertools;
 use std::collections::BTreeSet;
 
 use crate::{
-    utils::{extract_integers, Pt},
     Solution,
+    utils::{Pt, extract_integers},
 };
 
 struct Sensor {

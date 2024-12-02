@@ -1,15 +1,15 @@
 use crate::Solution;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{anychar, i64, space0},
     combinator::map,
     sequence::{delimited, tuple},
-    IResult,
 };
 use std::collections::HashMap;
-use std::sync::mpsc::{channel, Receiver, Sender};
 use std::sync::Arc;
+use std::sync::mpsc::{Receiver, Sender, channel};
 use std::thread;
 use std::time::Duration;
 

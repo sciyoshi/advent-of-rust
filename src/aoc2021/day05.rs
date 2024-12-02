@@ -1,5 +1,5 @@
-use crate::utils::extract_integers;
 use crate::Solution;
+use crate::utils::extract_integers;
 use std::{
     cmp::{max, min},
     collections::HashMap,

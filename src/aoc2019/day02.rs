@@ -1,6 +1,6 @@
 use super::intcode::Intcode;
-use crate::utils::extract_integers;
 use crate::Solution;
+use crate::utils::extract_integers;
 
 pub fn solve(input: &str) -> Solution<isize, isize> {
     let ops: Vec<isize> = extract_integers(input);

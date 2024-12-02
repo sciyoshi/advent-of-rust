@@ -1,11 +1,11 @@
-use crate::util::euclid::Vec3Ext;
 use crate::Solution;
+use crate::util::euclid::Vec3Ext;
 use euclid::default::{Point2D, Point3D, Vector3D};
 use itertools::Itertools;
 use petgraph::{
+    Graph,
     graph::NodeIndex,
     visit::{VisitMap, Visitable},
-    Graph,
 };
 use std::collections::{HashMap, HashSet, VecDeque};
 

@@ -1,4 +1,4 @@
-use crate::{utils::extract_integers, Solution};
+use crate::{Solution, utils::extract_integers};
 
 fn fuel(mut mass: usize) -> usize {
     let mut total = 0;

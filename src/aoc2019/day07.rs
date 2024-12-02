@@ -2,8 +2,8 @@ use std::sync::mpsc;
 use std::thread;
 
 use super::intcode::Intcode;
-use crate::utils::extract_integers;
 use crate::Solution;
+use crate::utils::extract_integers;
 use itertools::Itertools;
 
 fn simulate(ops: &Vec<isize>, phases: impl IntoIterator<Item = isize>) -> isize {
@@ -22,10 +22,12 @@ fn simulate(ops: &Vec<isize>, phases: impl IntoIterator<Item = isize>) -> isize 
 
     first_tx.send(0).unwrap();
 
-    thread::spawn(move || loop {
-        let out = pipe_rx.recv().unwrap();
-        if let Err(_) = first_tx.send(out) {
-            return out;
+    thread::spawn(move || {
+        loop {
+            let out = pipe_rx.recv().unwrap();
+            if let Err(_) = first_tx.send(out) {
+                return out;
+            }
         }
     })
     .join()

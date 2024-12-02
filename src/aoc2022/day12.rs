@@ -1,5 +1,5 @@
 use crate::Solution;
-use petgraph::{algo::dijkstra, graph::NodeIndex, Graph};
+use petgraph::{Graph, algo::dijkstra, graph::NodeIndex};
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
     let mut graph: Graph<u8, ()> = Graph::default();

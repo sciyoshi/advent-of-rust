@@ -1,5 +1,5 @@
 use crate::Solution;
-use ndarray::{azip, s, Array2, Ix1, Ix2, SliceInfo, SliceInfoElem, Zip};
+use ndarray::{Array2, Ix1, Ix2, SliceInfo, SliceInfoElem, Zip, azip, s};
 use std::cmp::max;
 
 type GridSlice = SliceInfo<[SliceInfoElem; 2], Ix2, Ix1>;

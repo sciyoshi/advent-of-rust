@@ -1,5 +1,5 @@
-use crate::utils::extract_integers;
 use crate::Solution;
+use crate::utils::extract_integers;
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
     let data: Vec<usize> = extract_integers(input);

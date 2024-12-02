@@ -2,11 +2,11 @@ use std::collections::HashMap;
 
 use crate::Solution;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{alpha1, u64},
     multi::separated_list1,
-    IResult,
 };
 use petgraph::Graph;
 

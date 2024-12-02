@@ -1,5 +1,5 @@
-use crate::utils::Pt;
 use crate::Solution;
+use crate::utils::Pt;
 use std::collections::HashMap;
 
 pub fn solve(input: &str) -> Solution<String, usize> {

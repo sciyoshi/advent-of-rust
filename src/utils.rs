@@ -1,6 +1,6 @@
 use num::{Num, Signed, ToPrimitive};
 use regex::Regex;
-use std::cmp::{max, Ord};
+use std::cmp::{Ord, max};
 use std::collections::VecDeque;
 use std::fmt::Debug;
 use std::hash::Hash;

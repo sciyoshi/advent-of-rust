@@ -3,7 +3,7 @@ use std::collections::{HashMap, HashSet};
 
 use counter::Counter;
 
-use crate::{utils::Pt, Solution};
+use crate::{Solution, utils::Pt};
 
 fn round(elves: HashSet<Pt<isize>>, round: usize) -> (HashSet<Pt<isize>>, bool) {
     let mut checks = vec![

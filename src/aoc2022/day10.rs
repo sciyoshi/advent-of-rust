@@ -1,12 +1,12 @@
 use crate::Solution;
 use itertools::Itertools;
 use nom::{
+    Finish, IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{i64, space1},
     combinator::{map, value},
     sequence::separated_pair,
-    Finish, IResult,
 };
 
 #[derive(Copy, Clone, Debug)]

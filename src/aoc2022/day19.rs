@@ -1,4 +1,4 @@
-use crate::{utils::extract_integers, Solution};
+use crate::{Solution, utils::extract_integers};
 
 #[derive(Default, Clone, Debug)]
 struct State {

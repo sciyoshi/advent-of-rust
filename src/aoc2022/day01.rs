@@ -1,5 +1,5 @@
-use crate::utils::extract_integers;
 use crate::Solution;
+use crate::utils::extract_integers;
 
 pub fn solve(input: &str) -> Solution<u32, u32> {
     let mut big: [u32; 3] = [0, 0, 0];

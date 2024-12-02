@@ -1,8 +1,8 @@
 use std::collections::BTreeSet;
 
+use crate::Solution;
 use crate::util::Pt;
 use crate::utils::{extract_integers, flood_fill};
-use crate::Solution;
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
     let pts: BTreeSet<Pt<isize, 3>> = input.lines().map(|l| extract_integers(l).into()).collect();
@@ -42,6 +42,10 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("2,2,2\n1,2,2\n3,2,2\n2,1,2\n2,3,2\n2,2,1\n2,2,3\n2,2,4\n2,2,6\n1,2,5\n3,2,5\n2,1,5\n2,3,5") == crate::Solution(64, 58));
+        assert!(
+            super::solve(
+                "2,2,2\n1,2,2\n3,2,2\n2,1,2\n2,3,2\n2,2,1\n2,2,3\n2,2,4\n2,2,6\n1,2,5\n3,2,5\n2,1,5\n2,3,5"
+            ) == crate::Solution(64, 58)
+        );
     }
 }

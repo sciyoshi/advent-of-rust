@@ -1,7 +1,7 @@
 use crate::Solution;
 use itertools::Itertools;
-use petgraph::algo::toposort;
 use petgraph::Graph;
+use petgraph::algo::toposort;
 use regex::Regex;
 use std::collections::HashMap;
 

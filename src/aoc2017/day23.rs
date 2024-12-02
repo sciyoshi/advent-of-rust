@@ -1,11 +1,11 @@
 use crate::Solution;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{anychar, i64, space0},
     combinator::map,
     sequence::{delimited, tuple},
-    IResult,
 };
 use primal::is_prime;
 use std::collections::HashMap;

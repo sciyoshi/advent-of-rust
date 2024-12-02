@@ -1,5 +1,5 @@
-use crate::utils::Pt;
 use crate::Solution;
+use crate::utils::Pt;
 use std::collections::BTreeSet;
 
 fn tail_visits(mut rope: Vec<Pt<i32>>, moves: &[(Pt<i32>, usize)]) -> usize {

@@ -1,6 +1,6 @@
 use super::day10::knothash;
-use crate::utils::Pt;
 use crate::Solution;
+use crate::utils::Pt;
 use bit_vec::BitVec;
 use byteorder::{BigEndian, ByteOrder};
 use std::collections::HashSet;

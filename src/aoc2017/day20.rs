@@ -1,11 +1,11 @@
 use crate::Solution;
 use nom::{
+    IResult,
     bytes::complete::tag,
     character::complete::{i64, space0},
     combinator::map,
     multi::separated_list1,
     sequence::delimited,
-    IResult,
 };
 use std::collections::HashMap;
 use std::ops::{Add, AddAssign};

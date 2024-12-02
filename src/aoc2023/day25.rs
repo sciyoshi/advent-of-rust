@@ -1,7 +1,7 @@
 use crate::Solution;
 use itertools::Itertools;
-use petgraph::graph::Graph;
 use petgraph::Undirected;
+use petgraph::graph::Graph;
 use rustworkx_core::centrality::edge_betweenness_centrality;
 use std::collections::HashMap;
 

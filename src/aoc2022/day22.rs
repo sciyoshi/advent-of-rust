@@ -1,10 +1,10 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::util::euclid::{Pt2, Vec2, Vec2Ext};
 use crate::Solution;
+use crate::util::euclid::{Pt2, Vec2, Vec2Ext};
 use nom::{
-    branch::alt, bytes::complete::tag, character::complete::u64, combinator::map, multi::many1,
-    IResult,
+    IResult, branch::alt, bytes::complete::tag, character::complete::u64, combinator::map,
+    multi::many1,
 };
 
 #[derive(Debug)]
@@ -294,7 +294,7 @@ pub fn solve(input: &str) -> Solution<isize, isize> {
 
 #[cfg(test)]
 mod tests {
-    use super::{parse_steps, Board, Seams};
+    use super::{Board, Seams, parse_steps};
 
     #[test]
     fn test_example() {

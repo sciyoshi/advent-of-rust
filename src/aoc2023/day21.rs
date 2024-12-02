@@ -1,5 +1,5 @@
-use crate::util::euclid::{pt2, Pt2, Pt2Ext};
 use crate::Solution;
+use crate::util::euclid::{Pt2, Pt2Ext, pt2};
 use std::collections::HashSet;
 
 fn expand(grid: &[Vec<bool>], set: HashSet<Pt2<isize>>) -> HashSet<Pt2<isize>> {

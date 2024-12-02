@@ -2,8 +2,8 @@ use std::cmp::Ordering;
 
 use crate::Solution;
 use nom::{
-    branch::alt, bytes::complete::tag, character::complete::i64, combinator::map,
-    multi::separated_list0, sequence::delimited, IResult,
+    IResult, branch::alt, bytes::complete::tag, character::complete::i64, combinator::map,
+    multi::separated_list0, sequence::delimited,
 };
 
 #[derive(Debug, Clone)]

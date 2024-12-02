@@ -73,6 +73,10 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve("00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010") == crate::Solution(198, 230));
+        assert!(
+            super::solve(
+                "00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010"
+            ) == crate::Solution(198, 230)
+        );
     }
 }

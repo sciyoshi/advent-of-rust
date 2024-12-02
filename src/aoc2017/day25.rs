@@ -1,8 +1,8 @@
 use crate::Solution;
 use bit_vec::BitVec;
 use nom::{
-    bytes::complete::tag, character::complete::anychar, character::complete::u64,
-    sequence::preceded, IResult,
+    IResult, bytes::complete::tag, character::complete::anychar, character::complete::u64,
+    sequence::preceded,
 };
 use std::collections::HashMap;
 use std::ops::Index;

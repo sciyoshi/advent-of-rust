@@ -1,5 +1,5 @@
-use crate::utils::Pt;
 use crate::Solution;
+use crate::utils::Pt;
 use std::collections::{BTreeMap, BTreeSet};
 
 fn wire(steps: &str) -> BTreeMap<Pt<isize>, usize> {

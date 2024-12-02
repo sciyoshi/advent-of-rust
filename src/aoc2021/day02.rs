@@ -1,11 +1,11 @@
 use crate::Solution;
 use nom::{
+    IResult,
     branch::alt,
     bytes::complete::tag,
     character::complete::{i64, space1},
     combinator::map,
     sequence::separated_pair,
-    IResult,
 };
 
 #[derive(Debug, PartialEq)]

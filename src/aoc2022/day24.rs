@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
-use crate::util::euclid::{pt2, Box2, Pt2, Pt2Ext, Vec2Ext};
 use crate::Solution;
+use crate::util::euclid::{Box2, Pt2, Pt2Ext, Vec2Ext, pt2};
 use pathfinding::directed::astar::astar;
 
 #[derive(Default, Debug)]

@@ -1,5 +1,5 @@
-use crate::utils::Pt;
 use crate::Solution;
+use crate::utils::Pt;
 use std::collections::HashMap;
 
 #[derive(Clone, Debug)]

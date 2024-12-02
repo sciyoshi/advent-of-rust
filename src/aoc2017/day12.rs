@@ -1,11 +1,11 @@
 use crate::Solution;
 use itertools::Itertools;
 use nom::{
+    IResult,
     bytes::complete::tag,
     character::complete::{space1, u32},
     multi::separated_list1,
     sequence::{delimited, separated_pair, terminated},
-    IResult,
 };
 use petgraph::unionfind::UnionFind;
 
