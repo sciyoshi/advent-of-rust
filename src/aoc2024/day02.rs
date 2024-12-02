@@ -33,10 +33,7 @@ fn safe(report: &[usize], skip: Option<usize>) -> bool {
 }
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    let reports: Vec<Vec<usize>> = input
-        .lines()
-        .map(extract_integers::<usize>)
-        .collect();
+    let reports: Vec<Vec<usize>> = input.lines().map(extract_integers::<usize>).collect();
 
     let part1 = reports.iter().filter(|report| safe(report, None)).count();
 

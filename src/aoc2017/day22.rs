@@ -2,8 +2,7 @@ use crate::Solution;
 use crate::utils::Pt;
 use std::collections::HashMap;
 
-#[derive(Clone, Debug)]
-#[derive(Default)]
+#[derive(Clone, Debug, Default)]
 enum Status {
     #[default]
     Clean,
@@ -11,7 +10,6 @@ enum Status {
     Infected,
     Flagged,
 }
-
 
 fn run(mut map: HashMap<Pt<i64>, Status>, steps: u32, evolved: bool) -> u32 {
     let mut pos = Pt(0, 0);

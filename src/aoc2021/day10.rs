@@ -60,7 +60,9 @@ pub fn solve(input: &str) -> Solution<usize, u64> {
             _ => 0,
         };
 
-        if let ParseResult::Incomplete(n) = parsed { part2.push(n) }
+        if let ParseResult::Incomplete(n) = parsed {
+            part2.push(n)
+        }
     }
 
     part2.sort();

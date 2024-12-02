@@ -31,7 +31,8 @@ pub fn solve(input: &str) -> Solution<u32, u32> {
 
             priority(
                 *set1
-                    .iter().find(|c| set2.contains(c) && set3.contains(c))
+                    .iter()
+                    .find(|c| set2.contains(c) && set3.contains(c))
                     .unwrap(),
             )
         })
