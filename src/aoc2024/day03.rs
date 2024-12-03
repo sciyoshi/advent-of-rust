@@ -2,8 +2,6 @@ use crate::Solution;
 use regex::Regex;
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
-    // find all cases of mul(x,y) with regex
-
     let part1 = Regex::new(r"mul\((\d+),(\d+)\)")
         .unwrap()
         .captures_iter(input)
