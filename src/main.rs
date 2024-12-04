@@ -14,7 +14,7 @@
 
 use clap::Parser;
 use std::fmt::Display;
-use std::io::{Read, stdin};
+use std::io::{stdin, Read};
 
 mod aoc2017;
 mod aoc2019;
@@ -157,7 +157,7 @@ fn main() -> anyhow::Result<()> {
         (2024, 1) => println!("{}", aoc2024::day01::solve(&input)),
         (2024, 2) => println!("{}", aoc2024::day02::solve(&input)),
         (2024, 3) => println!("{}", aoc2024::day03::solve(&input)),
-        // (2024, 4) => println!("{}", aoc2024::day04::solve(&input)),
+        (2024, 4) => println!("{}", aoc2024::day04::solve(&input)),
         // (2024, 5) => println!("{}", aoc2024::day05::solve(&input)),
         // (2024, 6) => println!("{}", aoc2024::day06::solve(&input)),
         // (2024, 7) => println!("{}", aoc2024::day07::solve(&input)),

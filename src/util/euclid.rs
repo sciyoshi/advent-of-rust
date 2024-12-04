@@ -18,6 +18,22 @@ pub trait Vec2Ext<T> {
     where
         T: num::Zero + num::One + std::ops::Neg<Output = T>;
 
+    fn ne() -> Self
+    where
+        T: num::Zero + num::One;
+
+    fn se() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn nw() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
+    fn sw() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>;
+
     fn norm1(&self) -> T
     where
         T: num::Signed;
@@ -58,6 +74,34 @@ impl<T> Vec2Ext<T> for Vec2<T> {
         T: num::Zero + num::One + std::ops::Neg<Output = T>,
     {
         Vec2::new(T::one().neg(), T::zero())
+    }
+
+    fn ne() -> Self
+    where
+        T: num::Zero + num::One,
+    {
+        Vec2::new(T::one(), T::one())
+    }
+
+    fn se() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Vec2::new(T::one(), T::one().neg())
+    }
+
+    fn nw() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Vec2::new(T::one().neg(), T::one())
+    }
+
+    fn sw() -> Self
+    where
+        T: num::Zero + num::One + std::ops::Neg<Output = T>,
+    {
+        Vec2::new(T::one().neg(), T::one().neg())
     }
 
     fn norm1(&self) -> T
@@ -125,6 +169,10 @@ pub trait Pt2Ext<T> {
     fn nb_ortho(&self) -> impl Iterator<Item = Self> + '_
     where
         T: num::Zero + num::One + std::ops::Neg<Output = T> + Copy;
+
+    fn within(&self, bounds: Box2<T>) -> bool
+    where
+        T: std::cmp::PartialOrd;
 }
 
 impl<T> Pt2Ext<T> for Pt2<T> {
@@ -177,6 +225,16 @@ impl<T> Pt2Ext<T> for Pt2<T> {
         [Vec2::n(), Vec2::e(), Vec2::s(), Vec2::w()]
             .into_iter()
             .map(|d| *self + d)
+    }
+
+    fn within(&self, bounds: Box2<T>) -> bool
+    where
+        T: std::cmp::PartialOrd,
+    {
+        bounds.min.x <= self.x
+            && self.x < bounds.max.x
+            && bounds.min.y <= self.y
+            && self.y < bounds.max.y
     }
 }
 

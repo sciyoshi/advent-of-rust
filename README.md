@@ -11,6 +11,7 @@ The program expects the puzzle input on standard input.
 - [Day 1: Historian Hysteria](src/aoc2024/day01.rs)
 - [Day 2: Red-Nosed Reports](src/aoc2024/day02.rs)
 - [Day 3: Mull It Over](src/aoc2024/day03.rs)
+- [Day 4: Ceres Search](src/aoc2024/day04.rs)
 
 ## 2023 Solutions
 
