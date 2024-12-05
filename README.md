@@ -1,6 +1,7 @@
 # Advent of Rust
 
-This repository contains my solutions for the [Advent of Code][aoc] challenges, written in Rust.
+This repository contains my solutions for the [Advent of Code][aoc] challenges,
+written in Rust.
 
 [aoc]: https://adventofcode.com/
 
@@ -12,12 +13,13 @@ The program expects the puzzle input on standard input.
 - [Day 2: Red-Nosed Reports](src/aoc2024/day02.rs)
 - [Day 3: Mull It Over](src/aoc2024/day03.rs)
 - [Day 4: Ceres Search](src/aoc2024/day04.rs)
+- [Day 5: Print Queue](src/aoc2024/day05.rs)
 
 ## 2023 Solutions
 
-Note that for this year, my goal has been to explore the usage of ChatGPT for writing
-solutions, with the aim of getting ChatGPT to write a complete working Rust solution
-without needing to manually modify any code.
+Note that for this year, my goal has been to explore the usage of ChatGPT for
+writing solutions, with the aim of getting ChatGPT to write a complete working
+Rust solution without needing to manually modify any code.
 
 - [Day 1: Trebuchet?!](src/aoc2023/day01.rs)
 - [Day 2: Cube Conundrum](src/aoc2023/day02.rs)
@@ -99,6 +101,7 @@ without needing to manually modify any code.
 - [Day 6: Universal Orbit Map](src/aoc2019/day06.rs)
 - [Day 7: Amplification Circuit](src/aoc2019/day07.rs)
 - [Day 8: Space Image Format](src/aoc2019/day08.rs)
+
 <!--
 - [Day 9: Sensor Boost](src/aoc2019/day09.rs)
 - [Day 10: Monitoring Station](src/aoc2019/day10.rs)
