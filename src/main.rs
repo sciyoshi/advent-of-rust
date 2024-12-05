@@ -14,7 +14,7 @@
 
 use clap::Parser;
 use std::fmt::Display;
-use std::io::{stdin, Read};
+use std::io::{Read, stdin};
 
 mod aoc2017;
 mod aoc2019;
