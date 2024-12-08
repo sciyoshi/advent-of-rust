@@ -9,7 +9,7 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 
     let mut order = vec![vec![Ordering::Equal; 100]; 100];
 
-    for rule in rules.lines().map(|l| extract_integers::<usize>(l)) {
+    for rule in rules.lines().map(extract_integers::<usize>) {
         order[rule[0]][rule[1]] = Ordering::Less;
         order[rule[1]][rule[0]] = Ordering::Greater;
     }

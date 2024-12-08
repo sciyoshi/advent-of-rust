@@ -19,7 +19,7 @@ fn walk(grid: &Grid, mut pos: Pt2<isize>, obstruction: Option<Pt2<isize>>) -> (b
             return (true, visited);
         }
 
-        visited.entry(pos).or_insert_with(Vec::new).push(dir);
+        visited.entry(pos).or_default().push(dir);
 
         if !grid.bounds.contains(pos + dir) {
             break;
@@ -30,7 +30,7 @@ fn walk(grid: &Grid, mut pos: Pt2<isize>, obstruction: Option<Pt2<isize>>) -> (b
         }
     }
 
-    return (false, visited);
+    (false, visited)
 }
 
 pub fn solve(input: &str) -> Solution<usize, usize> {
