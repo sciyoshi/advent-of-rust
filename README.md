@@ -14,6 +14,8 @@ The program expects the puzzle input on standard input.
 - [Day 3: Mull It Over](src/aoc2024/day03.rs)
 - [Day 4: Ceres Search](src/aoc2024/day04.rs)
 - [Day 5: Print Queue](src/aoc2024/day05.rs)
+- [Day 6: Guard Gallivant](src/aoc2024/day06.rs)
+- [Day 7: Bridge Repair](src/aoc2024/day07.rs)
 
 ## 2023 Solutions
 
