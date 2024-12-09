@@ -16,6 +16,7 @@ The program expects the puzzle input on standard input.
 - [Day 5: Print Queue](src/aoc2024/day05.rs)
 - [Day 6: Guard Gallivant](src/aoc2024/day06.rs)
 - [Day 7: Bridge Repair](src/aoc2024/day07.rs)
+- [Day 8: Resonant Collinearity](src/aoc2024/day08.rs)
 
 ## 2023 Solutions
 
