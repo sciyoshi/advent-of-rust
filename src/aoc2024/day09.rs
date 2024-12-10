@@ -94,6 +94,6 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve(include_str!("examples/day08.txt")) == crate::Solution(1928, 2858));
+        assert!(super::solve(include_str!("examples/day09.txt")) == crate::Solution(1928, 2858));
     }
 }

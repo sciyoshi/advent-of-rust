@@ -18,6 +18,7 @@ The program expects the puzzle input on standard input.
 - [Day 7: Bridge Repair](src/aoc2024/day07.rs)
 - [Day 8: Resonant Collinearity](src/aoc2024/day08.rs)
 - [Day 9: Disk Fragmenter](src/aoc2024/day09.rs)
+- [Day 10: Hoof It](src/aoc2024/day10.rs)
 
 ## 2023 Solutions
 
