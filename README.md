@@ -19,6 +19,7 @@ The program expects the puzzle input on standard input.
 - [Day 8: Resonant Collinearity](src/aoc2024/day08.rs)
 - [Day 9: Disk Fragmenter](src/aoc2024/day09.rs)
 - [Day 10: Hoof It](src/aoc2024/day10.rs)
+- [Day 11: Plutonian Pebbles](src/aoc2024/day11.rs)
 
 ## 2023 Solutions
 
