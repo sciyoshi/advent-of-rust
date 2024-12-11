@@ -3,7 +3,6 @@ use memoize::memoize;
 
 #[memoize]
 fn stones(n: usize, steps: usize) -> usize {
-    // println!("{:?}", n);
     if steps == 0 {
         1
     } else if n == 0 {
