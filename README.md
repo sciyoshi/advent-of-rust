@@ -20,6 +20,7 @@ The program expects the puzzle input on standard input.
 - [Day 9: Disk Fragmenter](src/aoc2024/day09.rs)
 - [Day 10: Hoof It](src/aoc2024/day10.rs)
 - [Day 11: Plutonian Pebbles](src/aoc2024/day11.rs)
+- [Day 12: Garden Groups](src/aoc2024/day12.rs)
 
 ## 2023 Solutions
 
