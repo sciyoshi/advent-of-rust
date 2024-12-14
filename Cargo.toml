@@ -13,7 +13,6 @@ colored = "*"
 counter = "*"
 euclid = "*"
 fixedbitset = "*"
-good_lp = { version = "*", features = ["highs"], default-features = false }
 itertools = "*"
 memoize = "*"
 nalgebra = "*"
