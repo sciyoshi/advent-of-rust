@@ -23,6 +23,7 @@ The program expects the puzzle input on standard input.
 - [Day 12: Garden Groups](src/aoc2024/day12.rs)
 - [Day 13: Claw Contraption](src/aoc2024/day13.rs)
 - [Day 14: Restroom Redoubt](src/aoc2024/day14.rs)
+- [Day 15: Warehouse Woes](src/aoc2024/day15.rs)]
 
 ## 2023 Solutions
 
