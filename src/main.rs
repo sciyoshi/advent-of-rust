@@ -12,6 +12,7 @@
     let_chains
 )]
 
+use chrono::{Datelike, Local};
 use clap::Parser;
 use std::fmt::Display;
 use std::io::{Read, stdin};
@@ -36,7 +37,10 @@ impl<P1: PartialEq + Display, P2: PartialEq + Display> Display for Solution<P1, 
 
 #[derive(Parser)]
 struct Args {
+    #[arg(short, long, default_value_t = Local::now().year() as u16)]
     year: u16,
+
+    #[arg(short, long, default_value_t = Local::now().day() as u16)]
     day: u16,
 }
 
@@ -170,7 +174,7 @@ fn main() -> anyhow::Result<()> {
         (2024, 14) => println!("{}", aoc2024::day14::solve(&input)),
         (2024, 15) => println!("{}", aoc2024::day15::solve(&input)),
         (2024, 16) => println!("{}", aoc2024::day16::solve(&input)),
-        // (2024, 17) => println!("{}", aoc2024::day17::solve(&input)),
+        (2024, 17) => println!("{}", aoc2024::day17::solve(&input)),
         // (2024, 18) => println!("{}", aoc2024::day18::solve(&input)),
         // (2024, 19) => println!("{}", aoc2024::day19::solve(&input)),
         // (2024, 20) => println!("{}", aoc2024::day20::solve(&input)),
