@@ -130,6 +130,7 @@ dependencies = [
  "clap",
  "colored",
  "counter",
+ "disjoint",
  "euclid",
  "fixedbitset 0.5.7",
  "itertools 0.13.0",
@@ -441,6 +442,12 @@ dependencies = [
  "redox_users",
  "winapi",
 ]
+
+[[package]]
+name = "disjoint"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c37b399c91d093763e38c7a57a740e0005e30e5aff7132e791aada5eef3fed99"
 
 [[package]]
 name = "displaydoc"

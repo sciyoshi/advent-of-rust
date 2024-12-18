@@ -12,6 +12,7 @@ clap = { version = "*", features = ["derive"] }
 chrono = "*"
 colored = "*"
 counter = "*"
+disjoint = "*"
 euclid = "*"
 fixedbitset = "*"
 itertools = "*"

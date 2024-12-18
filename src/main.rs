@@ -175,7 +175,7 @@ fn main() -> anyhow::Result<()> {
         (2024, 15) => println!("{}", aoc2024::day15::solve(&input)),
         (2024, 16) => println!("{}", aoc2024::day16::solve(&input)),
         (2024, 17) => println!("{}", aoc2024::day17::solve(&input)),
-        // (2024, 18) => println!("{}", aoc2024::day18::solve(&input)),
+        (2024, 18) => println!("{}", aoc2024::day18::solve(&input)),
         // (2024, 19) => println!("{}", aoc2024::day19::solve(&input)),
         // (2024, 20) => println!("{}", aoc2024::day20::solve(&input)),
         // (2024, 21) => println!("{}", aoc2024::day21::solve(&input)),

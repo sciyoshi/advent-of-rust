@@ -26,6 +26,7 @@ The program expects the puzzle input on standard input.
 - [Day 15: Warehouse Woes](src/aoc2024/day15.rs)
 - [Day 16: Reindeer Maze](src/aoc2024/day16.rs)
 - [Day 17: Chronospatial Computer](src/aoc2024/day17.rs)
+- [Day 18: RAM Run](src/aoc2024/day18.rs)
 
 ## 2023 Solutions
 
