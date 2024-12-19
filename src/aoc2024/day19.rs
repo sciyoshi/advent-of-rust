@@ -22,8 +22,8 @@ fn ways<'a>(towels: &mut Towels<'a>, pattern: &'a str) -> usize {
     let mut count = 0;
 
     for towel in towels.towels {
-        if pattern.starts_with(towel) {
-            count += ways(towels, &pattern[towel.len()..]);
+        if let Some(rest) = pattern.strip_prefix(towel) {
+            count += ways(towels, rest);
         }
     }
 
@@ -55,6 +55,6 @@ pub fn solve(input: &str) -> Solution<usize, usize> {
 mod tests {
     #[test]
     fn test_example() {
-        assert!(super::solve(include_str!("examples/day19.txt")) == crate::Solution(0, 0));
+        assert!(super::solve(include_str!("examples/day19.txt")) == crate::Solution(6, 16));
     }
 }
