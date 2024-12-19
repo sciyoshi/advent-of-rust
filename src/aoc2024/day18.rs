@@ -76,7 +76,7 @@ pub fn solve(input: &str) -> Solution<usize, String> {
 #[cfg(test)]
 mod tests {
     use crate::{
-        util::euclid::{Pt2, Pt2Ext, Vec2Ext, pt2},
+        util::euclid::{Pt2, pt2},
         utils::extract_integers,
     };
     #[test]
