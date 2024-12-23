@@ -9,7 +9,9 @@
     iter_array_chunks,
     const_for,
     type_alias_impl_trait,
-    let_chains
+    let_chains,
+    iter_map_windows,
+    impl_trait_in_assoc_type
 )]
 
 use chrono::{Datelike, Local};
@@ -178,8 +180,8 @@ fn main() -> anyhow::Result<()> {
         (2024, 18) => println!("{}", aoc2024::day18::solve(&input)),
         (2024, 19) => println!("{}", aoc2024::day19::solve(&input)),
         // (2024, 20) => println!("{}", aoc2024::day20::solve(&input)),
-        // (2024, 21) => println!("{}", aoc2024::day21::solve(&input)),
-        // (2024, 22) => println!("{}", aoc2024::day22::solve(&input)),
+        (2024, 21) => println!("{}", aoc2024::day21::solve(&input)),
+        (2024, 22) => println!("{}", aoc2024::day22::solve(&input)),
         // (2024, 23) => println!("{}", aoc2024::day23::solve(&input)),
         // (2024, 24) => println!("{}", aoc2024::day24::solve(&input)),
         // (2024, 25) => println!("{}", aoc2024::day25::solve(&input)),

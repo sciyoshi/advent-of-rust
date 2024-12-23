@@ -118,7 +118,7 @@ impl Intcode {
 mod tests {
     #[test]
     fn test_intcode() {
-        let (code, input, output) = super::Intcode::new(&vec![3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8]);
+        let (code, input, output) = super::Intcode::new(&[3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8]);
 
         code.run();
 
