@@ -31,6 +31,8 @@ The program expects the puzzle input on standard input.
 - [Day 21: Keypad Conundrum](src/aoc2024/day21.rs)
 - [Day 22: Monkey Market](src/aoc2024/day22.rs)
 - [Day 23: LAN Party](src/aoc2024/day23.rs)
+- [Day 24: Crossed Wires](src/aoc2024/day24.rs)
+- [Day 25: Code Chronicle](src/aoc2024/day25.rs)
 
 ## 2023 Solutions
 

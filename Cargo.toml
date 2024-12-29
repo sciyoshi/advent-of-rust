@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 anyhow = "*"
+arrayvec = "*"
 bit-set = "*"
 bit-vec = "*"
 byteorder = { version = "*", features = ["i128"] }
