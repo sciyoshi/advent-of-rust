@@ -137,7 +137,7 @@ dependencies = [
  "itertools 0.13.0",
  "memoize",
  "nalgebra",
- "ndarray",
+ "ndarray 0.17.2",
  "ndarray-linalg",
  "nom",
  "num",
@@ -1050,6 +1050,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "ndarray"
+version = "0.17.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "520080814a7a6b4a6e9070823bb24b4531daac8c4627e08ba5de8c5ef2f2752d"
+dependencies = [
+ "matrixmultiply",
+ "num-complex",
+ "num-integer",
+ "num-traits",
+ "portable-atomic",
+ "portable-atomic-util",
+ "rawpointer",
+]
+
+[[package]]
 name = "ndarray-linalg"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1058,7 +1073,7 @@ dependencies = [
  "cauchy",
  "katexit",
  "lax",
- "ndarray",
+ "ndarray 0.15.6",
  "num-complex",
  "num-traits",
  "rand",
@@ -1288,6 +1303,15 @@ name = "portable-atomic"
 version = "1.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "280dc24453071f1b63954171985a0b0d30058d287960968b9b2aca264c8d4ee6"
+
+[[package]]
+name = "portable-atomic-util"
+version = "0.2.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c2a106d1259c23fac8e543272398ae0e3c0b8d33c88ed73d0cc71b0f1d902618"
+dependencies = [
+ "portable-atomic",
+]
 
 [[package]]
 name = "ppv-lite86"
@@ -1583,7 +1607,7 @@ dependencies = [
  "fixedbitset 0.4.2",
  "hashbrown 0.14.5",
  "indexmap",
- "ndarray",
+ "ndarray 0.15.6",
  "num-traits",
  "petgraph 0.6.5",
  "priority-queue",

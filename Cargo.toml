@@ -19,7 +19,7 @@ fixedbitset = "*"
 itertools = "*"
 memoize = "*"
 nalgebra = "*"
-ndarray = "0.15.2"
+ndarray = "0.17.2"
 ndarray-linalg = { version = "*", features = ["openblas-static"] }
 nom = "*"
 num = "*"
